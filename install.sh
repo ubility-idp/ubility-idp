@@ -213,8 +213,6 @@ hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac
 
 jwt="${jwt_header}.${payload}.${hmac_signature}"
 
-echo "SECRET_KEY = $secret" > automation-server/.env
-
 export AUTOMATION_SECRET_KEY=$secret
 export AUTOMATION_SERVER_JWT=$jwt
 
