@@ -30,7 +30,12 @@ Ubility Backstage is a project that enhances Spotify's backstage functionality b
 
 ## 📚 Table Of Contents
 
-- [Prerequisites](https://github.com/ubility-backstage/ubility-backstage#-Prerequisites)
+- [Getting Started](https://github.com/ubility-backstage/ubility-backstage#-getting-started)
+  - [Prerequisites](https://github.com/ubility-backstage/ubility-backstage#-prerequisites)
+
+## 🚀 Getting Started
+
+We are excited to launch the complete Novu API and admin panel. Want to give it a test before the official release? Here is how:
 
 ## Prerequisites
 -   An Azure account with admin permissions
