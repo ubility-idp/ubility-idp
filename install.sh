@@ -37,13 +37,6 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 #_______________________________________________________________________________________________________
 clear
-echo '--------------- Postgres & Pgadmin ---------------'
-cd postgres-pgadmin
-docker compose up -d
-cd ..
-
-#_______________________________________________________________________________________________________
-clear
 echo '--------------- Jenkins Installation ---------------'
 docker run -d \
   --privileged \
