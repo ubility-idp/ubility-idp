@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: enter value
+  name: enter value
+spec:
+  clusterIP: None
+  ports:
+    - name: web
+      port: 80
+  selector:
+    app: enter value
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: simple-stateful-set
+spec:
+  replicas: 3  # the default is 1
+  selector:
+    matchLabels:
+      app: enter value  # has to match .spec.template.metadata.labels
+  serviceName: "enter value"
+  template:
+    metadata:
+      labels:
+        app: enter value  # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - image: enter value
+          name: enter value
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - mountPath: /path/to/mount/point
+              name: enter value
+  volumeClaimTemplates:
+    - metadata:
+        name: enter value
+      spec:
+        accessModes: ["ReadWriteOnce"] # ReadWriteOnce, ReadOnlyMany, ReadWriteMany, ReadWriteOncePod
+        resources:
+          requests:
+            storage: enter value # 5Gi fro example
+        storageClassName: enter value

@@ -1,0 +1,11 @@
+- name: Install_Nginx
+  hosts: created_ec2
+  tasks:
+    - name: ensure nginx is at the latest version
+      yum: name=nginx state=latest
+      become: yes
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+      become: yes

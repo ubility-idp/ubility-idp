@@ -1,0 +1,1 @@
+export { NodePoolSizeExtension } from './extensions';

@@ -1,0 +1,5 @@
+[created_ec2]
+${ip_address} ansible_ssh_private_key_file=~/ec2/ec2_key.pem ansible_user=ec2-user
+
+[created_ec2]
+${ip_address} ansible_ssh_private_key_file=~/ec2/ec2_key.pem ansible_user=ec2-user

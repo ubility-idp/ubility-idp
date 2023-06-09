@@ -1,0 +1,417 @@
+[2023-04-11 15:35:35,434: DEBUG/MainProcess] | Worker: Preparing bootsteps.
+[2023-04-11 15:35:35,436: DEBUG/MainProcess] | Worker: Building graph...
+[2023-04-11 15:35:35,436: DEBUG/MainProcess] | Worker: New boot order: {StateDB, Beat, Timer, Hub, Pool, Autoscaler, Consumer}
+[2023-04-11 15:35:35,445: DEBUG/MainProcess] | Consumer: Preparing bootsteps.
+[2023-04-11 15:35:35,445: DEBUG/MainProcess] | Consumer: Building graph...
+[2023-04-11 15:35:35,478: DEBUG/MainProcess] | Consumer: New boot order: {Connection, Events, Heart, Agent, Mingle, Tasks, Control, Gossip, event loop}
+[2023-04-11 15:35:35,549: DEBUG/MainProcess] | Worker: Starting Pool
+[2023-04-11 15:35:35,549: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:35,549: DEBUG/MainProcess] | Worker: Starting Consumer
+[2023-04-11 15:35:35,549: DEBUG/MainProcess] | Consumer: Starting Connection
+[2023-04-11 15:35:35,566: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-11 15:35:35,573: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2023-04-11 15:35:35,573: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:35,573: DEBUG/MainProcess] | Consumer: Starting Events
+[2023-04-11 15:35:35,576: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-11 15:35:35,577: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:35,577: DEBUG/MainProcess] | Consumer: Starting Heart
+[2023-04-11 15:35:35,577: DEBUG/MainProcess] using channel_id: 1
+[2023-04-11 15:35:35,580: DEBUG/MainProcess] Channel open
+[2023-04-11 15:35:35,588: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:35,589: DEBUG/MainProcess] | Consumer: Starting Mingle
+[2023-04-11 15:35:35,589: INFO/MainProcess] mingle: searching for neighbors
+[2023-04-11 15:35:35,590: DEBUG/MainProcess] using channel_id: 1
+[2023-04-11 15:35:35,591: DEBUG/MainProcess] Channel open
+[2023-04-11 15:35:35,607: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-11 15:35:35,608: DEBUG/MainProcess] using channel_id: 1
+[2023-04-11 15:35:35,609: DEBUG/MainProcess] Channel open
+[2023-04-11 15:35:36,622: INFO/MainProcess] mingle: all alone
+[2023-04-11 15:35:36,622: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:36,623: DEBUG/MainProcess] | Consumer: Starting Tasks
+[2023-04-11 15:35:36,690: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:36,690: DEBUG/MainProcess] | Consumer: Starting Control
+[2023-04-11 15:35:36,691: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:36,691: DEBUG/MainProcess] | Consumer: Starting Gossip
+[2023-04-11 15:35:36,691: DEBUG/MainProcess] using channel_id: 2
+[2023-04-11 15:35:36,692: DEBUG/MainProcess] Channel open
+[2023-04-11 15:35:36,695: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-11 15:35:36,696: INFO/MainProcess] pidbox: Connected to amqp://guest:**@127.0.0.1:5672//.
+[2023-04-11 15:35:36,697: DEBUG/MainProcess] using channel_id: 1
+[2023-04-11 15:35:36,698: DEBUG/MainProcess] Channel open
+[2023-04-11 15:35:36,700: DEBUG/MainProcess] ^-- substep ok
+[2023-04-11 15:35:36,700: DEBUG/MainProcess] | Consumer: Starting event loop
+[2023-04-11 15:35:36,701: INFO/MainProcess] celery@scripting ready.
+[2023-04-11 15:35:36,701: DEBUG/MainProcess] basic.qos: prefetch_count->200
+[2023-04-11 15:36:23,047: INFO/MainProcess] Task routes.terraform_apis.terraform_run[409be11f-bb87-48fc-84bd-c48616561493] received
+[2023-04-11 15:36:23,049: DEBUG/MainProcess] TaskPool: Apply <function fast_trace_task at 0x7fe5024f45e0> (args:('routes.terraform_apis.terraform_run', '409be11f-bb87-48fc-84bd-c48616561493', {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '409be11f-bb87-48fc-84bd-c48616561493', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '409be11f-bb87-48fc-84bd-c48616561493', 'parent_id': None, 'argsrepr': "('AKS_Nasri', {})", 'kwargsrepr': '{}', 'origin': 'gen94213@Lnvo', 'ignore_result': False, 'properties': {'content_type': 'application/x-python-serialize', 'content_encoding': 'binary', 'application_headers': {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '409be11f-bb87-48fc-84bd-c48616561493', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '409be11f-bb87-48fc-84bd-c48616561493', 'parent_id': None, 'argsrepr': "('AKS_Nasri', {})", 'kwargsrepr': '{}', 'origin': 'gen94213@Lnvo', 'ignore_result': False},... kwargs:{})
+[2023-04-11 15:36:23,270: WARNING/MainProcess] Error handling -chdir option: chdir scripts/terraform/AKS_Nasri: no such file or directory
+[2023-04-11 15:36:23,273: INFO/MainProcess] Task routes.terraform_apis.terraform_run[409be11f-bb87-48fc-84bd-c48616561493] succeeded in 0.22337483199953567s: {'error': 'Error handling -chdir option: chdir scripts/terraform/AKS_Nasri: no such file or directory
+'}
+[2023-04-11 17:09:40,426: INFO/MainProcess] Task routes.terraform_apis.terraform_run[0179bf9f-7d43-4bea-b8a0-05ec846f5819] received
+[2023-04-11 17:09:40,485: DEBUG/MainProcess] TaskPool: Apply <function fast_trace_task at 0x7fe5024f45e0> (args:('routes.terraform_apis.terraform_run', '0179bf9f-7d43-4bea-b8a0-05ec846f5819', {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '0179bf9f-7d43-4bea-b8a0-05ec846f5819', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '0179bf9f-7d43-4bea-b8a0-05ec846f5819', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo', 'ignore_result': False, 'properties': {'content_type': 'application/x-python-serialize', 'content_encoding': 'binary', 'application_headers': {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '0179bf9f-7d43-4bea-b8a0-05ec846f5819', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '0179bf9f-7d43-4bea-b8a0-05ec846f5819', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo',... kwargs:{})
+[2023-04-11 17:09:43,223: WARNING/MainProcess] [31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/random" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+[31m│[0m [0mregistry.
+[31m╵[0m[0m
+[0m[0m
+[2023-04-11 17:09:43,247: INFO/MainProcess] Task routes.terraform_apis.terraform_run[0179bf9f-7d43-4bea-b8a0-05ec846f5819] succeeded in 2.7352065989980474s: {'error': '╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+│ provider registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/random" does not offer a Terraform
+│ provider registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+│ registry.
+╵
+
+'}
+[2023-04-11 17:11:45,980: INFO/MainProcess] Task routes.terraform_apis.terraform_run[85c102b9-55da-499e-a6a8-574481d85678] received
+[2023-04-11 17:11:46,014: DEBUG/MainProcess] TaskPool: Apply <function fast_trace_task at 0x7fe5024f45e0> (args:('routes.terraform_apis.terraform_run', '85c102b9-55da-499e-a6a8-574481d85678', {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '85c102b9-55da-499e-a6a8-574481d85678', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '85c102b9-55da-499e-a6a8-574481d85678', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo', 'ignore_result': False, 'properties': {'content_type': 'application/x-python-serialize', 'content_encoding': 'binary', 'application_headers': {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '85c102b9-55da-499e-a6a8-574481d85678', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '85c102b9-55da-499e-a6a8-574481d85678', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo',... kwargs:{})
+[2023-04-11 17:11:48,202: WARNING/MainProcess] [31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+[31m│[0m [0mregistry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/random" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[2023-04-11 17:11:48,213: INFO/MainProcess] Task routes.terraform_apis.terraform_run[85c102b9-55da-499e-a6a8-574481d85678] succeeded in 2.1405633499998657s: {'error': '╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+│ registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+│ provider registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/random" does not offer a Terraform
+│ provider registry.
+╵
+
+'}
+[2023-04-11 17:13:54,529: INFO/MainProcess] Task routes.terraform_apis.terraform_run[7bdc4188-f4b1-4823-bd4e-eb82f743eb2a] received
+[2023-04-11 17:13:54,556: DEBUG/MainProcess] TaskPool: Apply <function fast_trace_task at 0x7fe5024f45e0> (args:('routes.terraform_apis.terraform_run', '7bdc4188-f4b1-4823-bd4e-eb82f743eb2a', {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '7bdc4188-f4b1-4823-bd4e-eb82f743eb2a', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '7bdc4188-f4b1-4823-bd4e-eb82f743eb2a', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo', 'ignore_result': False, 'properties': {'content_type': 'application/x-python-serialize', 'content_encoding': 'binary', 'application_headers': {'lang': 'py', 'task': 'routes.terraform_apis.terraform_run', 'id': '7bdc4188-f4b1-4823-bd4e-eb82f743eb2a', 'shadow': None, 'eta': None, 'expires': None, 'group': None, 'group_index': None, 'retries': 0, 'timelimit': [10000.0, None], 'root_id': '7bdc4188-f4b1-4823-bd4e-eb82f743eb2a', 'parent_id': None, 'argsrepr': "('BackstageClusterTest', {})", 'kwargsrepr': '{}', 'origin': 'gen108250@Lnvo',... kwargs:{})
+[2023-04-11 17:13:56,847: WARNING/MainProcess] [31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/random" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+[31m│[0m [0mprovider registry.
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid provider registry host[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe host "registry.terraform.io" given in in provider source address
+[31m│[0m [0m"registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+[31m│[0m [0mregistry.
+[31m╵[0m[0m
+[0m[0m
+[2023-04-11 17:13:56,859: INFO/MainProcess] Task routes.terraform_apis.terraform_run[7bdc4188-f4b1-4823-bd4e-eb82f743eb2a] succeeded in 2.2870278900009s: {'error': '╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/random" does not offer a Terraform
+│ provider registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/azurerm" does not offer a Terraform
+│ provider registry.
+╵
+
+╷
+│ Error: Invalid provider registry host
+│ 
+│ The host "registry.terraform.io" given in in provider source address
+│ "registry.terraform.io/hashicorp/local" does not offer a Terraform provider
+│ registry.
+╵
+
+'}
+[2023-04-11 17:14:52,086: DEBUG/MainProcess] | Worker: Closing Pool...
+[2023-04-11 17:14:52,094: DEBUG/MainProcess] | Worker: Closing Consumer...
+[2023-04-11 17:14:52,097: DEBUG/MainProcess] | Worker: Stopping Consumer...
+[2023-04-11 17:14:52,106: DEBUG/MainProcess] | Consumer: Closing Connection...
+[2023-04-11 17:14:52,108: DEBUG/MainProcess] | Consumer: Closing Events...
+[2023-04-11 17:14:52,109: DEBUG/MainProcess] | Consumer: Closing Heart...
+[2023-04-11 17:14:52,121: DEBUG/MainProcess] | Consumer: Closing Mingle...
+[2023-04-11 17:14:52,136: DEBUG/MainProcess] | Consumer: Closing Tasks...
+[2023-04-11 17:14:52,138: DEBUG/MainProcess] | Consumer: Closing Control...
+[2023-04-11 17:14:52,139: DEBUG/MainProcess] | Consumer: Closing Gossip...
+[2023-04-11 17:14:52,144: DEBUG/MainProcess] | Consumer: Closing event loop...
+[2023-04-11 17:14:52,150: DEBUG/MainProcess] | Consumer: Stopping event loop...
+[2023-04-11 17:14:52,150: DEBUG/MainProcess] | Consumer: Stopping Gossip...
+[2023-04-11 17:14:52,352: DEBUG/MainProcess] Closed channel #2
+[2023-04-11 17:14:52,356: DEBUG/MainProcess] | Consumer: Stopping Control...
+[2023-04-11 17:14:52,361: DEBUG/MainProcess] Waiting for broadcast thread to shutdown...
+[2023-04-11 17:14:53,214: DEBUG/MainProcess] Closed channel #1
+[2023-04-11 17:14:53,223: DEBUG/MainProcess] | Consumer: Stopping Tasks...
+[2023-04-11 17:14:53,226: DEBUG/MainProcess] Canceling task consumer...
+[2023-04-11 17:14:53,237: DEBUG/MainProcess] | Consumer: Stopping Mingle...
+[2023-04-11 17:14:53,238: DEBUG/MainProcess] | Consumer: Stopping Heart...
+[2023-04-11 17:14:53,244: DEBUG/MainProcess] | Consumer: Stopping Events...
+[2023-04-11 17:14:53,246: DEBUG/MainProcess] | Consumer: Stopping Connection...
+[2023-04-11 17:14:53,247: DEBUG/MainProcess] | Worker: Stopping Pool...
+[2023-04-11 17:14:53,253: DEBUG/MainProcess] | Consumer: Shutdown Gossip...
+[2023-04-11 17:14:53,254: DEBUG/MainProcess] | Consumer: Shutdown Control...
+[2023-04-11 17:14:53,255: DEBUG/MainProcess] | Consumer: Shutdown Tasks...
+[2023-04-11 17:14:53,255: DEBUG/MainProcess] Canceling task consumer...
+[2023-04-11 17:14:53,256: DEBUG/MainProcess] Closing consumer channel...
+[2023-04-11 17:14:53,262: DEBUG/MainProcess] | Consumer: Shutdown Heart...
+[2023-04-11 17:14:53,263: DEBUG/MainProcess] | Consumer: Shutdown Events...
+[2023-04-11 17:14:53,267: DEBUG/MainProcess] Closed channel #1
+[2023-04-11 17:14:53,276: DEBUG/MainProcess] | Consumer: Shutdown Connection...
+[2023-04-11 17:14:53,286: DEBUG/MainProcess] Closed channel #1
+[2023-04-12 10:43:23,687: DEBUG/MainProcess] | Worker: Preparing bootsteps.
+[2023-04-12 10:43:23,696: DEBUG/MainProcess] | Worker: Building graph...
+[2023-04-12 10:43:23,698: DEBUG/MainProcess] | Worker: New boot order: {StateDB, Timer, Hub, Pool, Autoscaler, Beat, Consumer}
+[2023-04-12 10:43:23,713: DEBUG/MainProcess] | Consumer: Preparing bootsteps.
+[2023-04-12 10:43:23,713: DEBUG/MainProcess] | Consumer: Building graph...
+[2023-04-12 10:43:23,759: DEBUG/MainProcess] | Consumer: New boot order: {Connection, Events, Heart, Mingle, Tasks, Control, Gossip, Agent, event loop}
+[2023-04-12 10:43:23,862: DEBUG/MainProcess] | Worker: Starting Pool
+[2023-04-12 10:43:23,862: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:23,863: DEBUG/MainProcess] | Worker: Starting Consumer
+[2023-04-12 10:43:23,863: DEBUG/MainProcess] | Consumer: Starting Connection
+[2023-04-12 10:43:23,873: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-12 10:43:23,874: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2023-04-12 10:43:23,874: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:23,874: DEBUG/MainProcess] | Consumer: Starting Events
+[2023-04-12 10:43:23,877: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-12 10:43:23,878: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:23,878: DEBUG/MainProcess] | Consumer: Starting Heart
+[2023-04-12 10:43:23,879: DEBUG/MainProcess] using channel_id: 1
+[2023-04-12 10:43:23,879: DEBUG/MainProcess] Channel open
+[2023-04-12 10:43:23,880: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:23,880: DEBUG/MainProcess] | Consumer: Starting Mingle
+[2023-04-12 10:43:23,880: INFO/MainProcess] mingle: searching for neighbors
+[2023-04-12 10:43:23,882: DEBUG/MainProcess] using channel_id: 1
+[2023-04-12 10:43:23,885: DEBUG/MainProcess] Channel open
+[2023-04-12 10:43:23,906: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-12 10:43:23,909: DEBUG/MainProcess] using channel_id: 1
+[2023-04-12 10:43:23,910: DEBUG/MainProcess] Channel open
+[2023-04-12 10:43:24,933: INFO/MainProcess] mingle: all alone
+[2023-04-12 10:43:24,934: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:24,934: DEBUG/MainProcess] | Consumer: Starting Tasks
+[2023-04-12 10:43:24,994: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:24,994: DEBUG/MainProcess] | Consumer: Starting Control
+[2023-04-12 10:43:24,995: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:24,995: DEBUG/MainProcess] | Consumer: Starting Gossip
+[2023-04-12 10:43:24,995: DEBUG/MainProcess] using channel_id: 2
+[2023-04-12 10:43:24,996: DEBUG/MainProcess] Channel open
+[2023-04-12 10:43:24,998: DEBUG/MainProcess] Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@Lnvo', 'copyright': 'Copyright (c) 2007-2023 VMware, Inc. or its affiliates.', 'information': 'Licensed under the MPL 2.0. Website: https://rabbitmq.com', 'platform': 'Erlang/OTP 25.3', 'product': 'RabbitMQ', 'version': '3.11.11'}, mechanisms: [b'PLAIN', b'AMQPLAIN'], locales: ['en_US']
+[2023-04-12 10:43:25,000: INFO/MainProcess] pidbox: Connected to amqp://guest:**@127.0.0.1:5672//.
+[2023-04-12 10:43:25,000: DEBUG/MainProcess] using channel_id: 1
+[2023-04-12 10:43:25,001: DEBUG/MainProcess] Channel open
+[2023-04-12 10:43:25,002: DEBUG/MainProcess] ^-- substep ok
+[2023-04-12 10:43:25,002: DEBUG/MainProcess] | Consumer: Starting event loop
+[2023-04-12 10:43:25,003: INFO/MainProcess] celery@scripting ready.
+[2023-04-12 10:43:25,003: DEBUG/MainProcess] basic.qos: prefetch_count->200
+[2023-04-12 10:56:13,956: DEBUG/MainProcess] Closed channel #1
+[2023-04-12 10:56:13,991: WARNING/MainProcess] Traceback (most recent call last):
+[2023-04-12 10:56:13,995: WARNING/MainProcess]   File "src/gevent/_waiter.py", line 122, in gevent._gevent_c_waiter.Waiter.switch
+[2023-04-12 10:56:13,995: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/worker/pidbox.py", line 118, in loop
+    connection.drain_events(timeout=1.0)
+[2023-04-12 10:56:13,996: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/kombu/connection.py", line 316, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+[2023-04-12 10:56:13,996: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/kombu/transport/pyamqp.py", line 169, in drain_events
+    return connection.drain_events(**kwargs)
+[2023-04-12 10:56:13,997: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 525, in drain_events
+    while not self.blocking_read(timeout):
+[2023-04-12 10:56:13,997: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 531, in blocking_read
+    return self.on_inbound_frame(frame)
+[2023-04-12 10:56:13,997: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/method_framing.py", line 53, in on_frame
+    callback(channel, method_sig, buf, None)
+[2023-04-12 10:56:13,997: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 537, in on_inbound_method
+    return self.channels[channel_id].dispatch_method(
+[2023-04-12 10:56:13,998: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/abstract_channel.py", line 156, in dispatch_method
+    listener(*args)
+[2023-04-12 10:56:13,998: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 666, in _on_close
+    self._x_close_ok()
+[2023-04-12 10:56:13,998: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 681, in _x_close_ok
+    self.send_method(spec.Connection.CloseOk, callback=self._on_close_ok)
+[2023-04-12 10:56:13,998: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/abstract_channel.py", line 70, in send_method
+    conn.frame_writer(1, self.channel_id, sig, args, content)
+[2023-04-12 10:56:13,998: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/method_framing.py", line 186, in write_frame
+    write(buffer_store.view[:offset])
+[2023-04-12 10:56:13,999: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/transport.py", line 347, in write
+    self._write(s)
+[2023-04-12 10:56:13,999: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 699, in sendall
+    return _sendall(self, data_memory, flags)
+[2023-04-12 10:56:14,000: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 409, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+[2023-04-12 10:56:14,000: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 338, in __send_chunk
+    data_sent += socket.send(chunk, flags)
+[2023-04-12 10:56:14,000: WARNING/MainProcess]   File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 722, in send
+    return self._sock.send(data, flags)
+[2023-04-12 10:56:14,001: WARNING/MainProcess] ConnectionResetError: [Errno 104] Connection reset by peer
+[2023-04-12 10:56:14,001: WARNING/MainProcess] 2023-04-12T07:56:14Z
+[2023-04-12 10:56:14,001: WARNING/MainProcess]  
+[2023-04-12 10:56:14,003: WARNING/MainProcess] <built-in method switch of gevent._gevent_c_greenlet_primitives.TrackedRawGreenlet object at 0x7f49166ff380> failed with ConnectionResetError
+[2023-04-12 10:56:14,009: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/worker/consumer/consumer.py", line 332, in start
+    blueprint.start(self)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/worker/consumer/consumer.py", line 628, in start
+    c.loop(*c.loop_args())
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/worker/loops.py", line 130, in synloop
+    connection.drain_events(timeout=2.0)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/kombu/connection.py", line 316, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/kombu/transport/pyamqp.py", line 169, in drain_events
+    return connection.drain_events(**kwargs)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 525, in drain_events
+    while not self.blocking_read(timeout):
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 531, in blocking_read
+    return self.on_inbound_frame(frame)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/method_framing.py", line 53, in on_frame
+    callback(channel, method_sig, buf, None)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 537, in on_inbound_method
+    return self.channels[channel_id].dispatch_method(
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/abstract_channel.py", line 156, in dispatch_method
+    listener(*args)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 666, in _on_close
+    self._x_close_ok()
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/connection.py", line 681, in _x_close_ok
+    self.send_method(spec.Connection.CloseOk, callback=self._on_close_ok)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/abstract_channel.py", line 70, in send_method
+    conn.frame_writer(1, self.channel_id, sig, args, content)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/method_framing.py", line 186, in write_frame
+    write(buffer_store.view[:offset])
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/amqp/transport.py", line 347, in write
+    self._write(s)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 699, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 409, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 338, in __send_chunk
+    data_sent += socket.send(chunk, flags)
+  File "/home/ibrahim/Ubility/Code/Code_Base/.venv/lib64/python3.9/site-packages/gevent/_socketcommon.py", line 722, in send
+    return self._sock.send(data, flags)
+ConnectionResetError: [Errno 104] Connection reset by peer
+[2023-04-12 10:56:14,016: DEBUG/MainProcess] Closed channel #1
+[2023-04-12 10:56:14,016: DEBUG/MainProcess] Closed channel #2
+[2023-04-12 10:56:14,020: WARNING/MainProcess] /home/ibrahim/Ubility/Code/Code_Base/.venv/lib/python3.9/site-packages/celery/worker/consumer/consumer.py:367: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered back to the queue.
+You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss setting.
+In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  warnings.warn(CANCEL_TASKS_BY_DEFAULT, CPendingDeprecationWarning)
+
+[2023-04-12 10:56:14,022: DEBUG/MainProcess] | Consumer: Restarting event loop...
+[2023-04-12 10:56:14,022: DEBUG/MainProcess] | Consumer: Restarting Gossip...
+[2023-04-12 10:56:14,023: DEBUG/MainProcess] | Consumer: Restarting Control...
+[2023-04-12 10:56:14,024: DEBUG/MainProcess] Waiting for broadcast thread to shutdown...
+[2023-04-12 10:56:14,025: DEBUG/MainProcess] | Consumer: Restarting Tasks...
+[2023-04-12 10:56:14,026: DEBUG/MainProcess] Canceling task consumer...
+[2023-04-12 10:56:14,027: DEBUG/MainProcess] | Consumer: Restarting Mingle...
+[2023-04-12 10:56:14,027: DEBUG/MainProcess] | Consumer: Restarting Heart...
+[2023-04-12 10:56:14,030: DEBUG/MainProcess] | Consumer: Restarting Events...
+[2023-04-12 10:56:14,030: DEBUG/MainProcess] | Consumer: Restarting Connection...
+[2023-04-12 10:56:14,030: DEBUG/MainProcess] | Consumer: Starting Connection
+[2023-04-12 10:56:14,049: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2023-04-12 10:56:16,052: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2023-04-12 10:56:20,059: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2023-04-12 10:56:26,068: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2023-04-12 10:56:34,079: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2023-04-12 10:56:44,093: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2023-04-12 10:56:44,985: DEBUG/MainProcess] | Worker: Closing Pool...
+[2023-04-12 10:56:44,985: DEBUG/MainProcess] | Worker: Closing Consumer...
+[2023-04-12 10:56:44,986: DEBUG/MainProcess] | Worker: Stopping Consumer...
+[2023-04-12 10:56:44,986: DEBUG/MainProcess] | Worker: Stopping Pool...
+[2023-04-12 10:56:44,987: DEBUG/MainProcess] | Consumer: Shutdown Gossip...
+[2023-04-12 10:56:44,987: DEBUG/MainProcess] | Consumer: Shutdown Control...
+[2023-04-12 10:56:44,988: DEBUG/MainProcess] | Consumer: Shutdown Tasks...
+[2023-04-12 10:56:44,988: DEBUG/MainProcess] Canceling task consumer...
+[2023-04-12 10:56:44,988: DEBUG/MainProcess] Closing consumer channel...
+[2023-04-12 10:56:44,989: DEBUG/MainProcess] | Consumer: Shutdown Heart...
+[2023-04-12 10:56:44,989: DEBUG/MainProcess] | Consumer: Shutdown Events...
+[2023-04-12 10:56:44,991: DEBUG/MainProcess] Closed channel #1
+[2023-04-12 10:56:44,992: DEBUG/MainProcess] | Consumer: Shutdown Connection...

@@ -1,0 +1,10 @@
+terraformUbility/
+app.log
+__pycache__/
+*/routes/__pycache__/
+*/routes/__pycache__/
+UbilityLibrary/
+scripts/
+.venv
+.vscode
+.env

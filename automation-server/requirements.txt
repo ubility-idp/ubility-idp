@@ -1,0 +1,14 @@
+boto3==1.26.123
+celery==5.2.7
+cryptography==39.0.2
+Flask==2.3.1
+Flask-Cors==3.0.10
+gevent==22.10.2
+Jinja2==3.1.2
+paramiko==3.1.0
+PyJWT==2.6.0
+python-decouple==3.8
+python-hcl2==4.3.0
+PyYAML==6.0
+redis==4.5.4
+uWSGI==2.0.21

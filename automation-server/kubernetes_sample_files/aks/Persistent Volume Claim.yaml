@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: enter value
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: enter value # 8Gi for example
+  selector:
+    matchLabels:
+      pv: local
+  storageClassName: hostpath

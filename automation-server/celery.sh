@@ -1,0 +1,1 @@
+celery -A app.celery worker --pool=gevent -l debug -f celery.logs -n scripting  --concurrency=50 -E --detach

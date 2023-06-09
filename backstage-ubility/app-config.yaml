@@ -1,0 +1,73 @@
+organization:
+  name: UbilityAi
+
+app:
+  title: Ubility Backstage
+  baseUrl: ${APP_BASE_URL}
+
+backend:
+  baseUrl: ${BACKEND_BASE_URL}
+  listen:
+    port: 7007
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+  cors:
+    origin: ${ORIGIN}
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  database:
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
+  cache:
+    store: memory
+  workingDirectory: /tmp
+
+proxy:
+techdocs:
+  builder: 'local'
+  generator:
+    runIn: 'docker'
+  publisher:
+    type: 'local'
+
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+
+catalog:
+  rules:
+    - allow: [Component, System, API, Resource, Location, Template]
+  locations:
+    - type: url
+      target: https://github.com/ibrahimnasri24/deploy-flask-app-backstage-template/blob/master/template.yaml
+    - type: url
+      target: https://github.com/ibrahimnasri24/cluster-nginx-ingress/blob/master/template.yaml
+
+ubility:
+  container_registry: ${CONTAINER_REGISTRY}
+  resource_group: ${RESOURCE_GROUP}
+  azure_tenant_id: ${AZURE_TENANT_ID}
+  subscription_id: ${SUBSCRIPTION_ID}
+  automation-server-jwt: ${AUTOMATION_SERVER_JWT}
+  automation-server-base_url: ${AUTOMATION_SERVER_BASE_URL}
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
+jenkins:
+  baseUrl: http://gpt.ubilityai.com:8080/
+  username: ${JENKINS_USERNAME}
+  apiKey: ${JENKINS_API_TOKEN}

@@ -1,0 +1,1 @@
+export { RegionExtension } from './extensions';

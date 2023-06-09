@@ -1,0 +1,16 @@
+- url: https://testcluster-xwuw8v0f.hcp.eastus.azmk8s.io:443
+  name: testcluster
+  skipTLSVerify: true
+  skipMetricsLookup: false
+  serviceAccountToken: wtdzsrogeylcn6g1vu3q9oh2n774392yg3imxcwrf2l69dwy8q1z4fwkr4oc6e57lfdt58rl7f4tky1b7w81u9ct6x6yogl8cn6bvi0ko4i1fvie4mbmeiy0ynqhln76
+  dashboardUrl: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default
+  dashboardApp: standard
+  authProvider: serviceAccount
+  exposeDashboard: true
+- url: https://projectcluster-jd9d5ii8.hcp.eastus.azmk8s.io:443
+  name: testcluster
+  skipTLSVerify: true
+  skipMetricsLookup: false
+  serviceAccountToken: szp6hatiqr7q9kwkrcpiplsxc02rpba9udh5c2lcgz6l11sus9bksfhj0pkd9dowgfh6ivxzrieke3fdvynz4ro72hfoxho33512uuqaqwp8tv9trzx3nbxx6zv0h2c0
+  authProvider: serviceAccount
+  exposeDashboard: true
