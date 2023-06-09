@@ -202,10 +202,11 @@ echo '--------------- Automation Server Setup ---------------'
 echo
 echo Generate JWT token
 jwt_header=$(echo -n '{"alg":"HS256","typ":"JWT"}' | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
-read -p "An email to generate a JWT token: " email
 read -p "A secret key to generate a JWT token: " secret
 
-payload=$(echo -n '{"email":"email_payload"}' | sed "s/email_payload/${email}/g"  | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
+iat=$(date +%s)
+
+payload=$(echo -n '{"id":"0","name":"ubility-backstage-user","role": "client","iat":creation_date}' | sed "s/creation_date/${iat}/g | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
 
 hexsecret=$(echo -n "$secret" | xxd -p | paste -sd "")
 hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac HMAC -macopt hexkey:$hexsecret -binary | base64  | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
@@ -214,6 +215,7 @@ jwt="${jwt_header}.${payload}.${hmac_signature}"
 
 echo "SECRET_KEY = $secret" > automation-server/.env
 
+export AUTOMATION_SECRET_KEY=$secret
 export AUTOMATION_SERVER_JWT=$jwt
 
 export CONTAINER_REGISTRY=$CONTAINER_REGISTRY
