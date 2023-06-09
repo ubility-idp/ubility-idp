@@ -33,10 +33,6 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 
 COPY --chown=node:node . .
 
-ARG APP_BASE_URL
-ARG BACKEND_BASE_URL
-ARG ORIGIN
-
 RUN yarn tsc
 RUN yarn --cwd packages/backend build
 # If you have not yet migrated to package roles, use the following command instead:

@@ -66,9 +66,3 @@ RUN chmod +x /app/celery.sh
 # AZ CLI installation commands
 USER root
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-
-# AZ Login
-ARG AZURE_CLIENT_ID
-ARG AZURE_CLIENT_SECRET
-ARG AZURE_TENANT_ID
-RUN az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
