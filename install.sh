@@ -35,11 +35,6 @@ echo
 # install azure cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-clear
-echo --------------- Cloning Repos ---------------
-git clone https://github.com/backstage-ubility/backstage.git
-git clone https://github.com/backstage-ubility/automation-server.git
-
 #_______________________________________________________________________________________________________
 clear
 echo '--------------- Postgres & Pgadmin ---------------'
