@@ -203,6 +203,7 @@ jwt="${jwt_header}.${payload}.${hmac_signature}"
 
 export AUTOMATION_SECRET_KEY=$secret
 export AUTOMATION_SERVER_JWT=$jwt
+export AUTOMATION_SERVER_BASE_URL='http://automation:5000'
 
 export CONTAINER_REGISTRY=$CONTAINER_REGISTRY
 export RESOURCE_GROUP=$RESOURCE_GROUP
@@ -218,18 +219,16 @@ export JENKINS_USERNAME=$JENKINS_USERNAME
 export GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
 export GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
 export GITHUB_TOKEN=$GITHUB_TOKEN
+export POSTGRES_USER=pguser
+export POSTGRES_PASSWORD=password
+export POSTGRES_PORT=5432
+export POSTGRES_HOST=postgres
 
-env > .env
+export APP_BASE_URL="http://$VM_ADDRESS:3000"
+export BACKEND_BASE_URL="http://$VM_ADDRESS:7007"
+export ORIGIN="http://$VM_ADDRESS:3000"
 
-clear
-echo '--------------- Building Backstage Image ---------------'
-echo
-docker image build -t backstage ./backstage
-clear
-echo '--------------- Building Automation Server Image ---------------'
-echo
-docker image build -t automation ./automation-server
-clear
+
 echo '--------------- Starting the Containers ---------------'
 echo
 docker compose up -d
