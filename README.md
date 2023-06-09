@@ -22,11 +22,12 @@ The easiest way to start a microservices project
 Ubility Backstage is a project that enhances Spotify's backstage functionality by providing developers with additional features and actions. It simplifies the process of deploying microservices on an AKS cluster on Azure using templates and a user-friendly UI.
 
 ## ✨ Features
--   Easy creation of an AKS cluster on Azure using a simple UI
--   Deployment of microservices on the AKS cluster using generated templates
--   Automatic creation of a Jenkins job on a Jenkins server for building and deploying applications
--   Ingress configuration for external domain based or path based routing
--   NGINX ingress controller integration with SSL support using Let's Encrypt
+
+- Easy creation of an AKS cluster on Azure using a simple UI
+- Deployment of microservices on the AKS cluster using generated templates
+- Automatic creation of a Jenkins job on a Jenkins server for building and deploying applications
+- Ingress configuration for external domain based or path based routing
+- NGINX ingress controller integration with SSL support using Let's Encrypt
 
 ## 📚 Table Of Contents
 
@@ -35,8 +36,9 @@ Ubility Backstage is a project that enhances Spotify's backstage functionality b
 
 ## 🚀 Getting Started
 
-We are excited to launch the complete Novu API and admin panel. Want to give it a test before the official release? Here is how:
+How to install Ubility-IDP on a virtual machine
 
-## Prerequisites
--   An Azure account with admin permissions
--   A virtual machine with a public ip address if you wish to use https 
+### Prerequisites
+
+- An Azure account with admin permissions
+- A virtual machine with a public ip address if you wish to use https
