@@ -194,7 +194,7 @@ read -p "A secret key to generate a JWT token: " secret
 
 iat=$(date +%s)
 
-payload=$(echo -n '{"id":"0","name":"ubility-backstage-user","role": "client","iat":creation_date}' | sed "s/creation_date/${iat}/g | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
+payload=$(echo -n '{"id":"0","name":"ubility-backstage-user","role": "client","iat":creation_date}' | sed "s/creation_date/${iat}/g" | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
 
 hexsecret=$(echo -n "$secret" | xxd -p | paste -sd "")
 hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac HMAC -macopt hexkey:$hexsecret -binary | base64  | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
