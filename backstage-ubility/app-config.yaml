@@ -50,9 +50,9 @@ catalog:
     - allow: [Component, System, API, Resource, Location, Template]
   locations:
     - type: url
-      target: https://github.com/ibrahimnasri24/deploy-flask-app-backstage-template/blob/master/template.yaml
+      target: https://github.com/ubility-idp/flask-api-template/blob/main/template.yaml
     - type: url
-      target: https://github.com/ibrahimnasri24/cluster-nginx-ingress/blob/master/template.yaml
+      target: https://github.com/ubility-idp/create-cluster-template/blob/main/template.yaml
 
 ubility:
   container_registry: ${CONTAINER_REGISTRY}
