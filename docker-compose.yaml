@@ -88,6 +88,7 @@ services:
       - BACKEND_BASE_URL=${BACKEND_BASE_URL}
       - ORIGIN=${ORIGIN}
       - AUTOMATION_SERVER_BASE_URL=${AUTOMATION_SERVER_BASE_URL}
+      - JENKINS_ADDRESS=${JENKINS_ADDRESS}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker

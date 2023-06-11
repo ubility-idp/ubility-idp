@@ -7,36 +7,18 @@ const path = require('path');
 
 export const CreateJenkinsPipeline = () => {
   return createTemplateAction<{
-    jenkins_api_token: string;
-    jenkins_address: string;
     project_name: string;
-    repoContentsUrl: string;
   }>({
     id: 'ubility:add:jenkins',
     schema: {
       input: {
-        required: ['jenkins_api_token', 'jenkins_address'],
+        required: ['project_name'],
         type: 'object',
         properties: {
-          jenkins_api_token: {
-            type: 'string',
-            title: 'Jenkins API token',
-            description: 'Jenkins API token',
-          },
-          jenkins_address: {
-            type: 'string',
-            title: 'Jenkins Address',
-            description: 'Address of the jenkins host with the port',
-          },
           project_name: {
             type: 'string',
             title: 'Project Name',
             description: 'This will be used as the pipeline name on jenkins',
-          },
-          repoContentsUrl: {
-            type: 'string',
-            titlr: 'Repo Contents URL',
-            description: '',
           },
         },
       },
@@ -46,7 +28,7 @@ export const CreateJenkinsPipeline = () => {
         argv: process.argv,
         logger: getRootLogger(),
       });
-      const JENKINS_ADDRESS = 'gpt.ubilityai.com:8080';
+      const JENKINS_ADDRESS = app_config.getConfig('ubility').getString('jenkins-address');
       const PIPELINE_NAME = ctx.input.project_name;
       const API_TOKEN = app_config.getConfig('jenkins').getString('apiKey');
       const USERNAME = app_config.getConfig('jenkins').getString('username');

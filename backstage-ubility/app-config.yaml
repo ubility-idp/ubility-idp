@@ -61,6 +61,7 @@ ubility:
   subscription_id: ${SUBSCRIPTION_ID}
   automation-server-jwt: ${AUTOMATION_SERVER_JWT}
   automation-server-base_url: ${AUTOMATION_SERVER_BASE_URL}
+  jenkins-address: ${JENKINS_ADDRESS}
 
 integrations:
   github:

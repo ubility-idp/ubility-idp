@@ -202,7 +202,7 @@ hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac
 jwt="${jwt_header}.${payload}.${hmac_signature}"
 
 export AUTOMATION_SECRET_KEY=$secret
-export AUTOMATION_SERVER_JWT=$jwt
+export AUTOMATION_SERVER_JWT="$jwt"
 export AUTOMATION_SERVER_BASE_URL='http://automation:5000'
 
 export CONTAINER_REGISTRY=$CONTAINER_REGISTRY
