@@ -28,12 +28,18 @@ Ubility IDP is a project that enhances Spotify's backstage functionality by prov
 
 - [Getting Started](https://github.com/ubility-backstage/ubility-backstage#-getting-started)
   - [Prerequisites](https://github.com/ubility-backstage/ubility-backstage#-prerequisites)
+  - [Installation](https://github.com/ubility-backstage/ubility-backstage#-installation)
 
 ## 🚀 Getting Started
 
-How to install Ubility-IDP on a virtual machine
+How to install Ubility IDP on a virtual machine
 
 ### Prerequisites
 
 - An Azure account with admin permissions
 - A virtual machine with a public ip address if you wish to use https
+
+### Installation
+
+Execute the bash script install.sh on a ubuntu machine
+`sh install.sh`
