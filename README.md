@@ -4,22 +4,17 @@
     <img src="https://static.wixstatic.com/media/6263ca_82e330205265468487a636c3c4b673e7~mv2.png/v1/fill/w_298,h_96,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Ubility-logo-3%20(1)_edited.png" width="200" alt="Logo"/>
   </picture>
   </a>
-  <a href="https://backstage.io/" target="_blank">
-  <picture>
-    <img src="https://assets.website-files.com/6194c620b350c4056027fac7/61f935c830906d7187956a15_Group%2037750.png" width="75" alt="Logo"/>
-  </picture>
-  </a>
 </div>
 
-<h1 align="center">Ubility Backstage</h1>
+<h1 align="center">Ubility IDP</h1>
 
 <div align="center">
 The easiest way to start a microservices project
 </div>
 
-## ⭐️ Why Ubility Backstage?
+## ⭐️ Why Ubility IDP?
 
-Ubility Backstage is a project that enhances Spotify's backstage functionality by providing developers with additional features and actions. It simplifies the process of deploying microservices on an AKS cluster on Azure using templates and a user-friendly UI.
+Ubility IDP is a project that enhances Spotify's backstage functionality by providing developers with additional features and actions. It simplifies the process of deploying microservices on an AKS cluster on Azure using templates and a user-friendly UI.
 
 ## ✨ Features
 
