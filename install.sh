@@ -124,7 +124,7 @@ res=$(az ad app permission add --id $AZURE_APP_ID --api 00000003-0000-0000-c000-
 sleep 3
 res=$(az ad sp create --id $AZURE_APP_ID  --only-show-errors)
 sleep 3
-res=$(az role assignment create --assignee $AZURE_APP_ID --role "Azure Kubernetes Service Contributor Role" --resource-group $RESOURCE_GROUP  --only-show-errors)
+res=$(az role assignment create --assignee $AZURE_APP_ID --role Owner --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP"  --only-show-errors)
 sleep 3
 res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
 clear
