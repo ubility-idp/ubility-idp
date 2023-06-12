@@ -50,6 +50,15 @@ docker run -d \
   jenkins/jenkins:lts
 sleep 15
 
+CONTAINER_REGISTRY="backstagedeployments"
+RESOURCE_GROUP="BackstageDeployments"
+RESOURCES_LOCATION="East Us"
+
+cd Terraform
+terraform init
+terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
+cd ..
+
 clear
 echo '--------------- Jenkins Installation ---------------'
 echo
@@ -59,6 +68,8 @@ echo This is your initial admin password:
 docker exec jenkins-lts cat /var/jenkins_home/secrets/initialAdminPassword
 echo
 echo Head over to jenkins using this link: http://$VM_ADDRESS:8080 and use the password to login
+echo
+echo You need to open the 8080 port on the virtual machine to be able to access jenkins
 echo
 read -p 'Press enter when done' var
 clear
@@ -81,8 +92,6 @@ echo
 read -p "Jenkins API token: " JENKINS_API_TOKEN
 
 #_______________________________________________________________________________________________________
-CONTAINER_REGISTRY="backstagedeployments"
-RESOURCE_GROUP="BackstageDeployments"
 clear
 echo '--------------- Azure Setup ---------------'
 echo Login using your azure account
@@ -101,8 +110,6 @@ echo Head over to https://portal.azure.com/#view/Microsoft_Azure_Billing/Subscri
 echo
 read -p "Enter the subscription ID: " SUBSCRIPTION_ID
 az account set --subscription $SUBSCRIPTION_ID
-
-RESOURCE_GROUP="BackstageDeployments"
 
 AZURE_APP_ID=$(az ad app create --display-name 'ubility-backstage' | jq -r '.appId')
 echo AZURE_APP_ID=$AZURE_APP_ID
@@ -215,6 +222,7 @@ export AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET
 
 export JENKINS_API_TOKEN=$JENKINS_API_TOKEN
 export JENKINS_USERNAME=$JENKINS_USERNAME
+export JENKINS_ADDRESS="http://$VM_ADDRESS:8080"
 
 export GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
 export GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET

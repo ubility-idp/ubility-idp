@@ -133,11 +133,11 @@ export const ApplyTerraform = () => {
         },
       });
 
-      const filename = `${ctx.input.cluster_name
-        .replace(' ', '-')
-        .toLowerCase()}.zip`;
+      const filename = ctx.input.cluster_name.replace(' ', '-').toLowerCase();
       ctx.logger.info(filename);
-      executeShellCommand(`cd ${ctx.workspacePath} && zip -r ${filename} .`);
+      executeShellCommand(
+        `cd ${ctx.workspacePath} && zip -r ${filename}.zip .`,
+      );
 
       await new Promise(resolve => setTimeout(resolve, 1000));
 
