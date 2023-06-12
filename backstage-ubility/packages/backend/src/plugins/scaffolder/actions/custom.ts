@@ -133,7 +133,10 @@ export const ApplyTerraform = () => {
         },
       });
 
-      const filename = ctx.input.cluster_name.replace(' ', '-').toLowerCase();
+      const filename = ctx.input.cluster_name
+        .trim()
+        .replace(' ', '-')
+        .toLowerCase();
       ctx.logger.info(filename);
       executeShellCommand(
         `cd ${ctx.workspacePath} && zip -r ${filename}.zip .`,
