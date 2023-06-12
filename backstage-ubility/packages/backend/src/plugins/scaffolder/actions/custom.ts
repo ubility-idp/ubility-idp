@@ -141,7 +141,7 @@ export const ApplyTerraform = () => {
 
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      const zip_file_path = path.join(ctx.workspacePath, filename);
+      const zip_file_path = path.join(ctx.workspacePath, `${filename}.zip`);
       console.log(zip_file_path);
 
       ctx.logger.info(zip_file_path);

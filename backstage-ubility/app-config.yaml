@@ -11,6 +11,7 @@ backend:
     port: 7007
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    upgrade-insecure-requests: false
   cors:
     origin: ${ORIGIN}
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
