@@ -62,7 +62,7 @@ ubility:
   subscription_id: ${SUBSCRIPTION_ID}
   automation-server-jwt: ${AUTOMATION_SERVER_JWT}
   automation-server-base_url: ${AUTOMATION_SERVER_BASE_URL}
-  jenkins-address: ${JENKINS_ADDRESS}
+  jenkins-address: ${VM_ADDRESS}:8080
 
 integrations:
   github:
@@ -70,6 +70,6 @@ integrations:
       token: ${GITHUB_TOKEN}
 
 jenkins:
-  baseUrl: http://gpt.ubilityai.com:8080/
+  baseUrl: http://${VM_ADDRESS}:8080/
   username: ${JENKINS_USERNAME}
   apiKey: ${JENKINS_API_TOKEN}
