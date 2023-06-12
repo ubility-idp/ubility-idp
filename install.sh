@@ -157,15 +157,11 @@ echo Set the id to: $GITHUB_USERNAME-githubssh
 echo Give it a good description
 echo Enter $GITHUB_USERNAME into the username field
 echo Press 'Enter directly' under Private Key and paste the below private key in the browser:
+echo
+echo Leave Passphrase empty
 cat .ssh/id_rsa
 cd ..
 echo
-echo
-read -p 'Press enter when done' var
-clear
-echo '--------------- Github Setup ---------------'
-echo
-echo Leave Passphrase empty
 echo
 read -p 'Press enter when done' var
 clear
