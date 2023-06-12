@@ -151,7 +151,7 @@ read -p "Enter the github username of the account you'll be using with backstage
 clear
 echo '--------------- Github Setup ---------------'
 echo
-echo Next head over to http://$VM_ADDRESS:8080/user/$JENKINS_USERNAME/credentials/store/user/domain/_/newCredentials
+echo Next head over to http://$VM_ADDRESS:8080/manage/credentials/store/system/domain/_/newCredentials
 echo Select SSH Username with private key
 echo Set the id to: $GITHUB_USERNAME-githubssh
 echo Give it a good description
