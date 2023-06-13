@@ -95,6 +95,8 @@ read -p "Jenkins API token: " JENKINS_API_TOKEN
 cd Jenkins
 wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
+sleep 3
+docker restart jenkins-lts
 cd ..
 
 #_______________________________________________________________________________________________________
@@ -123,9 +125,9 @@ AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
 AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
 sleep 3
 
-res=$(az ad app permission add --id $AZURE_APP_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope  --only-show-errors)
+res=$(az ad app permission add --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope  --only-show-errors)
 sleep 10
-res=$(az ad app permission grant --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000)
+res=$(az ad app permission grant --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --scope /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP)
 sleep 3
 res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
 # clear
@@ -149,6 +151,7 @@ cd Github
 echo
 
 read -p "Enter the github username of the account you'll be using with backstage: " GITHUB_USERNAME
+export GITHUB_USERNAME=$GITHUB_USERNAME
 
 PRIVATE_KEY=$(cat .ssh/id_rsa)
 cd ..
@@ -191,6 +194,9 @@ hexsecret=$(echo -n "$secret" | xxd -p | paste -sd "")
 hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac HMAC -macopt hexkey:$hexsecret -binary | base64  | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
 
 jwt="${jwt_header}.${payload}.${hmac_signature}"
+
+# exporting env vars 
+export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
 
 export VM_ADDRESS="$VM_ADDRESS"
 export PRIVATE_KEY="$PRIVATE_KEY"
