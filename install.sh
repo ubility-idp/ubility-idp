@@ -35,29 +35,32 @@ echo
 # install azure cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
+clear
+echo '--------------- Installing Java ---------------'
+echo
+sudo apt install openjdk-11-jre-headless -y
+
 #_______________________________________________________________________________________________________
 clear
 echo '--------------- Jenkins Installation ---------------'
-docker run -d \
-  --privileged \
-  --user root \
-  -p 8080:8080 \
-  -p 50000:50000 \
-  --name jenkins-lts \
-  -v ~/jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /usr/local/bin/docker:/usr/local/bin/docker \
-  jenkins/jenkins:lts
-sleep 15
+cd Jenkins
+docker compose up -d
+cd ..
+sleep 10
+
+# Install needed dependencies on jenkins
+# docker exec "jenkins-lts" apt-get install gettext -y
+# docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 CONTAINER_REGISTRY="backstagedeployments"
 RESOURCE_GROUP="BackstageDeployments"
 RESOURCES_LOCATION="East Us"
 
-cd Terraform
-terraform init
-terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
-cd ..
+# cd Terraform
+# terraform init
+# terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
+# cd ..
 
 clear
 echo '--------------- Jenkins Installation ---------------'
@@ -90,6 +93,10 @@ echo Head over to http://$VM_ADDRESS:8080/user/$JENKINS_USERNAME/configure and c
 echo Copy the token and click save then paste it below
 echo
 read -p "Jenkins API token: " JENKINS_API_TOKEN
+
+# install Jenkins
+wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
 
 #_______________________________________________________________________________________________________
 clear
@@ -149,22 +156,22 @@ echo
 
 read -p "Enter the github username of the account you'll be using with backstage: " GITHUB_USERNAME
 clear
-echo '--------------- Github Setup ---------------'
-echo
-echo Next head over to http://$VM_ADDRESS:8080/manage/credentials/store/system/domain/_/newCredentials
-echo Select SSH Username with private key
-echo Set the id to: $GITHUB_USERNAME-githubssh
-echo Give it a good description
-echo Enter $GITHUB_USERNAME into the username field
-echo Press 'Enter directly' under Private Key and paste the below private key in the browser:
-echo
-echo Leave Passphrase empty
-cat .ssh/id_rsa
+# echo '--------------- Github Setup ---------------'
+# echo
+# echo Next head over to http://$VM_ADDRESS:8080/manage/credentials/store/system/domain/_/newCredentials
+# echo Select SSH Username with private key
+# echo Set the id to: $GITHUB_USERNAME-githubssh
+# echo Give it a good description
+# echo Enter $GITHUB_USERNAME into the username field
+# echo Press 'Enter directly' under Private Key and paste the below private key in the browser:
+# echo
+# echo Leave Passphrase empty
+PRIVATE_KEY=$(cat .ssh/id_rsa)
 cd ..
-echo
-echo
-read -p 'Press enter when done' var
-clear
+# echo
+# echo
+# read -p 'Press enter when done' var
+# clear
 
 #_______________________________________________________________________________________________________
 echo '--------------- Github OAuth app registration ---------------'
@@ -204,6 +211,8 @@ hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac
 
 jwt="${jwt_header}.${payload}.${hmac_signature}"
 
+export PRIVATE_KEY=$PRIVATE_KEY
+
 export AUTOMATION_SECRET_KEY=$secret
 export AUTOMATION_SERVER_JWT="$jwt"
 export AUTOMATION_SERVER_BASE_URL='http://automation:5000'
@@ -228,11 +237,22 @@ export POSTGRES_PASSWORD=password
 export POSTGRES_PORT=5432
 export POSTGRES_HOST=postgres
 
-export APP_BASE_URL="http://$VM_ADDRESS:3000"
+export APP_BASE_URL="http://$VM_ADDRESS:7007"
 export BACKEND_BASE_URL="http://$VM_ADDRESS:7007"
-export ORIGIN="http://$VM_ADDRESS:3000"
+export ORIGIN="http://$VM_ADDRESS:7007"
 
+#_______________________________________________________________________________________________________
+clear
+echo  '--------------- Adding credentials to jenkins ---------------'
+envsubst < credential-github-ssh.xml > credential-github-ssh.tmp.xml
+envsubst < credential-azure.xml > credential-azure.tmp.xml
 
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ < credential-github-ssh.tmp.xml
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ < credential-azure.tmp.xml
+
+rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
+
+clear
 echo '--------------- Starting the Containers ---------------'
 echo
 docker compose up -d
