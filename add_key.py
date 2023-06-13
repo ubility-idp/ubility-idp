@@ -4,7 +4,7 @@ import json
 
 url = "https://api.github.com/user/keys"
 token = sys.argv[1]  # Read the token from the command-line argument
-title = "backstage"
+title = "ubility-idp"
 
 # Read the SSH public key from the .ssh/id_rsa.pub file
 with open("./Github/.ssh/id_rsa.pub", "r") as key_file:
