@@ -92,12 +92,14 @@ echo
 read -p "Jenkins API token: " JENKINS_API_TOKEN
 
 # install Jenkins
+cd Jenkins
 wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
+cd ..
 
 #_______________________________________________________________________________________________________
 # clear
-echo '--------------- Azure Setup ---------------'
+echo '--------------- Azure Login ---------------'
 echo Login using the azure owner account
 echo
 read -p "Username: " AZURE_USERNAME
@@ -115,29 +117,17 @@ echo
 read -p "Enter the subscription ID: " SUBSCRIPTION_ID
 az account set --subscription $SUBSCRIPTION_ID
 
-# AZURE_APP_ID=$(az ad app create --display-name 'ubility-backstage' | jq -r '.appId')
-# echo AZURE_APP_ID=$AZURE_APP_ID
-# echo Registering app with azure...
-# sleep 10
-# cred_res=$(az ad app credential reset --id $AZURE_APP_ID --append --only-show-errors)
-# AZURE_CLIENT_ID=$( echo $cred_res | jq -r '.appId')
-# AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
-# AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
-
 cred_res=$(az ad sp create-for-rbac -n 'ubility-idp-sp' --role Owner --scopes /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP  --only-show-errors)
-echo AZ AD SP
-echo $cred_res
 AZURE_CLIENT_ID=$( echo $cred_res | jq -r '.appId')
 AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
 AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
 sleep 3
+
 res=$(az ad app permission add --id $AZURE_APP_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope  --only-show-errors)
-echo AZ AD APP
-echo $res
+sleep 10
+res=$(az ad app permission grant --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000)
 sleep 3
 res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
-echo AZ LOGIN
-echo $res
 # clear
 
 #_______________________________________________________________________________________________________
@@ -159,22 +149,9 @@ cd Github
 echo
 
 read -p "Enter the github username of the account you'll be using with backstage: " GITHUB_USERNAME
-# clear
-# echo '--------------- Github Setup ---------------'
-# echo
-# echo Next head over to http://$VM_ADDRESS:8080/manage/credentials/store/system/domain/_/newCredentials
-# echo Select SSH Username with private key
-# echo Set the id to: $GITHUB_USERNAME-githubssh
-# echo Give it a good description
-# echo Enter $GITHUB_USERNAME into the username field
-# echo Press 'Enter directly' under Private Key and paste the below private key in the browser:
-# echo
-# echo Leave Passphrase empty
+
 PRIVATE_KEY=$(cat .ssh/id_rsa)
 cd ..
-# echo
-# echo
-# read -p 'Press enter when done' var
 clear
 
 #_______________________________________________________________________________________________________
@@ -215,31 +192,32 @@ hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac
 
 jwt="${jwt_header}.${payload}.${hmac_signature}"
 
-export PRIVATE_KEY=$PRIVATE_KEY
+export VM_ADDRESS="$VM_ADDRESS"
+export PRIVATE_KEY="$PRIVATE_KEY"
 
-export AUTOMATION_SECRET_KEY=$secret
+export AUTOMATION_SECRET_KEY="$secret"
 export AUTOMATION_SERVER_JWT="$jwt"
 export AUTOMATION_SERVER_BASE_URL='http://automation:5000'
 
-export CONTAINER_REGISTRY=$CONTAINER_REGISTRY
-export RESOURCE_GROUP=$RESOURCE_GROUP
+export CONTAINER_REGISTRY="$CONTAINER_REGISTRY"
+export RESOURCE_GROUP="$RESOURCE_GROUP"
 
-export SUBSCRIPTION_ID=$SUBSCRIPTION_ID
-export AZURE_TENANT_ID=$AZURE_TENANT_ID
-export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
-export AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET
+export SUBSCRIPTION_ID="$SUBSCRIPTION_ID"
+export AZURE_TENANT_ID="$AZURE_TENANT_ID"
+export AZURE_CLIENT_ID="$AZURE_CLIENT_ID"
+export AZURE_CLIENT_SECRET="$AZURE_CLIENT_SECRET"
 
-export JENKINS_API_TOKEN=$JENKINS_API_TOKEN
-export JENKINS_USERNAME=$JENKINS_USERNAME
+export JENKINS_API_TOKEN="$JENKINS_API_TOKEN"
+export JENKINS_USERNAME="$JENKINS_USERNAME"
 export JENKINS_ADDRESS="http://$VM_ADDRESS:8080"
 
-export GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
-export GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
-export GITHUB_TOKEN=$GITHUB_TOKEN
-export POSTGRES_USER=pguser
-export POSTGRES_PASSWORD=password
-export POSTGRES_PORT=5432
-export POSTGRES_HOST=postgres
+export GITHUB_CLIENT_ID="$GITHUB_CLIENT_ID"
+export GITHUB_CLIENT_SECRET="$GITHUB_CLIENT_SECRET"
+export GITHUB_TOKEN="$GITHUB_TOKEN"
+export POSTGRES_USER="pguser"
+export POSTGRES_PASSWORD="password"
+export POSTGRES_PORT="5432"
+export POSTGRES_HOST="postgres"
 
 export APP_BASE_URL="http://$VM_ADDRESS:7007"
 export BACKEND_BASE_URL="http://$VM_ADDRESS:7007"
@@ -247,6 +225,7 @@ export ORIGIN="http://$VM_ADDRESS:7007"
 
 #_______________________________________________________________________________________________________
 # clear
+cd Jenkins
 echo  '--------------- Adding credentials to jenkins ---------------'
 envsubst < credential-github-ssh.xml > credential-github-ssh.tmp.xml
 envsubst < credential-azure.xml > credential-azure.tmp.xml
@@ -255,6 +234,7 @@ java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ < credential-azure.tmp.xml
 
 rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
+cd ..
 
 # clear
 echo '--------------- Starting the Containers ---------------'
