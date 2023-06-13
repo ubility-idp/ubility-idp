@@ -12,9 +12,4 @@ services:
       - /usr/local/bin/docker:/usr/local/bin/docker
     privileged: true
     user: root
-    command: >
-      bash -c "apt-get install gettext -y &&
-      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" &&
-      install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl &&
-      ssh -o StrictHostKeyChecking=no github.com"
     restart: always

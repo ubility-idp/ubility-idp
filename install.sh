@@ -1,12 +1,12 @@
 #!/bin/sh
-clear
+# clear
 echo '--------------- Preparing Virtual Machine ---------------'
 echo
 # apt
 sudo apt update
 sudo apt install -y software-properties-common gnupg2 curl jq
 
-clear
+# clear
 echo '--------------- Installing Terraform ---------------'
 echo
 # install terraform
@@ -15,7 +15,7 @@ sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
 sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt install -y terraform
 
-clear
+# clear
 echo '--------------- Installing Docker ---------------'
 echo
 # install docker
@@ -29,40 +29,41 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo chmod 666 /var/run/docker.sock
 
 
-clear
+# clear
 echo '--------------- Installing Azure cli ---------------'
 echo
 # install azure cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-clear
+# clear
 echo '--------------- Installing Java ---------------'
 echo
 sudo apt install openjdk-11-jre-headless -y
 
 #_______________________________________________________________________________________________________
-clear
+# clear
 echo '--------------- Jenkins Installation ---------------'
 cd Jenkins
 docker compose up -d
 cd ..
 sleep 10
 
-# Install needed dependencies on jenkins
-# docker exec "jenkins-lts" apt-get install gettext -y
-# docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-# docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+Install needed dependencies on jenkins
+docker exec "jenkins-lts" apt-get install gettext -y
+docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
 CONTAINER_REGISTRY="backstagedeployments"
 RESOURCE_GROUP="BackstageDeployments"
 RESOURCES_LOCATION="East Us"
 
-# cd Terraform
-# terraform init
-# terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
-# cd ..
+cd Terraform
+terraform init
+terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
+cd ..
 
-clear
+# clear
 echo '--------------- Jenkins Installation ---------------'
 echo
 read -p "Virtual machine ip address or domain name: " VM_ADDRESS
@@ -75,18 +76,18 @@ echo
 echo You need to open the 8080 port on the virtual machine to be able to access jenkins
 echo
 read -p 'Press enter when done' var
-clear
+# clear
 echo '--------------- Jenkins Installation ---------------'
 
 echo
 echo Next install the suggested plugins and then create a new user
 echo
 read -p 'Press enter when done' var
-clear
+# clear
 echo '--------------- Jenkins Installation ---------------'
 echo
 read -p "Jenkins Username (the username you just used to create the jenkins account): " JENKINS_USERNAME
-clear
+# clear
 echo '--------------- Jenkins Installation ---------------'
 echo
 echo Head over to http://$VM_ADDRESS:8080/user/$JENKINS_USERNAME/configure and create a new api token
@@ -99,7 +100,7 @@ wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
 
 #_______________________________________________________________________________________________________
-clear
+# clear
 echo '--------------- Azure Setup ---------------'
 echo Login using your azure account
 echo
@@ -109,7 +110,7 @@ read -p "Password: " AZURE_PASSWORD
 echo
 stty echo
 az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
-clear
+# clear
 echo '--------------- Azure Setup ---------------'
 echo Registering the ubility-backstage app with azure
 echo
@@ -134,7 +135,7 @@ sleep 3
 res=$(az role assignment create --assignee $AZURE_APP_ID --role Owner --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP"  --only-show-errors)
 sleep 3
 res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
-clear
+# clear
 
 #_______________________________________________________________________________________________________
 echo '--------------- Github Setup ---------------'
@@ -142,7 +143,7 @@ echo
 echo Github Token:
 echo If you do not already have one head over to https://github.com/settings/tokens and generate a new token then copy it and paste it below
 read -p "Github token: " GITHUB_TOKEN
-clear
+# clear
 mkdir Github
 cd Github
 mkdir .ssh
@@ -155,7 +156,7 @@ cd Github
 echo
 
 read -p "Enter the github username of the account you'll be using with backstage: " GITHUB_USERNAME
-clear
+# clear
 # echo '--------------- Github Setup ---------------'
 # echo
 # echo Next head over to http://$VM_ADDRESS:8080/manage/credentials/store/system/domain/_/newCredentials
@@ -171,7 +172,7 @@ cd ..
 # echo
 # echo
 # read -p 'Press enter when done' var
-# clear
+clear
 
 #_______________________________________________________________________________________________________
 echo '--------------- Github OAuth app registration ---------------'
@@ -182,17 +183,17 @@ echo Authorization callback URL: http://$VM_ADDRESS:7007/api/auth/github/handler
 echo Press register application
 echo
 read -p 'Press enter when done' var
-clear
+# clear
 echo '--------------- Github OAuth app registration ---------------'
 echo
 echo You can see Client ID in front of you copy it and paste it below
 read -p "Client ID: " GITHUB_CLIENT_ID
-clear
+# clear
 echo '--------------- Github OAuth app registration ---------------'
 echo
 echo Now generate a new client secret then copy it and paste it below
 read -p "Client secret: " GITHUB_CLIENT_SECRET
-clear
+# clear
 
 
 #_______________________________________________________________________________________________________
@@ -242,7 +243,7 @@ export BACKEND_BASE_URL="http://$VM_ADDRESS:7007"
 export ORIGIN="http://$VM_ADDRESS:7007"
 
 #_______________________________________________________________________________________________________
-clear
+# clear
 echo  '--------------- Adding credentials to jenkins ---------------'
 envsubst < credential-github-ssh.xml > credential-github-ssh.tmp.xml
 envsubst < credential-azure.xml > credential-azure.tmp.xml
@@ -252,7 +253,7 @@ java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$
 
 rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
 
-clear
+# clear
 echo '--------------- Starting the Containers ---------------'
 echo
 docker compose up -d
