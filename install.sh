@@ -48,7 +48,8 @@ docker compose up -d
 cd ..
 sleep 10
 
-Install needed dependencies on jenkins
+# Install needed dependencies on jenkins
+docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -78,13 +79,8 @@ echo
 read -p 'Press enter when done' var
 # clear
 echo '--------------- Jenkins Installation ---------------'
-
 echo
 echo Next install the suggested plugins and then create a new user
-echo
-read -p 'Press enter when done' var
-# clear
-echo '--------------- Jenkins Installation ---------------'
 echo
 read -p "Jenkins Username (the username you just used to create the jenkins account): " JENKINS_USERNAME
 # clear
@@ -102,7 +98,7 @@ java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$
 #_______________________________________________________________________________________________________
 # clear
 echo '--------------- Azure Setup ---------------'
-echo Login using your azure account
+echo Login using the azure owner account
 echo
 read -p "Username: " AZURE_USERNAME
 stty -echo
@@ -119,22 +115,29 @@ echo
 read -p "Enter the subscription ID: " SUBSCRIPTION_ID
 az account set --subscription $SUBSCRIPTION_ID
 
-AZURE_APP_ID=$(az ad app create --display-name 'ubility-backstage' | jq -r '.appId')
-echo AZURE_APP_ID=$AZURE_APP_ID
-echo Registering app with azure...
-sleep 10
-cred_res=$(az ad app credential reset --id $AZURE_APP_ID --append --only-show-errors)
+# AZURE_APP_ID=$(az ad app create --display-name 'ubility-backstage' | jq -r '.appId')
+# echo AZURE_APP_ID=$AZURE_APP_ID
+# echo Registering app with azure...
+# sleep 10
+# cred_res=$(az ad app credential reset --id $AZURE_APP_ID --append --only-show-errors)
+# AZURE_CLIENT_ID=$( echo $cred_res | jq -r '.appId')
+# AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
+# AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
+
+cred_res=$(az ad sp create-for-rbac -n 'ubility-idp-sp' --role Owner --scopes /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP  --only-show-errors)
+echo AZ AD SP
+echo $cred_res
 AZURE_CLIENT_ID=$( echo $cred_res | jq -r '.appId')
 AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
 AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
-
+sleep 3
 res=$(az ad app permission add --id $AZURE_APP_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope  --only-show-errors)
-sleep 3
-res=$(az ad sp create --id $AZURE_APP_ID  --only-show-errors)
-sleep 3
-res=$(az role assignment create --assignee $AZURE_APP_ID --role Owner --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP"  --only-show-errors)
+echo AZ AD APP
+echo $res
 sleep 3
 res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
+echo AZ LOGIN
+echo $res
 # clear
 
 #_______________________________________________________________________________________________________
