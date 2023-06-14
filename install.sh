@@ -129,7 +129,7 @@ res=$(az ad app permission add --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c0
 sleep 10
 res=$(az ad app permission grant --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --scope /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP)
 sleep 3
-res=$(az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" -t "$AZURE_TENANT_ID")
+res=$(az login --service-principal --username="$AZURE_CLIENT_ID" --password="$AZURE_CLIENT_SECRET" --tenant="$AZURE_TENANT_ID")
 # clear
 
 #_______________________________________________________________________________________________________
