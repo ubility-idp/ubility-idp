@@ -168,3 +168,13 @@ def terraform_delete_scripts():
         return {"scripts": "Script successfully deleted"}
     except Exception as e:
         return json.dumps({'error': e}, default=str)
+
+
+@app.route('/platform/cloud/login', methods=['POST'])
+def cl_login():
+    payload = check_for_token()
+    if 'id' not in payload:
+        return payload
+    body = request.json
+    res = cloud_login(body)
+    return res

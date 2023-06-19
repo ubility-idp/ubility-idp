@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldProps } from '@rjsf/core';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -23,9 +23,16 @@ export const NodePoolSize = ({
 }: FieldProps<any>) => {
   const discoveryApi = useApi(discoveryApiRef);
 
+  const [regions, setRegions] = useState(
+    formData.region ? [formData.region] : [],
+  );
+
+  const [nodePoolSizes, setNodePoolSizes] = useState([
+    { value: formData.size, name: formData.size_display_name },
+  ]);
+
   const { fetch } = useApi(fetchApiRef);
   useAsync(async (): Promise<void> => {
-    if (formData.regions?.length > 0) return;
     const baseUrl = await discoveryApi.getBaseUrl('ubility');
     const response = await fetch(`${baseUrl}/get_azure_regions`, {
       method: 'GET',
@@ -34,14 +41,10 @@ export const NodePoolSize = ({
       },
     });
     const data = await response.json();
-    onChange({
-      ...formData,
-      regions: data.regions,
-    });
+    setRegions(data.regions);
   }, []);
 
   useAsync(async (): Promise<void> => {
-    if (formData.sizes?.length > 0) return;
     const baseUrl = await discoveryApi.getBaseUrl('ubility');
     const response = await fetch(`${baseUrl}/get_node_pool_sizes`, {
       method: 'POST',
@@ -53,10 +56,7 @@ export const NodePoolSize = ({
       }),
     });
     const data = await response.json();
-    onChange({
-      ...formData,
-      sizes: data.sizes,
-    });
+    setNodePoolSizes(data.sizes);
   }, [formData.region]);
 
   return (
@@ -70,7 +70,7 @@ export const NodePoolSize = ({
         <Select
           labelId="regionLabel"
           id="region"
-          value={formData.region}
+          value={formData.region ? formData.region : ''}
           label="Region"
           onChange={e => {
             onChange({
@@ -81,17 +81,13 @@ export const NodePoolSize = ({
             // setSelectedRegion(e.target?.value as string);
           }}
         >
-          {formData.regions?.length > 0
-            ? formData.regions.map(
-                (reg: string, i: React.Key | null | undefined) => {
-                  return (
-                    <MenuItem key={i} value={reg}>
-                      {reg}
-                    </MenuItem>
-                  );
-                },
-              )
-            : []}
+          {regions.map((reg: string, i: React.Key | null | undefined) => {
+            return (
+              <MenuItem key={i} value={reg}>
+                {reg}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
       <FormControl
@@ -103,27 +99,30 @@ export const NodePoolSize = ({
         <Select
           labelId="nodePoolSizeLabel"
           id="nodePoolSize"
-          value={formData.size}
+          value={formData.size ? formData.size : ''}
           label="Node Pool Size"
           onChange={e => {
+            const selectedValue = e.target.value as string;
+            const selectedOption = nodePoolSizes.find(
+              size => size.value === selectedValue,
+            );
+            const displayName = selectedOption ? selectedOption.name : '';
+
             onChange({
               ...formData,
               size: e.target?.value as string,
+              size_display_name: displayName,
             });
             // setSelectedSize(e.target?.value as string);
           }}
         >
-          {formData.sizes
-            ? formData.sizes.map(
-                (size: Size, i: React.Key | null | undefined) => {
-                  return (
-                    <MenuItem key={i} value={size.value}>
-                      {size.name}
-                    </MenuItem>
-                  );
-                },
-              )
-            : []}
+          {nodePoolSizes.map((size: Size, i: React.Key | null | undefined) => {
+            return (
+              <MenuItem key={i} value={size.value}>
+                {size.name}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </>

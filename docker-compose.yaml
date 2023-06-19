@@ -49,49 +49,49 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  backstage:
-    container_name: backstage
-    image: ibrahimnasri24/ubility-backstage:1.0.0
-    hostname: backstage
-    command:
-      [
-        "node",
-        "packages/backend",
-        "--config",
-        "app-config.yaml"
-      ]
-    expose:
-      - "7007"
-    ports:
-      - "7007:7007"
-    restart: always
-    depends_on:
-      - db
-    environment:
-      - JENKINS_USERNAME=${JENKINS_USERNAME}
-      - JENKINS_API_TOKEN=${JENKINS_API_TOKEN}
-      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
-      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-      - GITHUB_TOKEN=${GITHUB_TOKEN}
-      - CONTAINER_REGISTRY=${CONTAINER_REGISTRY}
-      - RESOURCE_GROUP=${RESOURCE_GROUP}
-      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
-      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
-      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
-      - SUBSCRIPTION_ID=${SUBSCRIPTION_ID}
-      - AUTOMATION_SERVER_JWT=${AUTOMATION_SERVER_JWT}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - APP_BASE_URL=${APP_BASE_URL}
-      - BACKEND_BASE_URL=${BACKEND_BASE_URL}
-      - ORIGIN=${ORIGIN}
-      - AUTOMATION_SERVER_BASE_URL=${AUTOMATION_SERVER_BASE_URL}
-      - JENKINS_ADDRESS=${JENKINS_ADDRESS}
-      - VM_ADDRESS=${VM_ADDRESS}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
+  # backstage:
+  #   container_name: backstage
+  #   image: ibrahimnasri24/ubility-backstage:1.0.0
+  #   hostname: backstage
+  #   command:
+  #     [
+  #       "node",
+  #       "packages/backend",
+  #       "--config",
+  #       "app-config.yaml"
+  #     ]
+  #   expose:
+  #     - "7007"
+  #   ports:
+  #     - "7007:7007"
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - JENKINS_USERNAME=${JENKINS_USERNAME}
+  #     - JENKINS_API_TOKEN=${JENKINS_API_TOKEN}
+  #     - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+  #     - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+  #     - GITHUB_TOKEN=${GITHUB_TOKEN}
+  #     - CONTAINER_REGISTRY=${CONTAINER_REGISTRY}
+  #     - RESOURCE_GROUP=${RESOURCE_GROUP}
+  #     - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+  #     - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+  #     - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+  #     - SUBSCRIPTION_ID=${SUBSCRIPTION_ID}
+  #     - AUTOMATION_SERVER_JWT=${AUTOMATION_SERVER_JWT}
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_PORT=${POSTGRES_PORT}
+  #     - POSTGRES_HOST=${POSTGRES_HOST}
+  #     - APP_BASE_URL=${APP_BASE_URL}
+  #     - BACKEND_BASE_URL=${BACKEND_BASE_URL}
+  #     - ORIGIN=${ORIGIN}
+  #     - AUTOMATION_SERVER_BASE_URL=${AUTOMATION_SERVER_BASE_URL}
+  #     - JENKINS_ADDRESS=${JENKINS_ADDRESS}
+  #     - VM_ADDRESS=${VM_ADDRESS}
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /usr/bin/docker:/usr/bin/docker
 volumes:
   postgres-data:
