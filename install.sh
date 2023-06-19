@@ -59,6 +59,17 @@ CONTAINER_REGISTRY="backstagedeployments"
 RESOURCE_GROUP="BackstageDeployments"
 RESOURCES_LOCATION="East Us"
 
+# clear
+echo '--------------- Azure Login ---------------'
+echo Login using the azure owner account
+echo
+read -p "Username: " AZURE_USERNAME
+stty -echo
+read -p "Password: " AZURE_PASSWORD
+echo
+stty echo
+az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
+
 cd Terraform
 terraform init
 terraform apply -var "resource_group_name=$RESOURCE_GROUP" -var "resource_group_location=$RESOURCES_LOCATION" -var "acr_name=$CONTAINER_REGISTRY" -auto-approve
@@ -100,16 +111,6 @@ docker restart jenkins-lts
 cd ..
 
 #_______________________________________________________________________________________________________
-# clear
-echo '--------------- Azure Login ---------------'
-echo Login using the azure owner account
-echo
-read -p "Username: " AZURE_USERNAME
-stty -echo
-read -p "Password: " AZURE_PASSWORD
-echo
-stty echo
-az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
 # clear
 echo '--------------- Azure Setup ---------------'
 echo Registering the ubility-backstage app with azure
@@ -183,17 +184,13 @@ read -p "Client secret: " GITHUB_CLIENT_SECRET
 echo '--------------- Automation Server Setup ---------------'
 echo
 echo Generate JWT token
-jwt_header=$(echo -n '{"alg":"HS256","typ":"JWT"}' | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
-read -p "A secret key to generate a JWT token: " secret
+read -p "A secret key to generate a JWT token: " JWT_SECRET
+export JWT_SECRET=$JWT_SECRET
 
-iat=$(date +%s)
-
-payload=$(echo -n '{"id":"0","name":"ubility-backstage-user","role": "client","iat":creation_date}' | sed "s/creation_date/${iat}/g" | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
-
-hexsecret=$(echo -n "$secret" | xxd -p | paste -sd "")
-hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl dgst -sha256 -mac HMAC -macopt hexkey:$hexsecret -binary | base64  | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
-
-jwt="${jwt_header}.${payload}.${hmac_signature}"
+cd Utils
+sudo chmod 700 mk-jwt-token.sh
+jwt=$(mk-jwt-token.sh)
+cd ..
 
 # exporting env vars 
 export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
@@ -201,7 +198,7 @@ export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
 export VM_ADDRESS="$VM_ADDRESS"
 export PRIVATE_KEY="$PRIVATE_KEY"
 
-export AUTOMATION_SECRET_KEY="$secret"
+export AUTOMATION_SECRET_KEY="$JWT_SECRET"
 export AUTOMATION_SERVER_JWT="$jwt"
 export AUTOMATION_SERVER_BASE_URL='http://automation:5000'
 
