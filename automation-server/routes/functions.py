@@ -256,3 +256,65 @@ def extract_terraform_variables(dir_path):
     for k in outputs:
         outputs[k]['value'] = ''
     return {'inputs': inputs, 'outputs': outputs}
+
+
+def cloud_login(body):
+    if "aws" in body:
+        cred = body["aws"]
+        if not ("aws_access_key_id" in cred and "aws_secret_access_key" in cred  and "region" in cred):
+            return {"error": "error missing input key(s)"}
+        aws_access_key_id = body['aws_access_key_id']
+        aws_secret_access_key = body['aws_secret_access_key']
+        region = body['region']
+
+        list_of_commands = [
+            f'aws configure set aws_access_key_id {aws_access_key_id}',
+            f'aws configure set aws_secret_access_key {aws_secret_access_key}',
+            f'aws configure set default.region {region}'
+        ]
+
+        for cmd in list_of_commands:
+            execute_commads_with_text_output(cmd, "bash")
+        
+        return {"message": "PASS"}
+    elif "azure_up" in body:
+        cred = body["azure_up"]
+        if not ("username" in cred and "password" in cred and "subscription_id" in cred):
+            return {"error": "error missing input key(s)"}
+        username = body['username']
+        password = body['password']
+        subscription_id = body['subscription_id']
+
+        list_of_commands = [
+            f"az login -u {username} -p='{password}'",
+            f"az account set --subscription {subscription_id}"
+        ]
+
+        for cmd in list_of_commands:
+            res = execute_commads_with_text_output(cmd, "bash")
+            if 'error' in res:
+                return {"error":res['error']}
+        
+        return {"message": "PASS"}
+    elif "azure_sp" in body:
+        cred = body['azure_sp']
+        if not ("client_id" in cred and "client_secret" in cred and "tenant" in cred and "subscription_id" in cred):
+            return {"error": "error missing input key(s)"}
+        client_id = body['client_id']
+        subscription_id = body['subscription_id']
+        client_secret = body['client_secret']
+        tenant = body['tenant']
+
+        list_of_commands = [
+            f"az login --service-principal -u {client_id} -p='{client_secret}' --tenant {tenant}",
+            f"az account set --subscription {subscription_id}"
+        ]
+
+        for cmd in list_of_commands:
+            res = execute_commads_with_text_output(cmd, "bash")
+            if 'error' in res:
+                return {"error":res['error']}
+        
+        return {"message": "PASS"}
+    else:
+        return {"error": "body should contain aws or azure credentials"}
