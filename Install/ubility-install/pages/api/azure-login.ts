@@ -1,5 +1,5 @@
-import {exec} from "child_process";
 import {NextApiRequest, NextApiResponse} from "next";
+import BashExec from "./utils/BashExec";
 
 function notNonEmptyString(variable: any): boolean {
   if (typeof variable === "string" && variable.trim().length > 0) {
@@ -25,15 +25,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  exec(
+  BashExec(
     `echo AZURE_USERNAME=${AZURE_USERNAME} AZURE_PASSWORD=${AZURE_PASSWORD} SUBSCRIPTION_ID=${SUBSCRIPTION_ID}`,
-    (error, stdout, stderr) => {
-      console.log({error, stdout, stderr});
-
-      res.status(200).json({
-        status: "pass",
-        result: {error: error ? true : false, stdout, stderr},
-      });
-    }
+    res
   );
 }
