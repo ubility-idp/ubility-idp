@@ -6,8 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import InstallStep from "./InstallStep";
-
-const steps = ["Azure Login", "Create an ad group", "Create an ad"];
+import steps from "./steps";
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -57,7 +56,7 @@ export default function HorizontalLinearStepper() {
   return (
     <Box sx={{width: "100%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => {
+        {steps.map((step, index) => {
           const stepProps: {completed?: boolean} = {};
           const labelProps: {
             optional?: React.ReactNode;
@@ -71,13 +70,13 @@ export default function HorizontalLinearStepper() {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+            <Step key={step.label} {...stepProps}>
+              <StepLabel {...labelProps}>{step.label}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
-      <InstallStep stepNumber={activeStep} />
+      <InstallStep step={steps[activeStep]} />
       {activeStep === steps.length ? (
         <>
           <Typography sx={{mt: 2, mb: 1}}>
