@@ -10,7 +10,7 @@ interface Props {
 function TutorialContainer({step}: Props) {
   return (
     <div className="w-full flex flex-col">
-      <Typography className="text-2xl my-2">{step.tutorial?.title}</Typography>
+      <Typography className="text-xl my-2">{step.tutorial?.title}</Typography>
       <div className="max-w-5xl flex flex-col gap-10">
         {step.tutorial?.steps.map((tutStep, i) => (
           <TutorialStep tutStep={tutStep} key={i} />

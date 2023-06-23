@@ -38,6 +38,7 @@ export default function InstallStep({
   } = useForm();
   const onSubmit = async (data: any) => {
     setLoading(true);
+    setError({error: false, message: ""});
     console.log(data);
     const input_json: any = {};
     step.inputs.forEach((input) => (input_json[input.id] = data[input.id]));
@@ -79,10 +80,13 @@ export default function InstallStep({
                 render={({field: {onChange, value}}) => (
                   <>
                     <TextField
-                      className=""
+                      type={input.type}
+                      onFocus={() => {
+                        if (error.error) setError({error: false, message: ""});
+                      }}
                       required
                       id={input.id}
-                      {...register("name", {required: true})}
+                      {...register(input.id, {required: true})}
                       onChange={onChange}
                       value={value === undefined ? "" : value}
                       label={input.label}

@@ -10,12 +10,12 @@ type Props = {
 function TutorialStep({tutStep}: Props) {
   return (
     <div>
-      <Typography className="text-xl my-2">
+      <Typography className="text-lg my-2">
         {`${tutStep.nb + 1}) ${tutStep.title}`}
       </Typography>
       <div className="pl-6 flex flex-col gap-2 mb-2">
         {tutStep.instructions.map((inst, i) => (
-          <Typography className="text-lg text-gray-600" key={i}>
+          <Typography className="text-gray-600" key={i}>
             {`- ${inst}`}
           </Typography>
         ))}
