@@ -1,7 +1,14 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useState} from "react";
 import {Step} from "../static/steps";
 import {Controller, useForm} from "react-hook-form";
-import {Box, Button, TextField, Typography} from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  LinearProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   step: Step;
@@ -20,9 +27,11 @@ export default function InstallStep({
   activeStep,
   stepsNb,
 }: Props) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({error: false, message: ""});
   const {handleSubmit, reset, control} = useForm();
   const onSubmit = async (data: any) => {
-    handleNext();
+    setLoading(true);
     console.log(data);
     const input_json: any = {};
     step.inputs.forEach((input) => (input_json[input.id] = data[input.id]));
@@ -33,12 +42,21 @@ export default function InstallStep({
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-    console.log(await res.json());
+    const result = await res.json();
+    if (result.status === "pass")
+      setError({error: result.result.error, message: result.result.stderr});
+    else setError({error: true, message: result.result.error});
+    setLoading(false);
+    if (result.result.error === false) handleNext();
   };
 
   return (
     <form>
       <div className="my-6 px-12">
+        <div className="my-6">{loading && <LinearProgress />}</div>
+        <div className="my-6">
+          {error.error && <Alert severity="error">{error.message}</Alert>}
+        </div>
         <div className="flex flex-col gap-5">
           {step.inputs.map((input, i) => (
             <Controller

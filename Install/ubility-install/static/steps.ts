@@ -17,8 +17,9 @@ const steps = [
     label: "Azure Login",
     api_endpoint: "azure-login",
     inputs: [
-      {id: "AZURE_USERNAME", label: "Azure Username", type: "text"},
-      {id: "AZURE_PASSWORD", label: "Azure Password", type: "secret_text"},
+      {id: "AZURE_CLIENT_ID", label: "Client ID", type: "text"},
+      {id: "AZURE_CLIENT_SECRET", label: "Client Secret", type: "secret_text"},
+      {id: "AZURE_TENANT_ID", label: "Tenant ID", type: "text"},
       {id: "SUBSCRIPTION_ID", label: "Subscription ID", type: "text"},
     ],
   },

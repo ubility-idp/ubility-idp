@@ -14,11 +14,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.body === undefined)
     res.status(200).json({status: "fail", error: "No body sent"});
 
-  const {AZURE_USERNAME, AZURE_PASSWORD, SUBSCRIPTION_ID} = req.body;
+  const {
+    AZURE_CLIENT_ID,
+    AZURE_CLIENT_SECRET,
+    AZURE_TENANT_ID,
+    SUBSCRIPTION_ID,
+  } = req.body;
 
   if (
-    notNonEmptyString(AZURE_USERNAME) &&
-    notNonEmptyString(AZURE_PASSWORD) &&
+    notNonEmptyString(AZURE_CLIENT_ID) &&
+    notNonEmptyString(AZURE_CLIENT_SECRET) &&
+    notNonEmptyString(AZURE_TENANT_ID) &&
     notNonEmptyString(SUBSCRIPTION_ID)
   ) {
     res.status(200).json({status: "fail", error: "Input data error"});
@@ -26,7 +32,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   BashExec(
-    `echo AZURE_USERNAME=${AZURE_USERNAME} AZURE_PASSWORD=${AZURE_PASSWORD} SUBSCRIPTION_ID=${SUBSCRIPTION_ID}`,
+    `sh pages/api/scripts/azure-login.sh ${AZURE_CLIENT_ID} ${AZURE_CLIENT_SECRET} ${AZURE_TENANT_ID} ${SUBSCRIPTION_ID}`,
     res
   );
 }
