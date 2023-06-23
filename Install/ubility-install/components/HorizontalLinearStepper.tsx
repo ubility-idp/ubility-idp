@@ -55,30 +55,32 @@ export default function HorizontalLinearStepper() {
   return (
     <Box sx={{width: "100%"}}>
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((step, index) => {
-          const stepProps: {completed?: boolean} = {};
-          const labelProps: {
-            optional?: ReactNode;
-          } = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
+        {steps
+          .sort((a, b) => a.nb - b.nb)
+          .map((step, index) => {
+            const stepProps: {completed?: boolean} = {};
+            const labelProps: {
+              optional?: ReactNode;
+            } = {};
+            if (isStepOptional(index)) {
+              labelProps.optional = (
+                <Typography variant="caption">Optional</Typography>
+              );
+            }
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+            return (
+              <Step key={step.label} {...stepProps}>
+                <StepLabel {...labelProps}>{step.label}</StepLabel>
+              </Step>
             );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={step.label} {...stepProps}>
-              <StepLabel {...labelProps}>{step.label}</StepLabel>
-            </Step>
-          );
-        })}
+          })}
       </Stepper>
       {steps
-        .sort((a, b) => b.nb - a.nb)
+        .sort((a, b) => a.nb - b.nb)
         .map((step, i) => (
-          <div key={i} className={`${i === activeStep && "hidden"}`}>
+          <div key={i} className={`${step.nb !== activeStep && "hidden"}`}>
             <InstallStep
               step={step}
               handleNext={handleNext}

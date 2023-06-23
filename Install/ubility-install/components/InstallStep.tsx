@@ -29,7 +29,12 @@ export default function InstallStep({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({error: false, message: ""});
-  const {handleSubmit, reset, control} = useForm();
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: {errors},
+  } = useForm();
   const onSubmit = async (data: any) => {
     setLoading(true);
     console.log(data);
@@ -45,13 +50,19 @@ export default function InstallStep({
     const result = await res.json();
     if (result.status === "pass")
       setError({error: result.result.error, message: result.result.stderr});
-    else setError({error: true, message: result.result.error});
+    else {
+      try {
+        setError({error: true, message: result?.result?.error});
+      } catch (error) {
+        setError({error: true, message: "Internal server error"});
+      }
+    }
     setLoading(false);
     if (result.result.error === false) handleNext();
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-6 px-12">
         <div className="my-6">{loading && <LinearProgress />}</div>
         <div className="my-6">
@@ -64,11 +75,21 @@ export default function InstallStep({
               name={input.id}
               control={control}
               render={({field: {onChange, value}}) => (
-                <TextField
-                  onChange={onChange}
-                  value={value === undefined ? "" : value}
-                  label={input.label}
-                />
+                <>
+                  <TextField
+                    className=""
+                    required
+                    id={input.id}
+                    {...register("name", {required: true})}
+                    onChange={onChange}
+                    value={value === undefined ? "" : value}
+                    label={input.label}
+                  />
+                  {errors?.[input.id] &&
+                    errors?.[input.id]?.type === "required" && (
+                      <span>This is required</span>
+                    )}
+                </>
               )}
             />
           ))}
@@ -96,7 +117,7 @@ export default function InstallStep({
                   Back
                 </Button>
                 <Box sx={{flex: "1 1 auto"}} />
-                <Button onClick={handleSubmit(onSubmit)}>
+                <Button type="submit">
                   {activeStep === stepsNb - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>
