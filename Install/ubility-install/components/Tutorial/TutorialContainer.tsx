@@ -1,7 +1,7 @@
 import {Step} from "@/static/steps";
 import React, {ReactNode} from "react";
 import TutorialStep from "./TutorialStep";
-import {Typography} from "@mui/material";
+import {Paper, Typography} from "@mui/material";
 
 interface Props {
   step: Step;

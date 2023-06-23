@@ -1,6 +1,8 @@
 import {StaticImageData} from "next/image";
-import step1 from "../assets/images/tutorials/azure_login/step1.png";
-import step2 from "../assets/images/tutorials/azure_login/step2.png";
+import azure_login_step1 from "../assets/images/tutorials/azure_login/step1.png";
+import azure_login_step2 from "../assets/images/tutorials/azure_login/step2.png";
+import github_setup_step1 from "../assets/images/tutorials/github_setup/step1.png";
+import github_setup_step2 from "../assets/images/tutorials/github_setup/step2.png";
 
 export type Input = {
   id: string;
@@ -14,6 +16,7 @@ export type TutStep = {
   instructions: string[];
   image_visible: boolean;
   image: StaticImageData;
+  link?: {title: string; url: string};
 };
 
 export type Step = {
@@ -53,21 +56,18 @@ const steps: Step[] = [
             "Click on App registrations",
           ],
           image_visible: true,
-          image: step1,
+          image: azure_login_step1,
+          link: {
+            title: "https://portal.azure.com/#home",
+            url: "https://portal.azure.com/#home",
+          },
         },
         {
           nb: 1,
           title: "Create new app registration",
           instructions: ["Click on New registration"],
           image_visible: true,
-          image: step2,
-        },
-        {
-          nb: 2,
-          title: "Kalamouniiiiiiiiii",
-          instructions: ["Click on New registration"],
-          image_visible: true,
-          image: step2,
+          image: azure_login_step2,
         },
       ],
     },
@@ -87,33 +87,21 @@ const steps: Step[] = [
       steps: [
         {
           nb: 0,
-          title: "Open AZure Portal",
-          instructions: [""],
+          title: "Open github token page",
+          instructions: [],
           image_visible: true,
-          image: step1,
+          image: github_setup_step1,
+          link: {
+            title: "https://github.com/settings/tokens/new",
+            url: "https://github.com/settings/tokens/new",
+          },
         },
-      ],
-    },
-  },
-  {
-    id: "github_setup2",
-    nb: 2,
-    label: "Github Setup 2",
-    api_endpoint: "github-setup2",
-    inputs: [
-      {id: "GITHUB_USERNAME", label: "Github Username", type: "text"},
-      {id: "GITHUB_TOKEN", label: "Github Token", type: "text"},
-    ],
-    tutorial: {
-      visible: true,
-      title: "App Registration Step",
-      steps: [
         {
-          nb: 0,
-          title: "Open AZure Portal",
-          instructions: [""],
+          nb: 1,
+          title: "Generate token",
+          instructions: [],
           image_visible: true,
-          image: step1,
+          image: github_setup_step2,
         },
       ],
     },

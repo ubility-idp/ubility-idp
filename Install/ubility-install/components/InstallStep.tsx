@@ -112,21 +112,21 @@ export default function InstallStep({
             </>
           ) : (
             <div className="w-full flex justify-center">
-              <div className="w-52">
-                <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-                  <Button
-                    color="inherit"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{mr: 1}}
-                  >
-                    Back
-                  </Button>
-                  <Box sx={{flex: "1 1 auto"}} />
-                  <Button type="submit">
-                    {activeStep === stepsNb - 1 ? "Finish" : "Next"}
-                  </Button>
-                </Box>
+              <div className="flex justify-between w-full max-w-sm mt-5">
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{mr: 1}}
+                >
+                  Back
+                </Button>
+                <Button variant="text" onClick={handleNext}>
+                  Skip
+                </Button>
+                <Button variant="outlined" type="submit">
+                  {activeStep === stepsNb - 1 ? "Finish" : "Next"}
+                </Button>
               </div>
             </div>
           )}
