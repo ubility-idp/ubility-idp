@@ -1,16 +1,15 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import InstallStep from "./InstallStep";
-import steps from "./steps";
+import steps from "../static/steps";
+import {ReactNode, useState} from "react";
+import {Step} from "@mui/material";
 
 export default function HorizontalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set<number>());
 
   const isStepOptional = (step: number) => {
     // return step === 1;
@@ -59,7 +58,7 @@ export default function HorizontalLinearStepper() {
         {steps.map((step, index) => {
           const stepProps: {completed?: boolean} = {};
           const labelProps: {
-            optional?: React.ReactNode;
+            optional?: ReactNode;
           } = {};
           if (isStepOptional(index)) {
             labelProps.optional = (
@@ -76,42 +75,20 @@ export default function HorizontalLinearStepper() {
           );
         })}
       </Stepper>
-      <InstallStep step={steps[activeStep]} />
-      {activeStep === steps.length ? (
-        <>
-          <Typography sx={{mt: 2, mb: 1}}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-            <Box sx={{flex: "1 1 auto"}} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </>
-      ) : (
-        <div className="w-full flex justify-center">
-          <div className="w-52">
-            <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{mr: 1}}
-              >
-                Back
-              </Button>
-              <Box sx={{flex: "1 1 auto"}} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{mr: 1}}>
-                  Skip
-                </Button>
-              )}
-              <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
+      {steps
+        .sort((a, b) => b.nb - a.nb)
+        .map((step, i) => (
+          <div key={i} className={`${i === activeStep && "hidden"}`}>
+            <InstallStep
+              step={step}
+              handleNext={handleNext}
+              handleReset={handleReset}
+              handleBack={handleReset}
+              activeStep={activeStep}
+              stepsNb={steps.length}
+            />
           </div>
-        </div>
-      )}
+        ))}
     </Box>
   );
 }
