@@ -10,12 +10,14 @@ const BashExec = (cmd: string, res: NextApiResponse) => {
         status: "pass",
         result: {error: error ? true : false, stdout, stderr},
       });
+      return error ? true : false;
     });
   } catch (error) {
     res.status(200).json({
       status: "fail",
       error: `Error in child process: ${error}`,
     });
+    return false;
   }
 };
 

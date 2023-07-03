@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
+import {addEnvVar, finishedStep} from "./utils/helperFunctions";
 
 function notNonEmptyString(variable: any): boolean {
   if (typeof variable === "string" && variable.trim().length > 0) {
@@ -31,8 +32,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  BashExec(
+  const pass = BashExec(
     `sh pages/api/scripts/azure-login.sh ${AZURE_CLIENT_ID} ${AZURE_CLIENT_SECRET} ${AZURE_TENANT_ID} ${SUBSCRIPTION_ID}`,
     res
   );
+
+  if (pass) {
+    addEnvVar("AZURE_CLIENT_ID", AZURE_CLIENT_ID);
+    addEnvVar("AZURE_CLIENT_SECRET", AZURE_CLIENT_SECRET);
+    addEnvVar("AZURE_TENANT_ID", AZURE_TENANT_ID);
+    addEnvVar("SUBSCRIPTION_ID", SUBSCRIPTION_ID);
+  }
+  finishedStep(0);
 }

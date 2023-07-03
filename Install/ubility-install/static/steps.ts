@@ -1,8 +1,14 @@
 import {StaticImageData} from "next/image";
+
 import azure_login_step1 from "../assets/images/tutorials/azure_login/step1.png";
 import azure_login_step2 from "../assets/images/tutorials/azure_login/step2.png";
+
 import github_setup_step1 from "../assets/images/tutorials/github_setup/step1.png";
 import github_setup_step2 from "../assets/images/tutorials/github_setup/step2.png";
+
+import github_oauth_step1 from "../assets/images/tutorials/github_oauth/step1.png";
+import github_oauth_step2 from "../assets/images/tutorials/github_oauth/step2.png";
+import github_oauth_step3 from "../assets/images/tutorials/github_oauth/step3.png";
 
 export type Input = {
   id: string;
@@ -79,7 +85,7 @@ const steps: Step[] = [
     api_endpoint: "github-setup",
     inputs: [
       {id: "GITHUB_USERNAME", label: "Github Username", type: "text"},
-      {id: "GITHUB_TOKEN", label: "Github Token", type: "text"},
+      {id: "GITHUB_TOKEN", label: "Github Token", type: "password"},
     ],
     tutorial: {
       visible: true,
@@ -102,6 +108,55 @@ const steps: Step[] = [
           instructions: [],
           image_visible: true,
           image: github_setup_step2,
+        },
+      ],
+    },
+  },
+  {
+    id: "github_oauth",
+    nb: 2,
+    label: "Github Oauth",
+    api_endpoint: "github-oauth",
+    inputs: [
+      {id: "GITHUB_CLIENT_ID", label: "Github Client Id", type: "text"},
+      {id: "GITHUB_CLIENT_SECRET", label: "Github Secret", type: "password"},
+    ],
+    tutorial: {
+      visible: true,
+      title: "OAuth App Registration",
+      steps: [
+        {
+          nb: 0,
+          title: "Open the Register a new OAuth application page",
+          instructions: [
+            "Enter http://<VM_ADDRESS>:7007/ into the Homepage URL* field",
+            "Enter http://<VM_ADDRESS>:7007/api/auth/github/handler/frame into the Authorization callback URL* field",
+          ],
+          image_visible: true,
+          image: github_oauth_step1,
+          link: {
+            title: "https://github.com/settings/applications/new",
+            url: "https://github.com/settings/applications/new",
+          },
+        },
+        {
+          nb: 1,
+          title: "Copy Client ID",
+          instructions: [
+            "Copy the Client ID and paste it in the installation guide",
+          ],
+          image_visible: true,
+          image: github_oauth_step2,
+        },
+        {
+          nb: 2,
+          title: "Generate a new client secret",
+          instructions: [
+            "Click on 'Generate a new client secret'",
+            "Copy the generated client secret and paste it in the installation guide",
+          ],
+          image_visible: true,
+          image: github_oauth_step3,
         },
       ],
     },
