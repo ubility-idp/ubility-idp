@@ -85,7 +85,7 @@ export default function HorizontalLinearStepper() {
               step={step}
               handleNext={handleNext}
               handleReset={handleReset}
-              handleBack={handleReset}
+              handleBack={handleBack}
               activeStep={activeStep}
               stepsNb={steps.length}
             />

@@ -23,6 +23,7 @@ export type TutStep = {
   image_visible: boolean;
   image: StaticImageData;
   link?: {title: string; url: string};
+  input_link?: string;
 };
 
 export type Step = {
@@ -147,6 +148,7 @@ const steps: Step[] = [
           ],
           image_visible: true,
           image: github_oauth_step2,
+          input_link: "GITHUB_CLIENT_ID",
         },
         {
           nb: 2,
@@ -157,6 +159,7 @@ const steps: Step[] = [
           ],
           image_visible: true,
           image: github_oauth_step3,
+          input_link: "GITHUB_CLIENT_SECRET",
         },
       ],
     },

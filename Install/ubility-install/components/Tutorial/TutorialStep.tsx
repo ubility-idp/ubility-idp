@@ -10,7 +10,10 @@ type Props = {
 function TutorialStep({tutStep}: Props) {
   return (
     <Paper className="px-6 py-2">
-      <div className="flex gap-4 items-center my-2">
+      <div
+        id={`${tutStep.input_link}-tut-step`}
+        className="flex gap-4 items-center my-2"
+      >
         <Typography className="text-lg ">{`${tutStep.nb + 1}) ${
           tutStep.title
         }`}</Typography>

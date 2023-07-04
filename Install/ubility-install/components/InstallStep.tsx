@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from "react";
+import React, {useState} from "react";
 import {Step} from "../static/steps";
 import {Controller, useForm} from "react-hook-form";
 import {
@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import TutorialContainer from "./Tutorial/TutorialContainer";
+import Link from "next/link";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 interface Props {
   step: Step;
@@ -78,8 +80,9 @@ export default function InstallStep({
                 name={input.id}
                 control={control}
                 render={({field: {onChange, value}}) => (
-                  <>
+                  <div className="flex items-center gap-5 w-full">
                     <TextField
+                      className="w-full"
                       type={input.type}
                       onFocus={() => {
                         if (error.error) setError({error: false, message: ""});
@@ -95,7 +98,10 @@ export default function InstallStep({
                       errors?.[input.id]?.type === "required" && (
                         <span>This is required</span>
                       )}
-                  </>
+                    <Link href={`/#${input.id}-tut-step`}>
+                      <HelpOutlineIcon color="info" />
+                    </Link>
+                  </div>
                 )}
               />
             ))}
