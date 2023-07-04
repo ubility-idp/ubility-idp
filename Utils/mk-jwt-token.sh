@@ -1,9 +1,5 @@
-
 #!/usr/bin/env bash
-# 
-# usage: JWT_SECRET="silly" mk-jwt-token 
-# @WARN: modify the payload and header to your needs.
-#  
+
 main(){
   set -eo pipefail
 

@@ -1,13 +1,15 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
 import add_key_to_github from "./utils/add_key_to_github";
-import {addEnvVar, finishedStep, notNonEmptyString} from "./utils/helperFunctions";
+import {
+  addEnvVar,
+  finishedStep,
+  notNonEmptyString,
+} from "./utils/helperFunctions";
 
 var keygen = require("ssh-keygen");
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.body);
-
   if (req.body === undefined)
     res.status(200).json({status: "fail", error: "No body sent"});
 
