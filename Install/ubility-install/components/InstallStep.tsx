@@ -68,19 +68,19 @@ export default function InstallStep({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-6 px-12">
+        <div className="my-6 px-2 md:px-12">
           <div className="my-6">{loading && <LinearProgress />}</div>
           <div className="my-6">
             {error.error && <Alert severity="error">{error.message}</Alert>}
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {step.inputs.map((input, i) => (
               <Controller
                 key={i}
                 name={input.id}
                 control={control}
                 render={({field: {onChange, value}}) => (
-                  <div className="flex items-center gap-5 w-full">
+                  <div className="relative">
                     <TextField
                       className="w-full"
                       type={input.type}
@@ -98,9 +98,11 @@ export default function InstallStep({
                       errors?.[input.id]?.type === "required" && (
                         <span>This is required</span>
                       )}
-                    <Link href={`/#${input.id}-tut-step`}>
-                      <HelpOutlineIcon color="info" />
-                    </Link>
+                    <div className="absolute inset-y-0 right-5 flex items-center">
+                      <Link href={`/#${input.id}-tut-step`}>
+                        <HelpOutlineIcon color="info" />
+                      </Link>
+                    </div>
                   </div>
                 )}
               />
