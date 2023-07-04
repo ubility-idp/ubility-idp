@@ -1,13 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
-import {addEnvVar, finishedStep} from "./utils/helperFunctions";
-
-function notNonEmptyString(variable: any): boolean {
-  if (typeof variable === "string" && variable.trim().length > 0) {
-    return false;
-  }
-  return true;
-}
+import {addEnvVar, finishedStep, notNonEmptyString} from "./utils/helperFunctions";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.body);

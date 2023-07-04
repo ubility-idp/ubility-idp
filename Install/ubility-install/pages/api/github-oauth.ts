@@ -1,0 +1,41 @@
+import {NextApiRequest, NextApiResponse} from "next";
+
+import {
+  addEnvVar,
+  finishedStep,
+  notNonEmptyString,
+} from "./utils/helperFunctions";
+
+var keygen = require("ssh-keygen");
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req.body);
+
+  if (req.body === undefined)
+    res.status(200).json({status: "fail", error: "No body sent"});
+
+  const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET} = req.body;
+
+  if (
+    notNonEmptyString(GITHUB_CLIENT_ID) &&
+    notNonEmptyString(GITHUB_CLIENT_SECRET)
+  ) {
+    res.status(200).json({status: "fail", error: "Input data error"});
+    return;
+  } else {
+    let pass = false;
+    pass = addEnvVar("GITHUB_USERNAME", GITHUB_CLIENT_ID);
+    pass = addEnvVar("GITHUB_TOKEN", GITHUB_CLIENT_SECRET);
+
+    res.status(200).json({
+      status: "pass",
+      result: {
+        error: !pass,
+        stdout: "",
+        stderr: "Error adding variable to env file",
+      },
+    });
+  }
+
+  finishedStep(2);
+}

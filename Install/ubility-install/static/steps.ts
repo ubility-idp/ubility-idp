@@ -71,7 +71,7 @@ const steps: Step[] = [
         {
           nb: 1,
           title: "Create new app registration",
-          instructions: ["Click on New registration"],
+          instructions: ["Click New registration"],
           image_visible: true,
           image: azure_login_step2,
         },
@@ -81,7 +81,7 @@ const steps: Step[] = [
   {
     id: "github_setup",
     nb: 1,
-    label: "Github Setup",
+    label: "Github SSH Key",
     api_endpoint: "github-setup",
     inputs: [
       {id: "GITHUB_USERNAME", label: "Github Username", type: "text"},

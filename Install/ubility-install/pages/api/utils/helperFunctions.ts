@@ -27,3 +27,10 @@ export const finishedStep = (step_nb: number) => {
     return false;
   }
 };
+
+export const notNonEmptyString = (variable: any): boolean => {
+  if (typeof variable === "string" && variable.trim().length > 0) {
+    return false;
+  }
+  return true;
+};

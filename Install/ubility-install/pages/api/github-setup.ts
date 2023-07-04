@@ -1,16 +1,9 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
 import add_key_to_github from "./utils/add_key_to_github";
-import {addEnvVar, finishedStep} from "./utils/helperFunctions";
+import {addEnvVar, finishedStep, notNonEmptyString} from "./utils/helperFunctions";
 
 var keygen = require("ssh-keygen");
-
-function notNonEmptyString(variable: any): boolean {
-  if (typeof variable === "string" && variable.trim().length > 0) {
-    return false;
-  }
-  return true;
-}
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.body);
