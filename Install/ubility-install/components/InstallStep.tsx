@@ -1,4 +1,10 @@
-import React, {useState} from "react";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import {Step} from "../static/steps";
 import {Controller, useForm} from "react-hook-form";
 import {
@@ -65,9 +71,19 @@ export default function InstallStep({
     if (result.result.error === false) handleNext();
   };
 
+  const formRef: MutableRefObject<HTMLFormElement | null> = useRef(null);
+
+  useEffect(() => {
+    if (formRef.current !== null) {
+      if (activeStep === step.nb && step.inputs.length === 0) {
+        onSubmit({});
+      }
+    }
+  }, [activeStep, step.inputs.length, step.nb]);
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="my-8 px-2 md:px-12">
           <div className="w-full flex justify-center">
             <Typography className="text-2xl">{step.label}</Typography>
