@@ -164,6 +164,30 @@ const steps: Step[] = [
       ],
     },
   },
+  {
+    id: "automation-setup",
+    nb: 3,
+    label: "Automation Setup",
+    api_endpoint: "automation-setup",
+    inputs: [],
+    tutorial: {
+      visible: false,
+      title: "",
+      steps: [],
+    },
+  },
+  {
+    id: "adding-cred-to-jenkins",
+    nb: 4,
+    label: "Adding Credentials to Jenkins",
+    api_endpoint: "adding-cred-to-jenkins",
+    inputs: [],
+    tutorial: {
+      visible: false,
+      title: "",
+      steps: [],
+    },
+  },
 ];
 
 export default steps;

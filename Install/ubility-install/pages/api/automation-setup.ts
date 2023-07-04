@@ -7,9 +7,16 @@ import {
 } from "./utils/helperFunctions";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // BashExec(
-  //   `echo GITHUB_USERNAME=${GITHUB_USERNAME} GITHUB_TOKEN=${GITHUB_TOKEN}`,
-  //   res
-  // );
+  const secret = (Math.random() + 1).toString(36).substring(7);
+
+  console.log(secret);
+
+  const pass = BashExec(
+    `sh pages/api/scripts/automation-setup.sh '${secret}'`,
+    res
+  );
+  if (pass) {
+    addEnvVar("JWT_SECRET", secret);
+  }
   finishedStep(3);
 }

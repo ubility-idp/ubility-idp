@@ -68,7 +68,10 @@ export default function InstallStep({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-6 px-2 md:px-12">
+        <div className="my-8 px-2 md:px-12">
+          <div className="w-full flex justify-center">
+            <Typography className="text-2xl">{step.label}</Typography>
+          </div>
           <div className="my-6">{loading && <LinearProgress />}</div>
           <div className="my-6">
             {error.error && <Alert severity="error">{error.message}</Alert>}
