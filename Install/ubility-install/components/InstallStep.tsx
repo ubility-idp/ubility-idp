@@ -73,6 +73,28 @@ export default function InstallStep({
 
   const formRef: MutableRefObject<HTMLFormElement | null> = useRef(null);
 
+  const fetchStepStatus = async () => {
+    const res = await fetch(`/api/check-step-completion`, {
+      method: "POST",
+      body: JSON.stringify({env_vars: step.inputs.map((input) => input.id)}),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const result = await res.json();
+    if (result.status === "pass") {
+      if (result.step_finished === true) {
+        handleNext();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (activeStep === step.nb) {
+      fetchStepStatus();
+    }
+  }, [activeStep]);
+
   useEffect(() => {
     if (formRef.current !== null) {
       if (activeStep === step.nb && step.inputs.length === 0) {

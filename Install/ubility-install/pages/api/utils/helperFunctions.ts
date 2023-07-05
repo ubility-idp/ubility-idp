@@ -3,7 +3,7 @@ import * as fs from "fs";
 export const addEnvVar = (key: string, value: string) => {
   const filePath = "./env_vars.json";
   try {
-    let content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
     content[key] = value;
 
     fs.writeFileSync(filePath, JSON.stringify(content));
