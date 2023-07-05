@@ -1,19 +1,25 @@
 import * as fs from "fs";
 
 export const addEnvVar = (key: string, value: string) => {
-  const filePath = "./.ubility.env";
-  const content = `${key}='${value}'\n`;
+  const filePath = "./env_vars.json";
+  let content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  content[key] = value;
 
-  try {
-    fs.appendFileSync(filePath, content);
-    return true;
-  } catch (error) {
-    console.error(
-      "An error occurred while writing to ubility env file:",
-      error
-    );
-    return false;
-  }
+  fs.writeFileSync(filePath, JSON.stringify(content));
+
+  // const filePath = "./.ubility.env";
+  // const content = `${key}='${value}'\n`;
+
+  // try {
+  //   fs.appendFileSync(filePath, content);
+  //   return true;
+  // } catch (error) {
+  //   console.error(
+  //     "An error occurred while writing to ubility env json file:",
+  //     error
+  //   );
+  //   return false;
+  // }
 };
 
 export const finishedStep = (step_nb: number) => {

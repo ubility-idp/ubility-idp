@@ -36,3 +36,7 @@ next-env.d.ts
 
 .vscode
 .ssh
+
+.ubility.env
+env_vars.json
+step.txt

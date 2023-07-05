@@ -41,8 +41,45 @@ export type Step = {
 
 const steps: Step[] = [
   {
-    id: "azure_login",
+    id: "jenkins_setup",
     nb: 0,
+    label: "Jenkins Setup",
+    api_endpoint: "jenkins-setup",
+    inputs: [
+      {id: "JENKINS_USERNAME", label: "Jenkins Username", type: "text"},
+      {id: "JENKINS_API_TOKEN", label: "Jenkins API Token", type: "password"},
+    ],
+    tutorial: {
+      visible: true,
+      title: "",
+      steps: [
+        {
+          nb: 0,
+          title: "Open Azure Portal",
+          instructions: [
+            "Search for 'app registrations'",
+            "Click on App registrations",
+          ],
+          image_visible: true,
+          image: azure_login_step1,
+          link: {
+            title: "https://portal.azure.com/#home",
+            url: "https://portal.azure.com/#home",
+          },
+        },
+        {
+          nb: 1,
+          title: "Create new app registration",
+          instructions: ["Click New registration"],
+          image_visible: true,
+          image: azure_login_step2,
+        },
+      ],
+    },
+  },
+  {
+    id: "azure_login",
+    nb: 1,
     label: "Azure Login",
     api_endpoint: "azure-login",
     inputs: [
@@ -81,7 +118,7 @@ const steps: Step[] = [
   },
   {
     id: "github_setup",
-    nb: 1,
+    nb: 2,
     label: "Github SSH Key",
     api_endpoint: "github-setup",
     inputs: [
@@ -115,7 +152,7 @@ const steps: Step[] = [
   },
   {
     id: "github_oauth",
-    nb: 2,
+    nb: 3,
     label: "Github Oauth",
     api_endpoint: "github-oauth",
     inputs: [
@@ -166,7 +203,7 @@ const steps: Step[] = [
   },
   {
     id: "automation-setup",
-    nb: 3,
+    nb: 4,
     label: "Automation Setup",
     api_endpoint: "automation-setup",
     inputs: [],
@@ -178,7 +215,7 @@ const steps: Step[] = [
   },
   {
     id: "adding-cred-to-jenkins",
-    nb: 4,
+    nb: 5,
     label: "Adding Credentials to Jenkins",
     api_endpoint: "adding-cred-to-jenkins",
     inputs: [],

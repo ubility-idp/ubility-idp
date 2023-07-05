@@ -39,6 +39,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       if (pass) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
         addEnvVar("GITHUB_TOKEN", GITHUB_TOKEN);
+        addEnvVar("PRIVATE_KEY", out.key);
       }
 
       res.status(200).json({

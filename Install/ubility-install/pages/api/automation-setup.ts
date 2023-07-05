@@ -7,16 +7,11 @@ import {
 } from "./utils/helperFunctions";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const secret = (Math.random() + 1).toString(36).substring(7);
+  const secret = (Math.random() + 1).toString(36);
 
   console.log(secret);
 
-  const pass = BashExec(
-    `sh pages/api/scripts/automation-setup.sh '${secret}'`,
-    res
-  );
-  if (pass) {
-    addEnvVar("JWT_SECRET", secret);
-  }
+  BashExec(`sh pages/api/scripts/automation-setup.sh '${secret}'`, res);
+
   finishedStep(3);
 }

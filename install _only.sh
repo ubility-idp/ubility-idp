@@ -171,9 +171,6 @@ export APP_BASE_URL="http://$VM_ADDRESS:7007"
 export BACKEND_BASE_URL="http://$VM_ADDRESS:7007"
 export ORIGIN="http://$VM_ADDRESS:7007"
 
-export AZURE_USERNAME=$AZURE_USERNAME
-export AZURE_PASSWORD=$AZURE_PASSWORD
-
 #_______________________________________________________________________________________________________
 # clear
 cd Jenkins
