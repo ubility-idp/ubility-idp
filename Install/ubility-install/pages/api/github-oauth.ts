@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.body);
 
   if (req.body === undefined)
-    res.status(200).json({status: "fail", error: "No body sent"});
+    res.status(400).json({status: "fail", error: "No body sent"});
 
   const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET} = req.body;
 
@@ -20,7 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     notNonEmptyString(GITHUB_CLIENT_ID) &&
     notNonEmptyString(GITHUB_CLIENT_SECRET)
   ) {
-    res.status(200).json({status: "fail", error: "Input data error"});
+    res.status(400).json({status: "fail", error: "Input data error"});
     return;
   } else {
     let pass = false;
@@ -32,7 +32,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       result: {
         error: !pass,
         stdout: "",
-        stderr: "Error adding variable to env file",
+        stderr: "",
       },
     });
   }

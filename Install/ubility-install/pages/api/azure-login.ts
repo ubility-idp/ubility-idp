@@ -6,7 +6,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.body);
 
   if (req.body === undefined)
-    res.status(200).json({status: "fail", error: "No body sent"});
+    res.status(400).json({status: "fail", error: "No body sent"});
 
   const {
     AZURE_CLIENT_ID,
@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     notNonEmptyString(AZURE_TENANT_ID) &&
     notNonEmptyString(SUBSCRIPTION_ID)
   ) {
-    res.status(200).json({status: "fail", error: "Input data error"});
+    res.status(400).json({status: "fail", error: "Input data error"});
     return;
   }
 

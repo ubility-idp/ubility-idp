@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import BashExec from "./utils/BashExec";
 import add_key_to_github from "./utils/add_key_to_github";
 import {
   addEnvVar,
@@ -11,12 +10,12 @@ var keygen = require("ssh-keygen");
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.body === undefined)
-    res.status(200).json({status: "fail", error: "No body sent"});
+    res.status(400).json({status: "fail", error: "No body sent"});
 
   const {GITHUB_USERNAME, GITHUB_TOKEN} = req.body;
 
   if (notNonEmptyString(GITHUB_USERNAME) && notNonEmptyString(GITHUB_TOKEN)) {
-    res.status(200).json({status: "fail", error: "Input data error"});
+    res.status(400).json({status: "fail", error: "Input data error"});
     return;
   }
 
@@ -28,7 +27,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     },
     async function (err: string, out: {key: string; pubKey: string}) {
       if (err) {
-        res.status(200).json({
+        res.status(500).json({
           status: "fail",
           result: {error: true, stdout: "", stderr: err},
         });

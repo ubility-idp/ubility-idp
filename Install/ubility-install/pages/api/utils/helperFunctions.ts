@@ -2,11 +2,19 @@ import * as fs from "fs";
 
 export const addEnvVar = (key: string, value: string) => {
   const filePath = "./env_vars.json";
-  let content = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  content[key] = value;
+  try {
+    let content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    content[key] = value;
 
-  fs.writeFileSync(filePath, JSON.stringify(content));
-
+    fs.writeFileSync(filePath, JSON.stringify(content));
+    return true;
+  } catch (error) {
+    console.log(
+      "An error occurred while writing to ubility env json file:",
+      error
+    );
+    return false;
+  }
   // const filePath = "./.ubility.env";
   // const content = `${key}='${value}'\n`;
 
