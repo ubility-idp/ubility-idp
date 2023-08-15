@@ -43,18 +43,19 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
         addEnvVar("GITHUB_TOKEN", GITHUB_TOKEN);
         addEnvVar("PRIVATE_KEY", out.key);
+
+        res.status(200).json({
+          status: "pass",
+          result: {error: false, stdout: "", stderr: ""},
+        });
       }
 
-      res.status(pass ? 200 : 500).json({
+      res.status(500).json({
         status: pass ? "pass" : "fail",
         result: {error: result},
       });
     }
   );
 
-  // BashExec(
-  //   `echo GITHUB_USERNAME=${GITHUB_USERNAME} GITHUB_TOKEN=${GITHUB_TOKEN}`,
-  //   res
-  // );
   finishedStep(1);
 }
