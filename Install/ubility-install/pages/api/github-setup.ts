@@ -33,7 +33,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         });
         return console.error("Error in github ssh key generation: " + err);
       }
-      const pass = await add_key_to_github(GITHUB_TOKEN, out.pubKey);
+      console.log({GITHUB_TOKEN, pubkey: out.pubKey});
+
+      const {pass, result} = await add_key_to_github(GITHUB_TOKEN, out.pubKey);
+
+      console.log({pass, result});
 
       if (pass) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
@@ -41,9 +45,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         addEnvVar("PRIVATE_KEY", out.key);
       }
 
-      res.status(200).json({
+      res.status(pass ? 200 : 500).json({
         status: pass ? "pass" : "fail",
-        result: {error: !pass, stdout: "", stderr: err},
+        result: {error: !pass, stdout: "", stderr: result},
       });
     }
   );

@@ -1,5 +1,6 @@
 #!/bin/sh
 # clear
+working_dir = $(pwd)
 echo '--------------- Preparing Virtual Machine ---------------'
 echo
 # apt
@@ -12,7 +13,7 @@ echo
 # install terraform
 curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor >hashicorp.gpg
 sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
-sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt install -y terraform
 
 # clear
@@ -27,7 +28,6 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo chmod 666 /var/run/docker.sock
-
 
 # clear
 echo '--------------- Installing Azure cli ---------------'
@@ -54,3 +54,20 @@ docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
+
+docker exec "jenkins" apt-get update -y
+docker exec "jenkins" apt-get install gettext -y
+docker exec "jenkins" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+docker exec "jenkins" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+docker exec "jenkins" ssh -tt -o StrictHostKeyChecking=no github.com
+
+#_______________________________________________________________________________________________________
+# clear
+echo '--------------- Installation Tool Dependencies ---------------'
+cd
+curl -sL https://deb.nodesource.com/setup_18.x -o /tmp/nodesource_setup.sh
+sudo apt install -y nodejs
+
+cd $working_dir
+cd Install/ubility-install
+npm install

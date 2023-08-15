@@ -1,7 +1,7 @@
 const add_key_to_github = async (
   token: string,
   key: string
-): Promise<boolean> => {
+): Promise<{pass: boolean; result: string}> => {
   const url = "https://api.github.com/user/keys";
   const title = "ubility-idp";
 
@@ -23,15 +23,15 @@ const add_key_to_github = async (
     });
     if (response.status === 201) {
       console.log("Key added successfully.");
-      return true;
+      return {pass: true, result: "success"};
     } else {
-      response.text().then((text) => {
-        console.error(`Error: ${text}`);
-      });
-      return false;
+      const text = await response.text();
+      console.log(`Github Error: ${text}`);
+
+      return {pass: false, result: `Error: ${text}`};
     }
   } catch (error) {
-    return false;
+    return {pass: false, result: error as string};
   }
 };
 

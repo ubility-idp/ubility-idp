@@ -1,9 +1,15 @@
 import * as fs from "fs";
+interface Idictionary {
+  [key: string]: string;
+}
 
 export const addEnvVar = (key: string, value: string) => {
   const filePath = "./env_vars.json";
+  let content: Idictionary = {};
   try {
-    const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {}
+  try {
     content[key] = value;
 
     fs.writeFileSync(filePath, JSON.stringify(content));
