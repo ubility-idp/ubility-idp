@@ -11,34 +11,21 @@ const BashExec = async (
   cmd: string,
   res: NextApiResponse
 ): Promise<BAshExecReturn> => {
-  let pass = false;
-  let err = "";
-  let result = {stdout: "", stderr: ""};
-
   return new Promise<BAshExecReturn>((resolve, reject) => {
     try {
       exec(cmd, (error, stdout, stderr) => {
         console.log({error, stdout, stderr});
-
-        pass = error ? false : true;
-        result.stdout = stdout;
-        result.stderr = stderr;
-        err = "";
         resolve({
-          pass: pass,
-          result: result,
-          error: err,
+          pass: error ? false : true,
+          result: {stdout: stdout, stderr: stderr},
+          error: "",
         });
       });
     } catch (error) {
-      pass = false;
-      result.stdout = "";
-      result.stderr = "";
-      err = error as string;
       reject({
-        pass: pass,
-        result: result,
-        error: err,
+        pass: false,
+        result: {stdout: "", stderr: ""},
+        error: error as string,
       });
     }
   });
