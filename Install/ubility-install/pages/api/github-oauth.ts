@@ -6,8 +6,6 @@ import {
   notNonEmptyString,
 } from "./utils/helperFunctions";
 
-var keygen = require("ssh-keygen");
-
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.body);
 

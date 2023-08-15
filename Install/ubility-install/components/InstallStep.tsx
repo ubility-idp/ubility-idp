@@ -90,6 +90,10 @@ export default function InstallStep({
   };
 
   useEffect(() => {
+    console.log({err_mes: error.message});
+  }, [error]);
+
+  useEffect(() => {
     if (activeStep === step.nb) {
       fetchStepStatus();
     }

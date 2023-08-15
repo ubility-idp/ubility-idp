@@ -3,8 +3,7 @@ import {NextApiResponse} from "next";
 
 type BAshExecReturn = {
   pass: boolean;
-  result: {stdout: string; stderr: string};
-  error: string;
+  result: {error: boolean; stdout: string; stderr: string};
 };
 
 const BashExec = async (
@@ -16,16 +15,14 @@ const BashExec = async (
       exec(cmd, (error, stdout, stderr) => {
         console.log({error, stdout, stderr});
         resolve({
-          pass: error ? false : true,
-          result: {stdout: stdout, stderr: stderr},
-          error: "",
+          pass: true,
+          result: {error: error ? true : false, stdout: stdout, stderr: stderr},
         });
       });
     } catch (error) {
       reject({
         pass: false,
-        result: {stdout: "", stderr: ""},
-        error: error as string,
+        result: {error: true, stdout: "", stderr: error},
       });
     }
   });

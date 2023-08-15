@@ -32,7 +32,7 @@ export default async function handler(
     return;
   }
 
-  const {pass, result, error} = await BashExec(
+  const {pass, result} = await BashExec(
     `sh pages/api/scripts/azure-login.sh ${AZURE_CLIENT_ID} ${AZURE_CLIENT_SECRET} ${AZURE_TENANT_ID} ${SUBSCRIPTION_ID}`,
     res
   );
@@ -44,17 +44,10 @@ export default async function handler(
     addEnvVar("SUBSCRIPTION_ID", SUBSCRIPTION_ID);
   }
 
-  if (pass) {
-    res.status(200).json({
-      status: "pass",
-      result: {error: pass ? false : true, ...result},
-    });
-  } else {
-    res.status(500).json({
-      status: "fail",
-      error: error,
-    });
-  }
+  res.status(pass ? 200 : 500).json({
+    status: pass ? "pass" : "fail",
+    result: result,
+  });
 
   finishedStep(0);
 }

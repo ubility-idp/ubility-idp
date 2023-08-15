@@ -47,7 +47,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
       res.status(pass ? 200 : 500).json({
         status: pass ? "pass" : "fail",
-        result: {error: !pass, stdout: "", stderr: result},
+        result: {error: result},
       });
     }
   );

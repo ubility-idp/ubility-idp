@@ -10,22 +10,15 @@ export default async function handler(
 
   console.log(host);
 
-  const {pass, result, error} = await BashExec(
+  const {pass, result} = await BashExec(
     `sh pages/api/scripts/adding-cred-to-jenkins.sh '${host}'`,
     res
   );
 
-  if (pass) {
-    res.status(200).json({
-      status: "pass",
-      result: {error: pass ? false : true, ...result},
-    });
-  } else {
-    res.status(500).json({
-      status: "fail",
-      error: error,
-    });
-  }
+  res.status(pass ? 200 : 500).json({
+    status: pass ? "pass" : "fail",
+    result: result,
+  });
 
   finishedStep(3);
 }
