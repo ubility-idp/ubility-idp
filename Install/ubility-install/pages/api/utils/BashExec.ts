@@ -1,24 +1,47 @@
 import {exec} from "child_process";
 import {NextApiResponse} from "next";
 
-const BashExec = (cmd: string, res: NextApiResponse) => {
-  try {
-    exec(cmd, (error, stdout, stderr) => {
-      console.log({error, stdout, stderr});
+type BAshExecReturn = {
+  pass: boolean;
+  result: {stdout: string; stderr: string};
+  error: string;
+};
 
-      res.status(200).json({
-        status: "pass",
-        result: {error: error ? true : false, stdout, stderr},
+const BashExec = async (
+  cmd: string,
+  res: NextApiResponse
+): Promise<BAshExecReturn> => {
+  let pass = false;
+  let err = "";
+  let result = {stdout: "", stderr: ""};
+
+  return new Promise<BAshExecReturn>((resolve, reject) => {
+    try {
+      exec(cmd, (error, stdout, stderr) => {
+        console.log({error, stdout, stderr});
+
+        pass = error ? false : true;
+        result.stdout = stdout;
+        result.stderr = stderr;
+        err = "";
+        resolve({
+          pass: pass,
+          result: result,
+          error: err,
+        });
       });
-      return error ? true : false;
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "fail",
-      error: `Error in child process: ${error}`,
-    });
-    return false;
-  }
+    } catch (error) {
+      pass = false;
+      result.stdout = "";
+      result.stderr = "";
+      err = error as string;
+      reject({
+        pass: pass,
+        result: result,
+        error: err,
+      });
+    }
+  });
 };
 
 export default BashExec;

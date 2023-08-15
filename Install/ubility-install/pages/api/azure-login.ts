@@ -1,8 +1,15 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
-import {addEnvVar, finishedStep, notNonEmptyString} from "./utils/helperFunctions";
+import {
+  addEnvVar,
+  finishedStep,
+  notNonEmptyString,
+} from "./utils/helperFunctions";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   console.log(req.body);
 
   if (req.body === undefined)
@@ -25,7 +32,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const pass = BashExec(
+  const {pass, result, error} = await BashExec(
     `sh pages/api/scripts/azure-login.sh ${AZURE_CLIENT_ID} ${AZURE_CLIENT_SECRET} ${AZURE_TENANT_ID} ${SUBSCRIPTION_ID}`,
     res
   );
@@ -36,5 +43,18 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     addEnvVar("AZURE_TENANT_ID", AZURE_TENANT_ID);
     addEnvVar("SUBSCRIPTION_ID", SUBSCRIPTION_ID);
   }
+
+  if (pass) {
+    res.status(200).json({
+      status: "pass",
+      result: {error: pass ? false : true, ...result},
+    });
+  } else {
+    res.status(500).json({
+      status: "fail",
+      error: error,
+    });
+  }
+
   finishedStep(0);
 }
