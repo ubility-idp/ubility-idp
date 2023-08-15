@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   keygen(
     {
-      location: "ubility_rsa",
+      location: ".ssh/ubility_rsa",
       comment: "ubility@idp.com",
       read: true,
     },

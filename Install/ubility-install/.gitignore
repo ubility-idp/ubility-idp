@@ -35,7 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vscode
-.ssh
+.ssh/*
 
 .ubility.env
 env_vars.json
