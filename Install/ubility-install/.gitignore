@@ -40,3 +40,6 @@ next-env.d.ts
 .ubility.env
 env_vars.json
 step.txt
+
+test.ts
+test.js
