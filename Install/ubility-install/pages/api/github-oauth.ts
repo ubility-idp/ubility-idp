@@ -22,8 +22,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   } else {
     let pass = false;
-    pass = addEnvVar("GITHUB_USERNAME", GITHUB_CLIENT_ID);
-    pass = addEnvVar("GITHUB_TOKEN", GITHUB_CLIENT_SECRET);
+    pass = addEnvVar("GITHUB_CLIENT_ID", GITHUB_CLIENT_ID);
+    pass = addEnvVar("GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET);
 
     res.status(200).json({
       status: "pass",
@@ -34,6 +34,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     });
   }
-
-  finishedStep(2);
 }
