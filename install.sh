@@ -28,7 +28,6 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo chmod 666 /var/run/docker.sock
 
-
 # clear
 echo '--------------- Installing Azure cli ---------------'
 echo
@@ -120,13 +119,13 @@ echo
 read -p "Enter the subscription ID: " SUBSCRIPTION_ID
 az account set --subscription $SUBSCRIPTION_ID
 
-cred_res=$(az ad sp create-for-rbac -n 'ubility-idp-sp' --role Owner --scopes /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP  --only-show-errors)
-AZURE_CLIENT_ID=$( echo $cred_res | jq -r '.appId')
-AZURE_CLIENT_SECRET=$( echo $cred_res | jq -r '.password')
-AZURE_TENANT_ID=$( echo $cred_res | jq -r '.tenant')
+cred_res=$(az ad sp create-for-rbac -n 'ubility-idp-sp' --role Owner --scopes /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP --only-show-errors)
+AZURE_CLIENT_ID=$(echo $cred_res | jq -r '.appId')
+AZURE_CLIENT_SECRET=$(echo $cred_res | jq -r '.password')
+AZURE_TENANT_ID=$(echo $cred_res | jq -r '.tenant')
 sleep 3
 
-res=$(az ad app permission add --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope  --only-show-errors)
+res=$(az ad app permission add --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope --only-show-errors)
 sleep 10
 res=$(az ad app permission grant --id $AZURE_CLIENT_ID --api 00000003-0000-0000-c000-000000000000 --scope /subscriptions/5942567f-8e9e-4747-a45f-c44f2f121646/resourceGroups/$RESOURCE_GROUP)
 sleep 3
@@ -179,7 +178,6 @@ echo Now generate a new client secret then copy it and paste it below
 read -p "Client secret: " GITHUB_CLIENT_SECRET
 # clear
 
-
 #_______________________________________________________________________________________________________
 echo '--------------- Automation Server Setup ---------------'
 echo
@@ -192,7 +190,7 @@ sudo chmod 700 mk-jwt-token.sh
 jwt=$(mk-jwt-token.sh)
 cd ..
 
-# exporting env vars 
+# exporting env vars
 export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
 
 export VM_ADDRESS="$VM_ADDRESS"
@@ -232,12 +230,12 @@ export AZURE_PASSWORD=$AZURE_PASSWORD
 #_______________________________________________________________________________________________________
 # clear
 cd Jenkins
-echo  '--------------- Adding credentials to jenkins ---------------'
-envsubst < credential-github-ssh.xml > credential-github-ssh.tmp.xml
-envsubst < credential-azure.xml > credential-azure.tmp.xml
+echo '--------------- Adding credentials to jenkins ---------------'
+envsubst <credential-github-ssh.xml >credential-github-ssh.tmp.xml
+envsubst <credential-azure.xml >credential-azure.tmp.xml
 
-java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ < credential-github-ssh.tmp.xml
-java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ < credential-azure.tmp.xml
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-github-ssh.tmp.xml
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-azure.tmp.xml
 
 rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
 cd ..

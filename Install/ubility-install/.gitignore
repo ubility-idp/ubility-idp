@@ -35,7 +35,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vscode
-.ssh/*
 
 .ubility.env
 env_vars.json
@@ -44,5 +43,5 @@ step.txt
 test.ts
 test.js
 
-ubility_rsa
-ubility_rsa.pub
+*/ubility_rsa
+*/ubility_rsa.pub
