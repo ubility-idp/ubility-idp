@@ -1,6 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
-import {addEnvVar, finishedStep} from "./utils/helperFunctions";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,10 +14,10 @@ export default async function handler(
     res
   );
 
+  if (result.stderr != "") result.error = true;
+
   res.status(pass ? 200 : 500).json({
     status: pass ? "pass" : "fail",
     result: result,
   });
-
-  finishedStep(3);
 }

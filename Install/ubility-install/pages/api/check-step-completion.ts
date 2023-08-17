@@ -18,6 +18,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const filePath = "./env_vars.json";
     const content = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
+    const values = [];
+
     for (let env_var of env_vars) {
       if (notNonEmptyString(env_var)) {
         res.status(400).json({status: "fail", error: "Input data error"});
@@ -25,15 +27,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       }
       if (!(env_var in content)) {
         step_finished = false;
-        break;
       } else {
         if (notNonEmptyString(content[env_var])) {
           step_finished = false;
-          break;
+        } else {
+          values.push([env_var, content[env_var]]);
         }
       }
     }
-    res.status(200).json({status: "pass", step_finished});
+    res.status(200).json({status: "pass", step_finished, values: values});
   } catch (error) {
     res.status(500).json({status: "fail", error: error});
   }

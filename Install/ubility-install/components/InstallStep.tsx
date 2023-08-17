@@ -1,10 +1,4 @@
-import React, {
-  MutableRefObject,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, {MutableRefObject, useEffect, useRef, useState} from "react";
 import {Step} from "../static/steps";
 import {Controller, useForm} from "react-hook-form";
 import {
@@ -42,6 +36,7 @@ export default function InstallStep({
     handleSubmit,
     register,
     control,
+    setValue,
     formState: {errors},
   } = useForm();
   const onSubmit = async (data: any) => {
@@ -83,15 +78,17 @@ export default function InstallStep({
     });
     const result = await res.json();
     if (result.status === "pass") {
-      if (result.step_finished === true) {
-        handleNext();
-      }
+      console.log(result.values);
+
+      result.values.forEach((val: any[]) => {
+        setValue(val[0], val[1]);
+      });
+
+      // if (result.step_finished === true) {
+      //   handleNext();
+      // }
     }
   };
-
-  useEffect(() => {
-    console.log({err_mes: error.message});
-  }, [error]);
 
   useEffect(() => {
     if (activeStep === step.nb) {
