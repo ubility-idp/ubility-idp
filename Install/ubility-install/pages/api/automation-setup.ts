@@ -39,9 +39,9 @@ function generateToken(secret: string) {
 
     const token = `${signedContent}.${signature}`;
     console.log(token);
-    return {pass: true, result: token};
+    return {pass: true, result: {error: false, result: token}};
   } catch (error) {
-    return {pass: false, result: error};
+    return {pass: false, result: {error: true, result: error}};
   }
 }
 
@@ -62,12 +62,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const secret = (Math.random() + 1).toString(36);
-  // const {pass, result} = await BashExec(
-  //   `sh pages/api/scripts/automation-setup.sh '${secret}'`,
-  //   res
-  // );
 
   const {pass, result} = generateToken(secret);
+
+  if (pass) {
+    addEnvVar("AUTOMATION_SECRET_KEY", secret);
+    addEnvVar("AUTOMATION_SERVER_JWT", result.result as string);
+  }
 
   res.status(pass ? 200 : 500).json({
     status: pass ? "pass" : "fail",
