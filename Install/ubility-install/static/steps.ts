@@ -225,6 +225,18 @@ const steps: Step[] = [
       steps: [],
     },
   },
+  {
+    id: "docker-compose",
+    nb: 6,
+    label: "Starting the Docker Containers",
+    api_endpoint: "docker-compose",
+    inputs: [],
+    tutorial: {
+      visible: false,
+      title: "",
+      steps: [],
+    },
+  },
 ];
 
 export default steps;

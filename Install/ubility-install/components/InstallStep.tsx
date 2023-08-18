@@ -71,7 +71,10 @@ export default function InstallStep({
   const fetchStepStatus = async () => {
     const res = await fetch(`/api/check-step-completion`, {
       method: "POST",
-      body: JSON.stringify({env_vars: step.inputs.map((input) => input.id)}),
+      body: JSON.stringify({
+        env_vars: step.inputs.map((input) => input.id),
+        step: step.nb,
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -84,9 +87,9 @@ export default function InstallStep({
         setValue(val[0], val[1]);
       });
 
-      // if (result.step_finished === true) {
-      //   handleNext();
-      // }
+      if (result.step_done === "yes") {
+        handleNext();
+      }
     }
   };
 
@@ -96,13 +99,17 @@ export default function InstallStep({
     }
   }, [activeStep]);
 
-  useEffect(() => {
-    if (formRef.current !== null) {
-      if (activeStep === step.nb && step.inputs.length === 0) {
-        onSubmit({});
-      }
-    }
-  }, [activeStep, step.inputs.length, step.nb]);
+  // useEffect(() => {
+  //   if (formRef.current !== null) {
+  //     if (activeStep === step.nb) {
+  //       if (step.inputs.length === 0) {
+  //         onSubmit({});
+  //       } else {
+  //         fetchStepStatus();
+  //       }
+  //     }
+  //   }
+  // }, [activeStep, step.inputs.length, step.nb]);
 
   return (
     <>

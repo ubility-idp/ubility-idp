@@ -31,8 +31,24 @@ export default function HorizontalLinearStepper() {
     setSkipped(newSkipped);
   };
 
+  const unFinishStep = async (step: number) => {
+    const res = await fetch(`/api/undoStepFinish`, {
+      method: "POST",
+      body: JSON.stringify({
+        step: step,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    await res.json();
+  };
+
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => {
+      unFinishStep(prevActiveStep - 1);
+      return prevActiveStep - 1;
+    });
   };
 
   const handleSkip = () => {

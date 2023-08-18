@@ -1,13 +1,13 @@
 import * as fs from "fs";
 import {NextApiRequest, NextApiResponse} from "next";
 
-import {notNonEmptyString} from "./utils/helperFunctions";
+import {checkStepStatus, notNonEmptyString} from "./utils/helperFunctions";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.body === undefined)
     res.status(400).json({status: "fail", error: "No body sent"});
 
-  const {env_vars} = req.body;
+  const {env_vars, step} = req.body;
 
   if (env_vars === undefined)
     res.status(400).json({status: "fail", error: "No env_vars"});
@@ -35,7 +35,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         }
       }
     }
-    res.status(200).json({status: "pass", step_finished, values: values});
+    const step_done = checkStepStatus(step);
+    console.log(step, step_done);
+
+    res.status(200).json({status: "pass", step_done, values: values});
   } catch (error) {
     res.status(500).json({status: "fail", error: error});
   }

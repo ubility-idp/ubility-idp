@@ -26,10 +26,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     addEnvVar("JENKINS_ADDRESS", `http://${VM_ADDRESS}:8080`);
     addEnvVar("JENKINS_USERNAME", JENKINS_USERNAME);
 
+    addEnvVar("VM_ADDRESS", `${VM_ADDRESS}`);
     addEnvVar("APP_BASE_URL", `http://${VM_ADDRESS}:7007`);
     addEnvVar("BACKEND_BASE_URL", `http://${VM_ADDRESS}:7007`);
     addEnvVar("ORIGIN", `http://${VM_ADDRESS}:7007`);
 
+    finishedStep(1);
     res
       .status(200)
       .json({status: "pass", result: {error: false, stdout: "", stderr: ""}});
@@ -41,6 +43,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       error: `Error saving env vars to json file: ${error}`,
     });
   }
-
-  finishedStep(1);
 }

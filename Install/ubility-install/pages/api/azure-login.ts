@@ -48,6 +48,4 @@ export default async function handler(
     status: pass ? "pass" : "fail",
     result: result,
   });
-
-  finishedStep(0);
 }
