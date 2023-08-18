@@ -28,6 +28,7 @@ export default async function handler(
       `sh pages/api/scripts/adding-cred-to-jenkins.sh '${host}'`,
       res
     );
+    console.log("after bash");
 
     console.log(result);
 

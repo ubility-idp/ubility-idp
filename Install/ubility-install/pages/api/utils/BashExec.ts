@@ -11,6 +11,7 @@ const BashExec = async (
   res: NextApiResponse
 ): Promise<BAshExecReturn> => {
   return new Promise<BAshExecReturn>((resolve, reject) => {
+    console.log("inside Bash but before cmd");
     try {
       exec(cmd, (error, stdout, stderr) => {
         console.log({error, stdout, stderr});
@@ -19,12 +20,14 @@ const BashExec = async (
           result: {error: error ? true : false, stdout: stdout, stderr: stderr},
         });
       });
+      console.log("inside Bashand and inside cmd");
     } catch (error) {
       reject({
         pass: false,
         result: {error: true, stdout: "", stderr: error},
       });
     }
+    console.log("inside Bashand but before cmd");
   });
 };
 
