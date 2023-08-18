@@ -97,19 +97,8 @@ export default function InstallStep({
     if (activeStep === step.nb) {
       fetchStepStatus();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep]);
-
-  // useEffect(() => {
-  //   if (formRef.current !== null) {
-  //     if (activeStep === step.nb) {
-  //       if (step.inputs.length === 0) {
-  //         onSubmit({});
-  //       } else {
-  //         fetchStepStatus();
-  //       }
-  //     }
-  //   }
-  // }, [activeStep, step.inputs.length, step.nb]);
 
   return (
     <>

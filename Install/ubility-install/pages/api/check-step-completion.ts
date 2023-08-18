@@ -36,7 +36,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       }
     }
     const step_done = checkStepStatus(step);
-    console.log(step, step_done);
 
     res.status(200).json({status: "pass", step_done, values: values});
   } catch (error) {

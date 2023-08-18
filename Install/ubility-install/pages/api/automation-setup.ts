@@ -38,7 +38,7 @@ function generateToken(secret: string) {
     );
 
     const token = `${signedContent}.${signature}`;
-    console.log(token);
+
     return {pass: true, result: {error: false, result: token}};
   } catch (error) {
     return {pass: false, result: {error: true, result: error}};

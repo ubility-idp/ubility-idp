@@ -33,11 +33,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         });
         return console.error("Error in github ssh key generation: " + err);
       }
-      console.log({err, GITHUB_TOKEN, pubkey: out.pubKey});
 
       const {pass, result} = await add_key_to_github(GITHUB_TOKEN, out.pubKey);
-
-      console.log({pass, result});
 
       if (pass) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
