@@ -15,4 +15,4 @@ envsubst <credential-azure.xml >credential-azure.tmp.xml
 java -jar jenkins-cli.jar -s http://$1:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-github-ssh.tmp.xml
 java -jar jenkins-cli.jar -s http://$1:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-azure.tmp.xml
 
-rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
+# rm credential-github-ssh.tmp.xml credential-azure.tmp.xml

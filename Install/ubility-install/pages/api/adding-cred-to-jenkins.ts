@@ -27,6 +27,8 @@ export default async function handler(
       res
     );
 
+    console.log(result);
+
     if (result.stderr != "") result.error = true;
 
     res.status(pass ? 200 : 500).json({
