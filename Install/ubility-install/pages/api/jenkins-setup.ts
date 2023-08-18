@@ -31,7 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     addEnvVar("BACKEND_BASE_URL", `http://${VM_ADDRESS}:7007`);
     addEnvVar("ORIGIN", `http://${VM_ADDRESS}:7007`);
 
-    finishedStep(1);
+    finishedStep(0);
     res
       .status(200)
       .json({status: "pass", result: {error: false, stdout: "", stderr: ""}});

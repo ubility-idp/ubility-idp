@@ -24,6 +24,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     let pass = false;
     pass = addEnvVar("GITHUB_CLIENT_ID", GITHUB_CLIENT_ID);
     pass = addEnvVar("GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET);
+    finishedStep(3);
 
     res.status(200).json({
       status: "pass",

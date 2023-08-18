@@ -22,6 +22,8 @@ export default async function handler(
     content = JSON.parse(fs.readFileSync(filePath, "utf8"));
     convertEnvJSONtoEnvFile(content);
 
+    console.log("before bash");
+
     const {pass, result} = await BashExec(
       `sh pages/api/scripts/adding-cred-to-jenkins.sh '${host}'`,
       res

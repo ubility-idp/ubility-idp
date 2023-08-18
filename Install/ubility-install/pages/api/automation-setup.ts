@@ -68,6 +68,7 @@ export default async function handler(
   if (pass) {
     addEnvVar("AUTOMATION_SECRET_KEY", secret);
     addEnvVar("AUTOMATION_SERVER_JWT", result.result as string);
+    finishedStep(4);
   }
 
   res.status(pass ? 200 : 500).json({

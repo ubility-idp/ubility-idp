@@ -1,6 +1,7 @@
 export $(cat .ubility.env | xargs)
 
-export PRIVATE_KEY="$(cat ubility_rsa)"
+export PRIVATE_KEY="'""$(cat ubility_rsa)""'"
+export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
 
 cd ../../Jenkins
 

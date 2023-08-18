@@ -60,12 +60,6 @@ docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
-docker exec "jenkins" apt-get update -y
-docker exec "jenkins" apt-get install gettext -y
-docker exec "jenkins" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-docker exec "jenkins" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-docker exec "jenkins" ssh -tt -o StrictHostKeyChecking=no github.com
-
 #_______________________________________________________________________________________________________
 # clear
 echo '--------------- Installation Tool Dependencies ---------------'
