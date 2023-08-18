@@ -69,7 +69,7 @@ docker exec "jenkins" ssh -tt -o StrictHostKeyChecking=no github.com
 #_______________________________________________________________________________________________________
 # clear
 echo '--------------- Installation Tool Dependencies ---------------'
-curl -sL https://deb.nodesource.com/setup_18.x -o /tmp/nodesource_setup.sh
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 apt install -y nodejs
 
 cd Install/ubility-install
