@@ -77,11 +77,11 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_PORT="5432"
-      - POSTGRES_HOST="db"
+      - POSTGRES_HOST="postgresdb"
       - APP_BASE_URL=${APP_BASE_URL}
       - BACKEND_BASE_URL=${BACKEND_BASE_URL}
       - ORIGIN=${ORIGIN}
-      - AUTOMATION_SERVER_BASE_URL="automation"
+      - AUTOMATION_SERVER_BASE_URL="aut-server"
       - JENKINS_ADDRESS=${JENKINS_ADDRESS}
       - VM_ADDRESS=${VM_ADDRESS}
     volumes:
