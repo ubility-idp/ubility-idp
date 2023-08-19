@@ -17,7 +17,7 @@ export default async function handler(
     `sh pages/api/scripts/docker-compose.sh`,
     res
   );
-  if (pass) finishedStep(step_nb);
+  if (!result.error) finishedStep(step_nb);
 
   const filePath = "./env_vars.json";
   let content: Idictionary = {};

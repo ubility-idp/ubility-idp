@@ -9,7 +9,7 @@ export default async function handler(
   const {step_nb} = req.body;
 
   const {pass, result} = await BashExec(`sh pages/api/scripts/vm-prep.sh`, res);
-  if (pass) finishedStep(step_nb);
+  if (!result.error) finishedStep(step_nb);
 
   res.status(pass ? 200 : 500).json({
     status: pass ? "pass" : "fail",

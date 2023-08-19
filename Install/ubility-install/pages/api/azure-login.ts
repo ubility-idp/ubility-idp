@@ -20,7 +20,7 @@ export default async function handler(
     AZURE_CLIENT_SECRET,
     AZURE_TENANT_ID,
     SUBSCRIPTION_ID,
-    step_nb
+    step_nb,
   } = req.body;
 
   if (
@@ -38,7 +38,7 @@ export default async function handler(
     res
   );
 
-  if (pass) {
+  if (!result.error) {
     addEnvVar("AZURE_CLIENT_ID", AZURE_CLIENT_ID);
     addEnvVar("AZURE_CLIENT_SECRET", AZURE_CLIENT_SECRET);
     addEnvVar("AZURE_TENANT_ID", AZURE_TENANT_ID);

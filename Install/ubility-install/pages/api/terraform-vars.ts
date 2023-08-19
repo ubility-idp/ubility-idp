@@ -31,7 +31,7 @@ export default async function handler(
 
     if (result.stderr != "") result.error = true;
 
-    if (pass) {
+    if (!result.error) {
       addEnvVar("RESOURCE_GROUP", RESOURCE_GROUP);
       addEnvVar("CONTAINER_REGISTRY", CONTAINER_REGISTRY);
       finishedStep(step_nb);
