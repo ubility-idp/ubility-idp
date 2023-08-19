@@ -53,13 +53,7 @@ services:
     container_name: backstage
     image: ibrahimnasri24/ubility-backstage:1.0.0
     hostname: backstage
-    command:
-      [
-        "node",
-        "packages/backend",
-        "--config",
-        "app-config.yaml"
-      ]
+    command: ["node", "packages/backend", "--config", "app-config.yaml"]
     expose:
       - "7007"
     ports:
@@ -82,12 +76,12 @@ services:
       - AUTOMATION_SERVER_JWT=${AUTOMATION_SERVER_JWT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT="5432"
+      - POSTGRES_HOST="db"
       - APP_BASE_URL=${APP_BASE_URL}
       - BACKEND_BASE_URL=${BACKEND_BASE_URL}
       - ORIGIN=${ORIGIN}
-      - AUTOMATION_SERVER_BASE_URL=${AUTOMATION_SERVER_BASE_URL}
+      - AUTOMATION_SERVER_BASE_URL="automation"
       - JENKINS_ADDRESS=${JENKINS_ADDRESS}
       - VM_ADDRESS=${VM_ADDRESS}
     volumes:

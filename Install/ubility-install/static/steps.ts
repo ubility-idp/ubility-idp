@@ -117,8 +117,27 @@ const steps: Step[] = [
     },
   },
   {
-    id: "github_setup",
+    id: "terraform-vars",
     nb: 2,
+    label: "Infrastructure",
+    api_endpoint: "terraform-vars",
+    inputs: [
+      {id: "RESOURCE_GROUP", label: "Resource Group Name", type: "text"},
+      {
+        id: "CONTAINER_REGISTRY",
+        label: "Container Registry Name",
+        type: "text",
+      },
+    ],
+    tutorial: {
+      visible: false,
+      title: "",
+      steps: [],
+    },
+  },
+  {
+    id: "github_setup",
+    nb: 3,
     label: "Github SSH Key",
     api_endpoint: "github-setup",
     inputs: [
@@ -152,7 +171,7 @@ const steps: Step[] = [
   },
   {
     id: "github_oauth",
-    nb: 3,
+    nb: 4,
     label: "Github Oauth",
     api_endpoint: "github-oauth",
     inputs: [
@@ -202,8 +221,23 @@ const steps: Step[] = [
     },
   },
   {
+    id: "database-creds",
+    nb: 5,
+    label: "Database Credentials",
+    api_endpoint: "database-creds",
+    inputs: [
+      {id: "POSTGRES_USER", label: "Postgres User", type: "text"},
+      {id: "POSTGRES_PASSWORD", label: "Postgres Password", type: "password"},
+    ],
+    tutorial: {
+      visible: false,
+      title: "",
+      steps: [],
+    },
+  },
+  {
     id: "automation-setup",
-    nb: 4,
+    nb: 6,
     label: "Automation Setup",
     api_endpoint: "automation-setup",
     inputs: [],
@@ -215,7 +249,7 @@ const steps: Step[] = [
   },
   {
     id: "adding-cred-to-jenkins",
-    nb: 5,
+    nb: 7,
     label: "Adding Credentials to Jenkins",
     api_endpoint: "adding-cred-to-jenkins",
     inputs: [],
@@ -227,7 +261,7 @@ const steps: Step[] = [
   },
   {
     id: "docker-compose",
-    nb: 6,
+    nb: 8,
     label: "Starting the Docker Containers",
     api_endpoint: "docker-compose",
     inputs: [],

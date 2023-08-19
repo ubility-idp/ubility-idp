@@ -47,7 +47,7 @@ export default function InstallStep({
     step.inputs.forEach((input) => (input_json[input.id] = data[input.id]));
     const res = await fetch(`/api/${step.api_endpoint}`, {
       method: "POST",
-      body: JSON.stringify(input_json),
+      body: JSON.stringify({...input_json, step_nb: step.nb}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

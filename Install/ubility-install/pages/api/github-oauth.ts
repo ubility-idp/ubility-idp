@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.body === undefined)
     res.status(400).json({status: "fail", error: "No body sent"});
 
-  const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET} = req.body;
+  const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, step_nb} = req.body;
 
   if (
     notNonEmptyString(GITHUB_CLIENT_ID) &&
@@ -24,7 +24,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     let pass = false;
     pass = addEnvVar("GITHUB_CLIENT_ID", GITHUB_CLIENT_ID);
     pass = addEnvVar("GITHUB_CLIENT_SECRET", GITHUB_CLIENT_SECRET);
-    finishedStep(3);
+    finishedStep(step_nb);
 
     res.status(200).json({
       status: "pass",

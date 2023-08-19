@@ -6,8 +6,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {step_nb} = req.body;
+
   const {pass, result} = await BashExec(`sh pages/api/scripts/vm-prep.sh`, res);
-  if (pass) finishedStep(0);
+  if (pass) finishedStep(step_nb);
 
   res.status(pass ? 200 : 500).json({
     status: pass ? "pass" : "fail",

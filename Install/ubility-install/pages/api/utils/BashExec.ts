@@ -20,14 +20,14 @@ const BashExec = async (
           result: {error: error ? true : false, stdout: stdout, stderr: stderr},
         });
       });
-      console.log("inside Bashand and inside cmd");
+      console.log("inside Bash and inside cmd");
     } catch (error) {
       reject({
         pass: false,
         result: {error: true, stdout: "", stderr: error},
       });
     }
-    console.log("inside Bashand but before cmd");
+    console.log("inside Bash but before cmd");
   });
 };
 

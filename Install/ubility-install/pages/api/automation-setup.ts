@@ -61,6 +61,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {step_nb} = req.body;
+
   const secret = (Math.random() + 1).toString(36);
 
   const {pass, result} = generateToken(secret);
@@ -68,7 +70,7 @@ export default async function handler(
   if (pass) {
     addEnvVar("AUTOMATION_SECRET_KEY", secret);
     addEnvVar("AUTOMATION_SERVER_JWT", result.result as string);
-    finishedStep(4);
+    finishedStep(step_nb);
   }
 
   res.status(pass ? 200 : 500).json({

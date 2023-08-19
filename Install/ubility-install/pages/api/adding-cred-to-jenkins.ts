@@ -2,7 +2,7 @@ import * as fs from "fs";
 
 import {NextApiRequest, NextApiResponse} from "next";
 import BashExec from "./utils/BashExec";
-import {convertEnvJSONtoEnvFile} from "./utils/helperFunctions";
+import {convertEnvJSONtoEnvFile, finishedStep} from "./utils/helperFunctions";
 
 interface Idictionary {
   [key: string]: string;
@@ -14,7 +14,7 @@ export default async function handler(
 ) {
   const host = req.headers.host?.split(":3000")[0];
 
-  console.log(host);
+  const {step_nb} = req.body;
 
   const filePath = "./env_vars.json";
   let content: Idictionary = {};
@@ -33,6 +33,8 @@ export default async function handler(
     console.log(result);
 
     if (result.stderr != "") result.error = true;
+
+    if (pass) finishedStep(step_nb);
 
     res.status(pass ? 200 : 500).json({
       status: pass ? "pass" : "fail",

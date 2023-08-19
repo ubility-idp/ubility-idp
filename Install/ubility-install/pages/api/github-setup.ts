@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.body === undefined)
     res.status(400).json({status: "fail", error: "No body sent"});
 
-  const {GITHUB_USERNAME, GITHUB_TOKEN} = req.body;
+  const {GITHUB_USERNAME, GITHUB_TOKEN, step_nb} = req.body;
 
   if (notNonEmptyString(GITHUB_USERNAME) && notNonEmptyString(GITHUB_TOKEN)) {
     res.status(400).json({status: "fail", error: "Input data error"});
@@ -40,7 +40,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
         addEnvVar("GITHUB_TOKEN", GITHUB_TOKEN);
 
-        finishedStep(2);
+        finishedStep(step_nb);
 
         res.status(200).json({
           status: "pass",

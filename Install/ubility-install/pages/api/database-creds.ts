@@ -5,31 +5,26 @@ import {
   notNonEmptyString,
 } from "./utils/helperFunctions";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.body === undefined)
     res.status(400).json({status: "fail", error: "No body sent"});
 
-  const {JENKINS_API_TOKEN, JENKINS_USERNAME, step_nb} = req.body;
+  const {POSTGRES_USER, POSTGRES_PASSWORD, step_nb} = req.body;
 
   if (
-    notNonEmptyString(JENKINS_API_TOKEN) ||
-    notNonEmptyString(JENKINS_USERNAME)
+    notNonEmptyString(POSTGRES_USER) ||
+    notNonEmptyString(POSTGRES_PASSWORD)
   ) {
     res.status(400).json({status: "fail", error: "Input data error"});
     return;
   }
 
   try {
-    const VM_ADDRESS = req.headers.host?.split(":3000")[0];
-
-    addEnvVar("JENKINS_API_TOKEN", JENKINS_API_TOKEN);
-    addEnvVar("JENKINS_ADDRESS", `http://${VM_ADDRESS}:8080`);
-    addEnvVar("JENKINS_USERNAME", JENKINS_USERNAME);
-
-    addEnvVar("VM_ADDRESS", `${VM_ADDRESS}`);
-    addEnvVar("APP_BASE_URL", `http://${VM_ADDRESS}:7007`);
-    addEnvVar("BACKEND_BASE_URL", `http://${VM_ADDRESS}:7007`);
-    addEnvVar("ORIGIN", `http://${VM_ADDRESS}:7007`);
+    addEnvVar("POSTGRES_USER", POSTGRES_USER);
+    addEnvVar("POSTGRES_PASSWORD", POSTGRES_PASSWORD);
 
     finishedStep(step_nb);
     res

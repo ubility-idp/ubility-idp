@@ -20,6 +20,7 @@ export default async function handler(
     AZURE_CLIENT_SECRET,
     AZURE_TENANT_ID,
     SUBSCRIPTION_ID,
+    step_nb
   } = req.body;
 
   if (
@@ -42,7 +43,7 @@ export default async function handler(
     addEnvVar("AZURE_CLIENT_SECRET", AZURE_CLIENT_SECRET);
     addEnvVar("AZURE_TENANT_ID", AZURE_TENANT_ID);
     addEnvVar("SUBSCRIPTION_ID", SUBSCRIPTION_ID);
-    finishedStep(1);
+    finishedStep(step_nb);
   }
 
   res.status(pass ? 200 : 500).json({
