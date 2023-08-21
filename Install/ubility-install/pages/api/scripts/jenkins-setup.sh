@@ -1,1 +1,1 @@
-docker restart jenkins-restart
+docker restart jenkins-lts

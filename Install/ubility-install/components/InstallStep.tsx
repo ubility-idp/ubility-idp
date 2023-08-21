@@ -32,6 +32,7 @@ export default function InstallStep({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({error: false, message: ""});
+  const [jenkins_admin_pass, setJenkins_admin_pass] = useState("");
   const {
     handleSubmit,
     register,
@@ -93,10 +94,26 @@ export default function InstallStep({
     }
   };
 
+  const fetchJenkinsAdminPassword = async () => {
+    const res = await fetch(`/api/get-jenkins-admin-password`, {
+      method: "GET",
+    });
+    const result = await res.json();
+    if (result.status === "pass") {
+      setJenkins_admin_pass(result.result.stdout);
+    } else {
+      setJenkins_admin_pass("");
+    }
+  };
+
   useEffect(() => {
     if (activeStep === step.nb) {
+      if (step.nb === 0) {
+        fetchJenkinsAdminPassword();
+      }
       fetchStepStatus();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep]);
 
@@ -178,7 +195,7 @@ export default function InstallStep({
           )}
         </div>
       </form>
-      <TutorialContainer step={step} />
+      <TutorialContainer step={step} jenkins_admin_pass={jenkins_admin_pass} />
     </>
   );
 }

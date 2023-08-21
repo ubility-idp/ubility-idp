@@ -10,6 +10,11 @@ import github_oauth_step1 from "../assets/images/tutorials/github_oauth/step1.pn
 import github_oauth_step2 from "../assets/images/tutorials/github_oauth/step2.png";
 import github_oauth_step3 from "../assets/images/tutorials/github_oauth/step3.png";
 
+import jenkins_setup_step1 from "../assets/images/tutorials/jenkins_setup/step1.png";
+import jenkins_setup_step2 from "../assets/images/tutorials/jenkins_setup/step2.png";
+import jenkins_setup_step3 from "../assets/images/tutorials/jenkins_setup/step3.png";
+import jenkins_setup_step4 from "../assets/images/tutorials/jenkins_setup/step4.png";
+
 export type Input = {
   id: string;
   label: string;
@@ -55,24 +60,40 @@ const steps: Step[] = [
       steps: [
         {
           nb: 0,
-          title: "Open Azure Portal",
+          title: "Open Jenkins",
           instructions: [
-            "Search for 'app registrations'",
-            "Click on App registrations",
+            "This is your jenkins admin password: <jenkins_admin_pass>",
+            "Copy it and paste it into the adminstrator password field",
+            "Then click 'Continue'",
           ],
           image_visible: true,
-          image: azure_login_step1,
+          image: jenkins_setup_step1,
           link: {
-            title: "https://portal.azure.com/#home",
-            url: "https://portal.azure.com/#home",
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
           },
         },
         {
           nb: 1,
-          title: "Create new app registration",
-          instructions: ["Click New registration"],
+          title: "Install Jenkins Plugins",
+          instructions: ["Click 'Install suggested plugins'"],
           image_visible: true,
-          image: azure_login_step2,
+          image: jenkins_setup_step2,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
+        },
+        {
+          nb: 2,
+          title: "Install Jenkins Plugins",
+          instructions: ["Click 'Install suggested plugins'"],
+          image_visible: true,
+          image: jenkins_setup_step4,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
         },
       ],
     },

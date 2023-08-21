@@ -5,9 +5,10 @@ import React, {useEffect, useState} from "react";
 
 type Props = {
   tutStep: TutStep;
+  jenkins_admin_pass: string;
 };
 
-function TutorialStep({tutStep}: Props) {
+function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
   const origin =
     typeof window !== "undefined" && window.location.origin
       ? window.location.origin
@@ -17,6 +18,10 @@ function TutorialStep({tutStep}: Props) {
 
   const [tutInstructions, setTutInstructions] = useState<string[]>([]);
 
+  const [linkText, setlinkText] = useState<
+    {url: string; title: string} | undefined
+  >(tutStep.link);
+
   useEffect(() => {
     setTutInstructions(
       tutStep.instructions.map(
@@ -24,6 +29,24 @@ function TutorialStep({tutStep}: Props) {
       )
     );
   }, [tutStep.instructions, vm_address]);
+
+  useEffect(() => {
+    setTutInstructions(
+      tutStep.instructions.map(
+        (inst) =>
+          `- ${inst.replace("<jenkins_admin_pass>", jenkins_admin_pass)}`
+      )
+    );
+  }, [tutStep.instructions, jenkins_admin_pass]);
+
+  useEffect(() => {
+    if (vm_address && tutStep.link) {
+      setlinkText({
+        url: tutStep.link.url.replace("<VM_ADDRESS>", vm_address),
+        title: tutStep.link.title.replace("<VM_ADDRESS>", vm_address),
+      });
+    }
+  }, [tutStep.link, vm_address]);
 
   return (
     <Paper className="px-6 py-2">
@@ -35,8 +58,8 @@ function TutorialStep({tutStep}: Props) {
           tutStep.title
         }`}</Typography>
         {tutStep.link && (
-          <Link target="_blank" href={tutStep.link.url}>
-            {tutStep.link.title}
+          <Link target="_blank" href={linkText?.url}>
+            {linkText?.title}
           </Link>
         )}
       </div>
