@@ -95,6 +95,17 @@ const steps: Step[] = [
             url: "http://<VM_ADDRESS>:8080",
           },
         },
+        {
+          nb: 3,
+          title: "Install Jenkins Plugins",
+          instructions: ["Click 'Install suggested plugins'"],
+          image_visible: true,
+          image: jenkins_setup_step4,
+          link: {
+            title: "http://<VM_ADDRESS>:8080/user/ibrahimnasri24/configure",
+            url: "http://<VM_ADDRESS>:8080/user/ibrahimnasri24/configure",
+          },
+        },
       ],
     },
   },

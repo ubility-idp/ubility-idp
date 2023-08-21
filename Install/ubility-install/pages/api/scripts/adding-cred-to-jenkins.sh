@@ -1,3 +1,7 @@
+docker restart jenkins-lts
+
+sleep 30
+
 export $(cat .ubility.env | xargs)
 
 export PRIVATE_KEY="'""$(cat ubility_rsa)""'"
