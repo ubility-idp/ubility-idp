@@ -14,6 +14,10 @@ import jenkins_setup_step1 from "../assets/images/tutorials/jenkins_setup/step1.
 import jenkins_setup_step2 from "../assets/images/tutorials/jenkins_setup/step2.png";
 import jenkins_setup_step3 from "../assets/images/tutorials/jenkins_setup/step3.png";
 import jenkins_setup_step4 from "../assets/images/tutorials/jenkins_setup/step4.png";
+import jenkins_setup_step5 from "../assets/images/tutorials/jenkins_setup/step5.png";
+import jenkins_setup_step6 from "../assets/images/tutorials/jenkins_setup/step6.png";
+import jenkins_setup_step7 from "../assets/images/tutorials/jenkins_setup/step7.png";
+import jenkins_setup_step8 from "../assets/images/tutorials/jenkins_setup/step8.png";
 
 export type Input = {
   id: string;
@@ -86,8 +90,22 @@ const steps: Step[] = [
         },
         {
           nb: 2,
-          title: "Install Jenkins Plugins",
-          instructions: ["Click 'Install suggested plugins'"],
+          title: "Create Jenkins User",
+          instructions: [
+            "Fill with credentails to create a new jenkins user",
+            "Enter the same username used here in the username input above",
+          ],
+          image_visible: true,
+          image: jenkins_setup_step3,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
+        },
+        {
+          nb: 3,
+          title: "Instance Configuration",
+          instructions: ["Click 'Save and Finish'"],
           image_visible: true,
           image: jenkins_setup_step4,
           link: {
@@ -96,14 +114,56 @@ const steps: Step[] = [
           },
         },
         {
-          nb: 3,
-          title: "Install Jenkins Plugins",
-          instructions: ["Click 'Install suggested plugins'"],
+          nb: 4,
+          title: "Jenkins is ready",
+          instructions: ["Click 'Start using Jenkins'"],
           image_visible: true,
-          image: jenkins_setup_step4,
+          image: jenkins_setup_step5,
           link: {
-            title: "http://<VM_ADDRESS>:8080/user/ibrahimnasri24/configure",
-            url: "http://<VM_ADDRESS>:8080/user/ibrahimnasri24/configure",
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
+        },
+        {
+          nb: 5,
+          title: "Open configuration page",
+          instructions: [
+            "Click on your username in the up-right corner",
+            "Click on configure",
+          ],
+          image_visible: true,
+          image: jenkins_setup_step6,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
+        },
+        {
+          nb: 6,
+          title: "Name the API token",
+          instructions: [
+            "In the API Token section, enter a clear name for Jenkins' api token",
+          ],
+          image_visible: true,
+          image: jenkins_setup_step7,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
+          },
+        },
+        {
+          nb: 7,
+          title: "Generate Jenkins' API Token",
+          instructions: [
+            "Click 'Generate'",
+            "Select and copy the token",
+            "Paste the token in the API token field at the top of this page",
+          ],
+          image_visible: true,
+          image: jenkins_setup_step8,
+          link: {
+            title: "http://<VM_ADDRESS>:8080",
+            url: "http://<VM_ADDRESS>:8080",
           },
         },
       ],
