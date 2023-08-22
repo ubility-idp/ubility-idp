@@ -2,6 +2,17 @@ import {StaticImageData} from "next/image";
 
 import azure_login_step1 from "../assets/images/tutorials/azure_login/step1.png";
 import azure_login_step2 from "../assets/images/tutorials/azure_login/step2.png";
+import azure_login_step3 from "../assets/images/tutorials/azure_login/step3.png";
+import azure_login_step3_2 from "../assets/images/tutorials/azure_login/step3-2.png";
+import azure_login_step4 from "../assets/images/tutorials/azure_login/step4.png";
+import azure_login_step5 from "../assets/images/tutorials/azure_login/step5.png";
+import azure_login_step6 from "../assets/images/tutorials/azure_login/step6.png";
+import azure_login_step7 from "../assets/images/tutorials/azure_login/step7.png";
+import azure_login_step8 from "../assets/images/tutorials/azure_login/step8.png";
+import azure_login_step9 from "../assets/images/tutorials/azure_login/step9.png";
+import azure_login_step10 from "../assets/images/tutorials/azure_login/step10.png";
+import azure_login_step10_2 from "../assets/images/tutorials/azure_login/step10-2.png";
+import azure_login_step11 from "../assets/images/tutorials/azure_login/step11.png";
 
 import github_setup_step1 from "../assets/images/tutorials/github_setup/step1.png";
 import github_setup_step2 from "../assets/images/tutorials/github_setup/step2.png";
@@ -17,6 +28,7 @@ import jenkins_setup_step4 from "../assets/images/tutorials/jenkins_setup/step4.
 import jenkins_setup_step5 from "../assets/images/tutorials/jenkins_setup/step5.png";
 import jenkins_setup_step6 from "../assets/images/tutorials/jenkins_setup/step6.png";
 import jenkins_setup_step7 from "../assets/images/tutorials/jenkins_setup/step7.png";
+import jenkins_setup_step7_2 from "../assets/images/tutorials/jenkins_setup/step7-2.png";
 import jenkins_setup_step8 from "../assets/images/tutorials/jenkins_setup/step8.png";
 
 export type Input = {
@@ -73,7 +85,7 @@ const steps: Step[] = [
             "Then click 'Continue'",
           ],
           image_visible: true,
-          images: [jenkins_setup_step1, jenkins_setup_step2],
+          images: [jenkins_setup_step1],
           link: {
             title: "http://<VM_ADDRESS>:8080",
             url: "http://<VM_ADDRESS>:8080",
@@ -125,11 +137,12 @@ const steps: Step[] = [
           nb: 6,
           title: "Name the API token",
           instructions: [
-            "In the API Token section, enter a clear name for Jenkins' api token",
+            "In the API Token section, click 'Add new Token'",
+            "Enter a clear name for Jenkins' api token",
             "Click 'Generate'",
           ],
           image_visible: true,
-          images: [jenkins_setup_step7],
+          images: [jenkins_setup_step7_2, jenkins_setup_step7],
         },
         {
           nb: 7,
@@ -188,13 +201,78 @@ const steps: Step[] = [
         },
         {
           nb: 2,
-          title: "Copy App Registration Identification",
+          title: "Generate Secret",
           instructions: [
-            "Copy the Application (client) ID and paste in the 'Client ID' input at the top of this page",
-            "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
+            "Click on the 'Certificates & secrets' section",
+            "Click on 'New client secret'",
           ],
           image_visible: true,
-          images: [azure_login_step2],
+          images: [azure_login_step3],
+        },
+        {
+          nb: 3,
+          title: "Copy Secret",
+          instructions: [
+            "Make sure to copy the secret in this step. You will not be able to copy it afterwards",
+            "Paste the secret in the Client Secret input field above",
+          ],
+          image_visible: true,
+          images: [azure_login_step4],
+        },
+        {
+          nb: 4,
+          title: "Open Subscription Page",
+          instructions: [
+            "Open the subscriptions page",
+            "Choose the subscription you want to use",
+            "Copy the subscription ID and paste it in the Subscription ID input field at the top of the page",
+          ],
+          image_visible: true,
+          link: {
+            title: "Azure Subscription Page",
+            url: "https://portal.azure.com/#view/Microsoft_Azure_Billing/SubscriptionsBlade",
+          },
+          images: [azure_login_step5, azure_login_step6],
+        },
+        {
+          nb: 5,
+          title: "Assign the App Registration a New Role",
+          instructions: [
+            "Open the Access control (IAM) tab",
+            "Click on 'Add'",
+            "Finally click on 'Add role assignment",
+          ],
+          image_visible: true,
+          images: [azure_login_step8],
+        },
+        {
+          nb: 6,
+          title: "Select Role",
+          instructions: [
+            "Open Privileged adminstrator roles",
+            "Click on the 'Owner' role",
+            "Click 'Next'",
+          ],
+          image_visible: true,
+          images: [azure_login_step9],
+        },
+        {
+          nb: 7,
+          title: "Select the App Registration",
+          instructions: [
+            "Click on Select members",
+            "Search for the previously created ",
+            "Click 'Next'",
+          ],
+          image_visible: true,
+          images: [azure_login_step10, azure_login_step10_2],
+        },
+        {
+          nb: 7,
+          title: "Finish Role Assignment",
+          instructions: ["Click 'Review + assign'"],
+          image_visible: true,
+          images: [azure_login_step11],
         },
       ],
     },
