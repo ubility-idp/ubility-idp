@@ -43,7 +43,7 @@ export default function InstallStep({
   const onSubmit = async (data: any) => {
     setLoading(true);
     setError({error: false, message: ""});
-    console.log(data);
+    // console.log(data);
     const input_json: any = {};
     step.inputs.forEach((input) => (input_json[input.id] = data[input.id]));
     const res = await fetch(`/api/${step.api_endpoint}`, {
