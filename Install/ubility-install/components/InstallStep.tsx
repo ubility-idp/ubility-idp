@@ -120,15 +120,36 @@ export default function InstallStep({
   return (
     <>
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-        <div className="my-8 px-2 md:px-12">
-          <div className="w-full flex justify-center">
-            <Typography className="text-2xl">{step.label}</Typography>
+        <div className="my-8 ">
+          <div className="flex justify-between gap-10">
+            <div className="flex flex-col gap-2">
+              <Typography className="text-3xl">{step.label}</Typography>
+              <Typography className="text-lg">{step.description}</Typography>
+            </div>
+            <div className="flex justify-between">
+              <div className="flex justify-between w-full max-w-sm mt-5">
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{mr: 1}}
+                >
+                  Back
+                </Button>
+                <Button variant="text" onClick={handleNext}>
+                  Skip
+                </Button>
+                <Button variant="outlined" type="submit">
+                  {activeStep === stepsNb - 1 ? "Finish" : "Next"}
+                </Button>
+              </div>
+            </div>
           </div>
           <div className="my-6">{loading && <LinearProgress />}</div>
           <div className="my-6">
             {error.error && <Alert severity="error">{error.message}</Alert>}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
             {step.inputs.map((input, i) => (
               <Controller
                 key={i}
@@ -163,7 +184,7 @@ export default function InstallStep({
               />
             ))}
           </div>
-          {activeStep === stepsNb ? (
+          {/* {activeStep === stepsNb ? (
             <>
               <Typography sx={{mt: 2, mb: 1}}>
                 All steps completed - you&apos;re finished
@@ -173,26 +194,8 @@ export default function InstallStep({
                 <Button onClick={handleReset}>Reset</Button>
               </Box>
             </>
-          ) : (
-            <div className="w-full flex justify-center">
-              <div className="flex justify-between w-full max-w-sm mt-5">
-                <Button
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{mr: 1}}
-                >
-                  Back
-                </Button>
-                <Button variant="text" onClick={handleNext}>
-                  Skip
-                </Button>
-                <Button variant="outlined" type="submit">
-                  {activeStep === stepsNb - 1 ? "Finish" : "Next"}
-                </Button>
-              </div>
-            </div>
-          )}
+          ) : ( 
+          )}*/}
         </div>
       </form>
       <TutorialContainer step={step} jenkins_admin_pass={jenkins_admin_pass} />

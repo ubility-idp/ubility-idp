@@ -64,7 +64,8 @@ export type Step = {
 const steps: Step[] = [
   {
     id: "jenkins_setup",
-    description: "In this step we will open Jenkins for the first time ",
+    description:
+      "In this step we will open Jenkins for the first time. Then install the suggested plugins and create a user.",
     nb: 0,
     label: "Jenkins Setup",
     api_endpoint: "jenkins-setup",
