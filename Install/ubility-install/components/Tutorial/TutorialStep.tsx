@@ -23,21 +23,20 @@ function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
   >(tutStep.link);
 
   useEffect(() => {
-    setTutInstructions(
-      tutStep.instructions.map(
-        (inst) => `- ${inst.replace("<VM_ADDRESS>", vm_address)}`
-      )
-    );
-  }, [tutStep.instructions, vm_address]);
+    console.log(tutInstructions);
+  }, [tutInstructions]);
 
   useEffect(() => {
-    setTutInstructions(
-      tutStep.instructions.map(
+    setTutInstructions(() => {
+      const updatedTutStep = tutStep.instructions.map(
         (inst) =>
-          `- ${inst.replace("<jenkins_admin_pass>", jenkins_admin_pass)}`
-      )
-    );
-  }, [tutStep.instructions, jenkins_admin_pass]);
+          `- ${inst
+            .replace("<jenkins_admin_pass>", jenkins_admin_pass)
+            .replace("<VM_ADDRESS>", vm_address)}`
+      );
+      return updatedTutStep;
+    });
+  }, [tutStep.instructions, jenkins_admin_pass, vm_address]);
 
   useEffect(() => {
     if (vm_address && tutStep.link) {

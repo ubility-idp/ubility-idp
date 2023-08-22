@@ -82,7 +82,7 @@ export default function InstallStep({
     });
     const result = await res.json();
     if (result.status === "pass") {
-      console.log(result.values);
+      // console.log(result.values);
 
       result.values.forEach((val: any[]) => {
         setValue(val[0], val[1]);

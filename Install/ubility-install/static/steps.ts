@@ -186,22 +186,35 @@ const steps: Step[] = [
       steps: [
         {
           nb: 0,
-          title: "Open Azure Portal",
+          title: "Open New App Registration page on Azure Portal",
           instructions: [
-            "Search for 'app registrations'",
-            "Click on App registrations",
+            "Give the app registration a clear name",
+            "Click 'Register'",
           ],
           image_visible: true,
           image: azure_login_step1,
           link: {
-            title: "https://portal.azure.com/#home",
-            url: "https://portal.azure.com/#home",
+            title: "New App Registration Link",
+            url: "https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/CreateApplicationBlade/quickStartType~/null/isMSAApp~/false",
           },
         },
         {
           nb: 1,
-          title: "Create new app registration",
-          instructions: ["Click New registration"],
+          title: "Copy App Registration Identification",
+          instructions: [
+            "Copy the Application (client) ID and paste in the 'Client ID' input at the top of this page",
+            "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
+          ],
+          image_visible: true,
+          image: azure_login_step2,
+        },
+        {
+          nb: 2,
+          title: "Copy App Registration Identification",
+          instructions: [
+            "Copy the Application (client) ID and paste in the 'Client ID' input at the top of this page",
+            "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
+          ],
           image_visible: true,
           image: azure_login_step2,
         },
