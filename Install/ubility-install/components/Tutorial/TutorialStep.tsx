@@ -23,10 +23,6 @@ function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
   >(tutStep.link);
 
   useEffect(() => {
-    console.log(tutInstructions);
-  }, [tutInstructions]);
-
-  useEffect(() => {
     setTutInstructions(() => {
       const updatedTutStep = tutStep.instructions.map(
         (inst) =>
@@ -48,7 +44,7 @@ function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
   }, [tutStep.link, vm_address]);
 
   return (
-    <Paper className="px-6 py-2">
+    <Paper className="px-6 pt-2 pb-6">
       <div
         id={`${tutStep.input_link}-tut-step`}
         className="flex gap-4 items-center my-2"
@@ -70,12 +66,17 @@ function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
         ))}
       </div>
       <hr />
-      <Image
-        src={tutStep.image}
-        width={1920}
-        height={1080}
-        alt={tutStep.title}
-      />
+      <div className="flex flex-col gap-2">
+        {tutStep.images.map((image, i) => (
+          <Image
+            key={i}
+            src={image}
+            width={1920}
+            height={1080}
+            alt={tutStep.title}
+          />
+        ))}
+      </div>
     </Paper>
   );
 }

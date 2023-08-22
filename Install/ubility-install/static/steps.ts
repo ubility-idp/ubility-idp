@@ -30,13 +30,14 @@ export type TutStep = {
   title: string;
   instructions: string[];
   image_visible: boolean;
-  image: StaticImageData;
+  images: StaticImageData[];
   link?: {title: string; url: string};
   input_link?: string;
 };
 
 export type Step = {
   id: string;
+  description: string;
   nb: number;
   label: string;
   api_endpoint: string;
@@ -51,6 +52,7 @@ export type Step = {
 const steps: Step[] = [
   {
     id: "jenkins_setup",
+    description: "In this step we will open Jenkins for the first time ",
     nb: 0,
     label: "Jenkins Setup",
     api_endpoint: "jenkins-setup",
@@ -71,7 +73,7 @@ const steps: Step[] = [
             "Then click 'Continue'",
           ],
           image_visible: true,
-          image: jenkins_setup_step1,
+          images: [jenkins_setup_step1, jenkins_setup_step2],
           link: {
             title: "http://<VM_ADDRESS>:8080",
             url: "http://<VM_ADDRESS>:8080",
@@ -82,11 +84,7 @@ const steps: Step[] = [
           title: "Install Jenkins Plugins",
           instructions: ["Click 'Install suggested plugins'"],
           image_visible: true,
-          image: jenkins_setup_step2,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step2],
         },
         {
           nb: 2,
@@ -96,33 +94,22 @@ const steps: Step[] = [
             "Enter the same username used here in the username input above",
           ],
           image_visible: true,
-          image: jenkins_setup_step3,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step3],
+          input_link: "JENKINS_USERNAME",
         },
         {
           nb: 3,
           title: "Instance Configuration",
           instructions: ["Click 'Save and Finish'"],
           image_visible: true,
-          image: jenkins_setup_step4,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step4],
         },
         {
           nb: 4,
           title: "Jenkins is ready",
           instructions: ["Click 'Start using Jenkins'"],
           image_visible: true,
-          image: jenkins_setup_step5,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step5],
         },
         {
           nb: 5,
@@ -132,24 +119,17 @@ const steps: Step[] = [
             "Click on configure",
           ],
           image_visible: true,
-          image: jenkins_setup_step6,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step6],
         },
         {
           nb: 6,
           title: "Name the API token",
           instructions: [
             "In the API Token section, enter a clear name for Jenkins' api token",
+            "Click 'Generate'",
           ],
           image_visible: true,
-          image: jenkins_setup_step7,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step7],
         },
         {
           nb: 7,
@@ -160,17 +140,15 @@ const steps: Step[] = [
             "Paste the token in the API token field at the top of this page",
           ],
           image_visible: true,
-          image: jenkins_setup_step8,
-          link: {
-            title: "http://<VM_ADDRESS>:8080",
-            url: "http://<VM_ADDRESS>:8080",
-          },
+          images: [jenkins_setup_step8],
+          input_link: "JENKINS_API_TOKEN",
         },
       ],
     },
   },
   {
     id: "azure_login",
+    description: "",
     nb: 1,
     label: "Azure Login",
     api_endpoint: "azure-login",
@@ -192,7 +170,7 @@ const steps: Step[] = [
             "Click 'Register'",
           ],
           image_visible: true,
-          image: azure_login_step1,
+          images: [azure_login_step1],
           link: {
             title: "New App Registration Link",
             url: "https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/CreateApplicationBlade/quickStartType~/null/isMSAApp~/false",
@@ -206,7 +184,7 @@ const steps: Step[] = [
             "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
           ],
           image_visible: true,
-          image: azure_login_step2,
+          images: [azure_login_step2],
         },
         {
           nb: 2,
@@ -216,13 +194,14 @@ const steps: Step[] = [
             "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
           ],
           image_visible: true,
-          image: azure_login_step2,
+          images: [azure_login_step2],
         },
       ],
     },
   },
   {
     id: "terraform-vars",
+    description: "",
     nb: 2,
     label: "Infrastructure",
     api_endpoint: "terraform-vars",
@@ -242,6 +221,7 @@ const steps: Step[] = [
   },
   {
     id: "github_setup",
+    description: "",
     nb: 3,
     label: "Github SSH Key",
     api_endpoint: "github-setup",
@@ -258,7 +238,7 @@ const steps: Step[] = [
           title: "Open github token page",
           instructions: [],
           image_visible: true,
-          image: github_setup_step1,
+          images: [github_setup_step1],
           link: {
             title: "https://github.com/settings/tokens/new",
             url: "https://github.com/settings/tokens/new",
@@ -269,13 +249,14 @@ const steps: Step[] = [
           title: "Generate token",
           instructions: [],
           image_visible: true,
-          image: github_setup_step2,
+          images: [github_setup_step2],
         },
       ],
     },
   },
   {
     id: "github_oauth",
+    description: "",
     nb: 4,
     label: "Github Oauth",
     api_endpoint: "github-oauth",
@@ -295,7 +276,7 @@ const steps: Step[] = [
             "Enter http://<VM_ADDRESS>:7007/api/auth/github/handler/frame into the Authorization callback URL* field",
           ],
           image_visible: true,
-          image: github_oauth_step1,
+          images: [github_oauth_step1],
           link: {
             title: "https://github.com/settings/applications/new",
             url: "https://github.com/settings/applications/new",
@@ -308,7 +289,7 @@ const steps: Step[] = [
             "Copy the Client ID and paste it in the installation guide",
           ],
           image_visible: true,
-          image: github_oauth_step2,
+          images: [github_oauth_step2],
           input_link: "GITHUB_CLIENT_ID",
         },
         {
@@ -319,7 +300,7 @@ const steps: Step[] = [
             "Copy the generated client secret and paste it in the installation guide",
           ],
           image_visible: true,
-          image: github_oauth_step3,
+          images: [github_oauth_step3],
           input_link: "GITHUB_CLIENT_SECRET",
         },
       ],
@@ -327,6 +308,7 @@ const steps: Step[] = [
   },
   {
     id: "database-creds",
+    description: "",
     nb: 5,
     label: "Database Credentials",
     api_endpoint: "database-creds",
@@ -342,6 +324,7 @@ const steps: Step[] = [
   },
   {
     id: "automation-setup",
+    description: "",
     nb: 6,
     label: "Automation Setup",
     api_endpoint: "automation-setup",
@@ -354,6 +337,7 @@ const steps: Step[] = [
   },
   {
     id: "adding-cred-to-jenkins",
+    description: "",
     nb: 7,
     label: "Adding Credentials to Jenkins",
     api_endpoint: "adding-cred-to-jenkins",
@@ -366,6 +350,7 @@ const steps: Step[] = [
   },
   {
     id: "docker-compose",
+    description: "",
     nb: 8,
     label: "Starting the Docker Containers",
     api_endpoint: "docker-compose",
