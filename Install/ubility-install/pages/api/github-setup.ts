@@ -5,6 +5,7 @@ import {
   finishedStep,
   notNonEmptyString,
 } from "./utils/helperFunctions";
+import BashExec from "./utils/BashExec";
 
 var keygen = require("ssh-keygen");
 
@@ -36,7 +37,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
       const {pass, result} = await add_key_to_github(GITHUB_TOKEN, out.pubKey);
 
-      if (pass) {
+      const bashRes = await BashExec(
+        "sh pages/api/scripts/github-setup.sh",
+        res
+      );
+
+      if (pass && bashRes.pass) {
         addEnvVar("GITHUB_USERNAME", GITHUB_USERNAME);
         addEnvVar("GITHUB_TOKEN", GITHUB_TOKEN);
 
@@ -49,7 +55,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       res.status(500).json({
-        status: pass ? "pass" : "fail",
+        status: pass && bashRes.pass ? "pass" : "fail",
         result: {error: result},
       });
     }

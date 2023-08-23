@@ -5,11 +5,6 @@ export DirectEntryPrivateKeySource='$DirectEntryPrivateKeySource'
 
 cd ../../Jenkins
 
-# if [ -z "${AZURE_CLIENT_ID}" ] || [ -z "${AZURE_CLIENT_SECRET}" ] || [ -z "${GITHUB_USERNAME}" ] || [ -z "${GITHUB_USERNAME}" ] || [ -z "${PRIVATE_KEY}" ]; then
-#   echo "Error: env variable missing" 1>&2
-#   exit 1
-# fi
-
 envsubst <credential-github-ssh.xml >credential-github-ssh.tmp.xml
 envsubst <credential-azure.xml >credential-azure.tmp.xml
 
