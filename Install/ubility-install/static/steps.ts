@@ -151,6 +151,7 @@ const steps: Step[] = [
           instructions: [
             "Click 'Generate'",
             "Select and copy the token",
+            "Click 'Save' at the bottom of the Jenkins page",
             "Paste the token in the API token field at the top of this page",
           ],
           image_visible: true,
