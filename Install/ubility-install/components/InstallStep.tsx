@@ -121,13 +121,13 @@ export default function InstallStep({
     <>
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="my-8 ">
-          <div className="flex justify-between gap-10">
+          <div className="flex justify-between items-end gap-10">
             <div className="flex flex-col gap-2">
-              <Typography className="text-3xl">{step.label}</Typography>
-              <Typography className="text-lg">{step.description}</Typography>
+              <Typography variant="h5">{step.label}</Typography>
+              <Typography variant="h6">{step.description}</Typography>
             </div>
-            <div className="flex justify-between">
-              <div className="flex justify-between w-full max-w-sm mt-5">
+            <div className="h-full flex flex-col justify-end">
+              <div className="flex justify-between w-full max-w-sm">
                 <Button
                   color="inherit"
                   disabled={activeStep === 0}

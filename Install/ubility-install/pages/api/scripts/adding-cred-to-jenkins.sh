@@ -8,7 +8,7 @@ cd ../../Jenkins
 envsubst <credential-github-ssh.xml >credential-github-ssh.tmp.xml
 envsubst <credential-azure.xml >credential-azure.tmp.xml
 
-wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
+wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar" /dev/null 2>&1
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
 sleep 3
 
