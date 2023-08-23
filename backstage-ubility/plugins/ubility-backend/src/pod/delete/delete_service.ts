@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-import { runKubectlCommand } from '../utils/functions';
+import { runKubectlCommand } from '../../utils/functions';
 
 type PathToEdit = {
   path: string;

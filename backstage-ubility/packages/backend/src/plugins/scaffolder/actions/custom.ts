@@ -1,5 +1,4 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
-import { writeFile } from 'fs';
 import axios from 'axios';
 import * as fs from 'fs';
 import YAML from 'yaml';
@@ -11,70 +10,6 @@ const FormData = require('form-data');
 const path = require('path');
 
 // const { DownloaderHelper } = require('node-downloader-helper');
-
-export const createNewFileAction = () => {
-  return createTemplateAction<{ contents: string; filename: string }>({
-    id: 'acme:file:create',
-    schema: {
-      input: {
-        required: ['contents', 'filename'],
-        type: 'object',
-        properties: {
-          contents: {
-            type: 'string',
-            title: 'Contents',
-            description: 'The contents of the file',
-          },
-          filename: {
-            type: 'string',
-            title: 'Filename',
-            description: 'The filename of the file that will be created',
-          },
-        },
-      },
-    },
-    async handler(ctx) {
-      // const { signal } = ctx;
-      writeFile(
-        `${ctx.workspacePath}/${ctx.input.filename}`,
-        ctx.input.contents,
-        'utf-8',
-        _ => {},
-      );
-    },
-  });
-};
-
-export const createNewVM = () => {
-  return createTemplateAction<{ vm_name: string }>({
-    id: 'ubility:vm:create',
-    schema: {
-      input: {
-        required: ['vm_name'],
-        type: 'object',
-        properties: {
-          vm_name: {
-            type: 'string',
-            title: 'Virtual Machine Name',
-            description: 'Name of the vm which will host the project',
-          },
-        },
-      },
-    },
-    async handler(ctx) {
-      const webhook =
-        'https://testapi.ubilityai.com/api/webhook?u_id=1&file=SubFlow-97161098-0847-41f0-bb89-09f6cb3799b7';
-      const bodyData = {
-        region: 'East Us',
-        rg_name: `backstage-${ctx.input.vm_name}-rg`,
-        vm_name: `backstage-${ctx.input.vm_name}`,
-        vnet_name: `backstage-${ctx.input.vm_name}-vnet`,
-      };
-      const response = await axios.post(webhook, bodyData);
-      console.log(response);
-    },
-  });
-};
 
 const executeShellCommand = (cmd: string) => {
   exec(cmd, (error: { message: any }, stdout: any, stderr: any) => {
@@ -124,6 +59,22 @@ export const ApplyTerraform = () => {
       const aut_server_base_url = app_config
         .getConfig('ubility')
         .getString('automation-server-base_url');
+
+      const azure_client_id = app_config
+        .getConfig('ubility')
+        .getString('azure_client_id');
+
+      const azure_tenant_id = app_config
+        .getConfig('ubility')
+        .getString('azure_tenant_id');
+
+      const azure_client_secret = app_config
+        .getConfig('ubility')
+        .getString('azure_client_secret');
+
+      const azure_subscription_id = app_config
+        .getConfig('ubility')
+        .getString('azure_subscription_id');
 
       const Axios = axios.create({
         baseURL: aut_server_base_url,
@@ -187,7 +138,18 @@ export const ApplyTerraform = () => {
         headers: {
           Authorization: `Bearer ${bearer_token}`,
         },
-        data: { file_name: filename },
+        data: {
+          file_name: filename,
+          terraform_variables: {},
+          provider: 'azure',
+          credentials: {
+            CLIENT_ID: azure_client_id,
+            SECRET: azure_client_secret,
+            SUBSCRIPTION_ID: azure_subscription_id,
+            TENANT_ID: azure_tenant_id,
+          },
+          file_type: 'zipped',
+        },
       };
       response = await Axios(config);
 

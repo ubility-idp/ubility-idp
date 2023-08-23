@@ -5,11 +5,7 @@ import {
 } from '@backstage/plugin-scaffolder-backend';
 import { Router } from 'express';
 import type { PluginEnvironment } from '../types';
-import {
-  createNewFileAction,
-  createNewVM,
-  ApplyTerraform,
-} from './scaffolder/actions/custom';
+import { ApplyTerraform } from './scaffolder/actions/custom';
 import { CreateJenkinsPipeline } from './scaffolder/actions/CreateJenkinsPipeline';
 import { ScmIntegrations } from '@backstage/integration';
 import { AddRuleToIngress } from './scaffolder/actions/AddRuleToIngress';
@@ -32,8 +28,6 @@ export default async function createPlugin(
 
   const actions = [
     ...builtInActions,
-    createNewFileAction(),
-    createNewVM(),
     ApplyTerraform(),
     CreateJenkinsPipeline(),
     AddRuleToIngress(),

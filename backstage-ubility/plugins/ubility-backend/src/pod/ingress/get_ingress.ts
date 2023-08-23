@@ -1,4 +1,4 @@
-import { runKubectlCommand } from '../utils/functions';
+import { runKubectlCommand } from '../../utils/functions';
 
 export const get_ingress = async (
   cluster_name: string,

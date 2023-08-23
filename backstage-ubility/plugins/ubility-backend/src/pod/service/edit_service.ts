@@ -1,6 +1,6 @@
-import { editJsonUsingPath, runKubectlCommand } from '../utils/functions';
+import { editJsonUsingPath, runKubectlCommand } from '../../utils/functions';
 import YAML from 'yaml';
-import editGithubFile from '../utils/github';
+import editGithubFile from '../../utils/github';
 
 type PathToEdit = {
   path: string;

@@ -58,6 +58,7 @@ docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+docker exec "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
 #_______________________________________________________________________________________________________

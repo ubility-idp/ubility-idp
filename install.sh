@@ -51,6 +51,7 @@ sleep 10
 docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+docker exec "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
@@ -106,7 +107,7 @@ cd Jenkins
 wget "http://$VM_ADDRESS:8080/jnlpJars/jenkins-cli.jar"
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.18
 sleep 3
-docker restart jenkins-lts
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" safe-restart
 cd ..
 
 #_______________________________________________________________________________________________________
@@ -236,6 +237,7 @@ envsubst <credential-azure.xml >credential-azure.tmp.xml
 
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-github-ssh.tmp.xml
 java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" create-credentials-by-xml system::system::jenkins _ <credential-azure.tmp.xml
+java -jar jenkins-cli.jar -s http://$VM_ADDRESS:8080/ -auth $JENKINS_USERNAME:"$JENKINS_API_TOKEN" install-plugin git-parameter:0.9.19
 
 rm credential-github-ssh.tmp.xml credential-azure.tmp.xml
 cd ..

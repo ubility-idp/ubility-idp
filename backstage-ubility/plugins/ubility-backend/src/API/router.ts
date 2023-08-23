@@ -3,13 +3,14 @@ import { Config } from '@backstage/config';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
-import { get_ingress } from '../ingress/get_ingress';
-import { edit_apply_ingress } from '../ingress/edit_ingress';
-import { get_deployment } from '../deployment/get_deployment';
-import { edit_apply_deployment } from '../deployment/edit_deployment';
-import { edit_apply_service } from '../service/edit_service';
-import { get_service } from '../service/get_service';
-import { delete_service } from '../delete/delete_service';
+import { get_ingress } from '../pod/ingress/get_ingress';
+import { edit_apply_ingress } from '../pod/ingress/edit_ingress';
+import { get_deployment } from '../pod/deployment/get_deployment';
+import { edit_apply_deployment } from '../pod/deployment/edit_deployment';
+import { edit_apply_service } from '../pod/service/edit_service';
+import { get_service } from '../pod/service/get_service';
+import { delete_service } from '../pod/delete/delete_service';
+import { delete_cluster } from '../cluster/delete_cluster';
 import editGithubFile from '../utils/github';
 import axios from 'axios';
 
@@ -153,6 +154,12 @@ export async function createRouter(
       'backstage updated catalog-info',
     );
     response.send({ message: success });
+  });
+
+  router.post('/delete_cluster', async (request, response) => {
+    const cluster_name = request.body?.cluster_name;
+    const delete_res = await delete_cluster(cluster_name);
+    response.send({ delete_res: delete_res ? delete_res : {} });
   });
 
   router.get('/get_azure_regions', async (_, response) => {

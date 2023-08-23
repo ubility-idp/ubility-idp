@@ -55,7 +55,7 @@ async function runKubectlCommand(command: string, cluster_name: string) {
     .getString('resource_group');
   const subscriptionId = app_config
     .getConfig('ubility')
-    .getString('subscription_id');
+    .getString('azure_subscription_id');
 
   const resourceName = cluster_name;
   const requestPayload = {
