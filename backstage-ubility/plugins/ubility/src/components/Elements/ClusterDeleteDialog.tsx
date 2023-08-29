@@ -27,6 +27,8 @@ type Props = {
 };
 
 const ClusterDeleteDialog = ({ deleting, onCancel, onConfirm }: Props) => {
+  console.log(deleting);
+
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
