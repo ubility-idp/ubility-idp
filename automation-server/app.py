@@ -15,7 +15,7 @@ log_dir_path = "./logs"
 if not os.path.isdir(log_dir_path):
     os.mkdir(log_dir_path)
 handler = TimedRotatingFileHandler(
-    filename="./logs/plarform.log", encoding="utf-8", when="midnight", interval=1
+    filename="./logs/platform.log", encoding="utf-8", when="midnight", interval=1
 )
 handler.suffix = "%Y-%m-%d"
 

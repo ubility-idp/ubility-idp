@@ -8,3 +8,4 @@ scripts/
 .venv
 .vscode
 .env
+.python_version

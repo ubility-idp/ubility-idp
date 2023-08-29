@@ -12,13 +12,13 @@ export const ImportRemoteRepo = () => {
     id: 'ubility:import:repo',
     schema: {
       input: {
-        required: ['project_name'],
+        required: ['repo_url'],
         type: 'object',
         properties: {
-          project_name: {
+          repo_url: {
             type: 'string',
-            title: 'Project Name',
-            description: 'This will be used as the pipeline name on jenkins',
+            title: 'GitHub repository url',
+            description: 'URL of remote repository on GitHub',
           },
         },
       },
@@ -28,11 +28,6 @@ export const ImportRemoteRepo = () => {
         argv: process.argv,
         logger: getRootLogger(),
       });
-      const JENKINS_ADDRESS = app_config
-        .getConfig('ubility')
-        .getString('jenkins-address');
-      const PIPELINE_NAME = ctx.input.project_name;
-      const API_TOKEN = app_config.getConfig('jenkins').getString('apiKey');
       const USERNAME = app_config.getConfig('jenkins').getString('username');
 
       const configPath = path.join(ctx.workspacePath, 'config.xml');
