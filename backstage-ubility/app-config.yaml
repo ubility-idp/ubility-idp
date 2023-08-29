@@ -54,12 +54,16 @@ catalog:
       target: https://github.com/ubility-idp/flask-api-template/blob/main/template.yaml
     - type: url
       target: https://github.com/ubility-idp/create-cluster-template/blob/main/template.yaml
+    - type: url
+      target: https://github.com/ubility-idp/next-app-template/blob/main/template.yaml
 
 ubility:
   container_registry: ${CONTAINER_REGISTRY}
   resource_group: ${RESOURCE_GROUP}
+  azure_client_id: ${AZURE_CLIENT_ID}
   azure_tenant_id: ${AZURE_TENANT_ID}
-  subscription_id: ${SUBSCRIPTION_ID}
+  azure_client_secret: ${AZURE_CLIENT_SECRET}
+  azure_subscription_id: ${SUBSCRIPTION_ID}
   automation-server-jwt: ${AUTOMATION_SERVER_JWT}
   automation-server-base_url: ${AUTOMATION_SERVER_BASE_URL}
   jenkins-address: ${VM_ADDRESS}:8080
