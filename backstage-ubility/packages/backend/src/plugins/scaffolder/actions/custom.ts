@@ -9,8 +9,6 @@ const { exec } = require('child_process');
 const FormData = require('form-data');
 const path = require('path');
 
-// const { DownloaderHelper } = require('node-downloader-helper');
-
 const executeShellCommand = (cmd: string) => {
   exec(cmd, (error: { message: any }, stdout: any, stderr: any) => {
     console.log(`__________Executing: ${cmd}___________`);
@@ -78,7 +76,7 @@ export const ApplyTerraform = () => {
 
       const Axios = axios.create({
         baseURL: aut_server_base_url,
-        timeout: 5000,
+        timeout: 15000,
         headers: {
           'Content-Type': 'application/json',
         },

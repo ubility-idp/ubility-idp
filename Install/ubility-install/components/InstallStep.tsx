@@ -121,7 +121,7 @@ export default function InstallStep({
     <>
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="my-8 ">
-          <div className="flex justify-between items-end gap-10">
+          <div className="flex justify-between items-start gap-10">
             <div className="flex flex-col gap-2">
               <Typography variant="h5">{step.label}</Typography>
               <Typography variant="h6">{step.description}</Typography>

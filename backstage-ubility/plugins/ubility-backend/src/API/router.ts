@@ -13,6 +13,7 @@ import { delete_service } from '../pod/delete/delete_service';
 import { delete_cluster } from '../cluster/delete_cluster';
 import editGithubFile from '../utils/github';
 import axios from 'axios';
+import { get_cluster_deletion_status } from '../cluster/get_cluster_deletion_status';
 
 interface AzSize {
   maxDataDiskCount: number;
@@ -159,7 +160,12 @@ export async function createRouter(
   router.post('/delete_cluster', async (request, response) => {
     const cluster_name = request.body?.cluster_name;
     const delete_res = await delete_cluster(cluster_name);
-    response.send({ delete_res: delete_res ? delete_res : {} });
+    response.send(delete_res);
+  });
+  router.post('/delete_cluster_status', async (request, response) => {
+    const task_id = request.body?.task_id;
+    const res = await get_cluster_deletion_status(task_id);
+    response.send(res);
   });
 
   router.get('/get_azure_regions', async (_, response) => {
