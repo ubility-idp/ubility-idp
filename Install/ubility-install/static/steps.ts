@@ -163,7 +163,8 @@ const steps: Step[] = [
   },
   {
     id: "azure_login",
-    description: "",
+    description:
+      "In this step, you will create a new app registration on your azure subscription. You will then give this registration an owner role for it to be able to assign roles",
     nb: 1,
     label: "Azure Login",
     api_endpoint: "azure-login",
@@ -281,7 +282,8 @@ const steps: Step[] = [
   },
   {
     id: "terraform-vars",
-    description: "",
+    description:
+      "This step creates a resource group on azure and an acr inside this resource group. Please provide the name of these resources to be created.",
     nb: 2,
     label: "Infrastructure",
     api_endpoint: "terraform-vars",
@@ -301,7 +303,8 @@ const steps: Step[] = [
   },
   {
     id: "github_setup",
-    description: "",
+    description:
+      "This step walks you through generating a new GitHub acces token which will be used by backstage to read and write to GitHub account.",
     nb: 3,
     label: "Github SSH Key",
     api_endpoint: "github-setup",
@@ -336,7 +339,8 @@ const steps: Step[] = [
   },
   {
     id: "github_oauth",
-    description: "",
+    description:
+      "This step walks you through registering OpenOps as a GitHub Oath application. An Oauth GitHub App is an application registered to use the GitHub API.",
     nb: 4,
     label: "Github Oauth",
     api_endpoint: "github-oauth",
@@ -388,7 +392,8 @@ const steps: Step[] = [
   },
   {
     id: "database-creds",
-    description: "",
+    description:
+      "Please provide the username and password used to secure the PostgreSQL instance used by OpenOps.",
     nb: 5,
     label: "Database Credentials",
     api_endpoint: "database-creds",
@@ -404,7 +409,8 @@ const steps: Step[] = [
   },
   {
     id: "automation-setup",
-    description: "",
+    description:
+      "Creating secret and JWT token to be used with Ubility's automation server.",
     nb: 6,
     label: "Automation Setup",
     api_endpoint: "automation-setup",
@@ -417,7 +423,8 @@ const steps: Step[] = [
   },
   {
     id: "adding-cred-to-jenkins",
-    description: "",
+    description:
+      "Adding Azure service principal and GitHub ssh private key credentials to Jenkins.",
     nb: 7,
     label: "Adding Credentials to Jenkins",
     api_endpoint: "adding-cred-to-jenkins",
@@ -430,7 +437,8 @@ const steps: Step[] = [
   },
   {
     id: "docker-compose",
-    description: "",
+    description:
+      "Starting all OpenOps containers using the provided input variables.",
     nb: 8,
     label: "Starting the Docker Containers",
     api_endpoint: "docker-compose",
