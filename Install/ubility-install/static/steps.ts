@@ -304,9 +304,9 @@ const steps: Step[] = [
   {
     id: "github_setup",
     description:
-      "This step walks you through generating a new GitHub acces token which will be used by backstage to read and write to GitHub account.",
+      "This step walks you through generating a new GitHub acces token which will be used by backstage to read and write to your GitHub account. An ssh key will then be generated and registered with GitHub for Jenkins integration.",
     nb: 3,
-    label: "Github SSH Key",
+    label: "Github Setup",
     api_endpoint: "github-setup",
     inputs: [
       {id: "GITHUB_USERNAME", label: "Github Username", type: "text"},
