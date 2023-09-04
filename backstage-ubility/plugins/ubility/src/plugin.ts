@@ -42,7 +42,7 @@ export const EntityUbilityClusterContent = ubilityPlugin.provide(
   createRoutableExtension({
     name: 'EntityUbilityContent',
     component: () =>
-      import('./components/Cluster/IpAddress').then(m => m.IpAddress),
+      import('./components/Cluster/Cluster').then(m => m.Cluster),
     mountPoint: rootRouteRef,
   }),
 );

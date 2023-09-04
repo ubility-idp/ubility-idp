@@ -11,6 +11,8 @@ import React, { useState } from 'react';
 import { discoveryApiRef, useApi } from '@backstage/core-plugin-api';
 import { Progress } from '@backstage/core-components';
 import { Alert } from '@material-ui/lab';
+import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,24 +26,28 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  onCancel: () => any;
   cluster_name: string;
+  repo_loc: string;
 };
 
-const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
+const ClusterDeleteDialog = ({ cluster_name, repo_loc }: Props) => {
+  const navigate = useNavigate();
+
   const discoveryApi = useApi(discoveryApiRef);
+  const catalogApi = useApi(catalogApiRef);
 
   const [deleting, setDeleting] = useState({
-    error: true,
+    error: false,
     deleting: false,
     success: false,
-    error_message: 'Error: omlsk dbo jsegod nr[skdn b[orj bs[ojrsn thb[on ',
+    error_message: '',
   });
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
   const deleteHandler = async () => {
-    const baseUrl = await discoveryApi.getBaseUrl('ubility');
+    const ubility_baseUrl = await discoveryApi.getBaseUrl('ubility');
+    const catalog_baseUrl = await discoveryApi.getBaseUrl('catalog');
     console.log(`Deleting ${cluster_name} cluster`);
 
     setDeleting({
@@ -51,7 +57,7 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
       error_message: '',
     });
     try {
-      const response = await fetch(`${baseUrl}/delete_cluster`, {
+      const response = await fetch(`${ubility_baseUrl}/delete_cluster`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +75,7 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
       let res_get_delete;
 
       while (status === 'STARTED' || status === 'PENDING') {
-        const res = await fetch(`${baseUrl}/delete_cluster_status`, {
+        const res = await fetch(`${ubility_baseUrl}/delete_cluster_status`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -85,11 +91,19 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
 
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
-      status = res_get_delete.data.Status;
+      status = res_get_delete?.data?.Status;
       if (status === 'FAIL')
         setDeleting(prev => {
           return { ...prev, error: true };
         });
+      if (status === undefined) {
+        if ('success' in res_get_delete) {
+          const location = await catalogApi.getLocationByRef(repo_loc);
+          const entity_id = location?.id || '';
+          catalogApi.removeLocationById(entity_id);
+          navigate('/catalog');
+        }
+      }
       setDeleting({
         error: false,
         deleting: false,
@@ -118,27 +132,6 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
     deleteHandler();
   };
 
-  const cancelDialog = () => {
-    closeDialog();
-    onCancel();
-  };
-
-  const dialogContent = () => {
-    return (
-      <>
-        <Typography>Delete the cluster</Typography>
-        <ul>
-          <li>
-            <Typography>
-              Caution deleting this service will remove its deployment, service
-              and ingress from the cluster
-            </Typography>
-          </li>
-        </ul>
-      </>
-    );
-  };
-
   return (
     <>
       <Button color="secondary" variant="contained" onClick={openDialog}>
@@ -161,7 +154,28 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          {dialogContent()}
+          <ul>
+            <li>
+              <Typography>Deleting the cluster on Azure is undoable</Typography>
+            </li>
+            <li>
+              <Typography>
+                This will remove the AKS and all nodes under it and any running
+                services will be gone
+              </Typography>
+            </li>
+            <li>
+              <Typography>
+                This action does not delete the AKS terraform files on GitHub
+              </Typography>
+            </li>
+            <li>
+              <Typography>
+                This action also deletes this entity and its origin location
+                from the software Catalog
+              </Typography>
+            </li>
+          </ul>
           {deleting.error ? (
             <div className="bg-red-500">
               <Alert severity="error">{deleting.error_message}</Alert>
@@ -169,13 +183,10 @@ const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
           ) : deleting.deleting ? (
             <Progress />
           ) : (
-            <Alert>Cluster deleted successfully</Alert>
+            deleting.success && <Alert>Cluster deleted successfully</Alert>
           )}
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={cancelDialog}>
-            Cancel
-          </Button>
           <Button color="secondary" onClick={confirmDialog}>
             Delete
           </Button>

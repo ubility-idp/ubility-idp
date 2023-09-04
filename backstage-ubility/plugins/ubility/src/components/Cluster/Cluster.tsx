@@ -7,25 +7,27 @@ import {
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import React from 'react';
-import { catalogInfoBase } from '../../../constants';
-import ClusterDeleteDialog from '../../Elements/ClusterDeleteDialog';
+import { catalogInfoBase } from '../../constants';
+import ClusterDeleteDialog from '../Elements/ClusterDeleteDialog';
 
-export const IpAddress = () => {
+export const Cluster = () => {
   const { entity } = useEntity();
 
   const ip = entity.metadata.annotations?.[`${catalogInfoBase}ip`] || '';
 
-  const cluster_name =
-    entity.metadata.annotations?.[`${catalogInfoBase}cluster-name`] ||
-    'openopstestcluster';
+  const repo_loc =
+    entity.metadata.annotations?.['backstage.io/managed-by-origin-location'] ||
+    '';
 
+  const cluster_name =
+    entity.metadata.annotations?.[`${catalogInfoBase}cluster-name`] || '';
   return (
     <Content>
       <ContentHeader title="Cluster Info">
         <Grid item>
           <ClusterDeleteDialog
-            onCancel={() => {}}
             cluster_name={cluster_name}
+            repo_loc={repo_loc}
           />
         </Grid>
       </ContentHeader>
