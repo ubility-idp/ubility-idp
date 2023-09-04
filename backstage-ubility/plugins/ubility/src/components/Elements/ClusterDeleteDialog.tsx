@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useState } from 'react';
+import { discoveryApiRef, useApi } from '@backstage/core-plugin-api';
+import { Progress } from '@backstage/core-components';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,15 +25,86 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   onCancel: () => any;
-  onConfirm: () => any;
-  deleting: boolean;
+  cluster_name: string;
 };
 
-const ClusterDeleteDialog = ({ deleting, onCancel, onConfirm }: Props) => {
-  console.log(deleting);
+const ClusterDeleteDialog = ({ onCancel, cluster_name }: Props) => {
+  const discoveryApi = useApi(discoveryApiRef);
 
+  const [deleting, setDeleting] = useState({
+    error: true,
+    deleting: false,
+    success: false,
+    error_message: 'Error: omlsk dbo jsegod nr[skdn b[orj bs[ojrsn thb[on ',
+  });
   const [open, setOpen] = useState(false);
   const classes = useStyles();
+
+  const deleteHandler = async () => {
+    const baseUrl = await discoveryApi.getBaseUrl('ubility');
+    console.log(`Deleting ${cluster_name} cluster`);
+
+    setDeleting({
+      error: false,
+      deleting: true,
+      success: false,
+      error_message: '',
+    });
+    try {
+      const response = await fetch(`${baseUrl}/delete_cluster`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cluster_name: cluster_name,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+
+      const task_id = result.task_id;
+
+      let status = 'STARTED';
+      let res_get_delete;
+
+      while (status === 'STARTED' || status === 'PENDING') {
+        const res = await fetch(`${baseUrl}/delete_cluster_status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            task_id: task_id,
+          }),
+        });
+        res_get_delete = await res.json();
+        console.log({ res_get_delete });
+        status = res_get_delete.flow_status;
+        console.log({ type: 'get_res', status });
+
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
+      status = res_get_delete.data.Status;
+      if (status === 'FAIL')
+        setDeleting(prev => {
+          return { ...prev, error: true };
+        });
+      setDeleting({
+        error: false,
+        deleting: false,
+        success: true,
+        error_message: '',
+      });
+    } catch (error) {
+      setDeleting({
+        error: true,
+        deleting: false,
+        success: false,
+        error_message: `Error: ${error}`,
+      });
+    }
+  };
 
   const openDialog = () => {
     setOpen(true);
@@ -41,8 +115,7 @@ const ClusterDeleteDialog = ({ deleting, onCancel, onConfirm }: Props) => {
   };
 
   const confirmDialog = () => {
-    closeDialog();
-    onConfirm();
+    deleteHandler();
   };
 
   const cancelDialog = () => {
@@ -87,7 +160,18 @@ const ClusterDeleteDialog = ({ deleting, onCancel, onConfirm }: Props) => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>{dialogContent()}</DialogContent>
+        <DialogContent>
+          {dialogContent()}
+          {deleting.error ? (
+            <div className="bg-red-500">
+              <Alert severity="error">{deleting.error_message}</Alert>
+            </div>
+          ) : deleting.deleting ? (
+            <Progress />
+          ) : (
+            <Alert>Cluster deleted successfully</Alert>
+          )}
+        </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={cancelDialog}>
             Cancel

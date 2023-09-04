@@ -6,3 +6,4 @@ install.test.sh
 hashicorp.gpg
 *tmp.xml
 jenkins-cli.jar
+docker-compose.local.yaml

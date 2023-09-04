@@ -304,7 +304,7 @@ const steps: Step[] = [
   {
     id: "github_setup",
     description:
-      "This step walks you through generating a new GitHub acces token which will be used by backstage to read and write to your GitHub account. An ssh key will then be generated and registered with GitHub for Jenkins integration.",
+      "This step walks you through generating a new GitHub access token which will be used by backstage to read and write to your GitHub account. An ssh key will then be generated and registered with GitHub for Jenkins integration.",
     nb: 3,
     label: "Github Setup",
     api_endpoint: "github-setup",
@@ -340,9 +340,9 @@ const steps: Step[] = [
   {
     id: "github_oauth",
     description:
-      "This step walks you through registering OpenOps as a GitHub Oath application. An Oauth GitHub App is an application registered to use the GitHub API.",
+      "This step walks you through registering OpenOps as a GitHub OAth application. An OAuth GitHub App is an application registered to use the GitHub API.",
     nb: 4,
-    label: "Github Oauth",
+    label: "Github OAuth",
     api_endpoint: "github-oauth",
     inputs: [
       {id: "GITHUB_CLIENT_ID", label: "Github Client Id", type: "text"},

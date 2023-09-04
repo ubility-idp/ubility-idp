@@ -1,12 +1,15 @@
 "use client";
+import ScrollToTopButton from "@/components/Elements/ScrollToTopButton";
 import HorizontalLinearStepper from "@/components/HorizontalLinearStepper";
 import StepsContainer from "@/components/StepsContainer";
-import {Step, StepLabel, Stepper} from "@mui/material";
 
 export default function Home() {
   return (
-    <StepsContainer>
-      <HorizontalLinearStepper />
-    </StepsContainer>
+    <div className="relative">
+      <StepsContainer>
+        <HorizontalLinearStepper />
+      </StepsContainer>
+      <ScrollToTopButton />
+    </div>
   );
 }

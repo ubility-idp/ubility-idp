@@ -10,6 +10,7 @@ import { CreateJenkinsPipeline } from './scaffolder/actions/CreateJenkinsPipelin
 import { ScmIntegrations } from '@backstage/integration';
 import { AddRuleToIngress } from './scaffolder/actions/AddRuleToIngress';
 import { ExportUbilityConfig } from './scaffolder/actions/ExportConfigVariable';
+import { ImportRemoteRepo } from './scaffolder/actions/ImportRemoteRepo';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -28,6 +29,7 @@ export default async function createPlugin(
 
   const actions = [
     ...builtInActions,
+    ImportRemoteRepo(),
     ApplyTerraform(),
     CreateJenkinsPipeline(),
     AddRuleToIngress(),

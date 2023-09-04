@@ -40,7 +40,7 @@ export const delete_cluster = async (cluster_name: string) => {
 
   const config = {
     method: 'post',
-    url: '/platform/terraform/run',
+    url: '/platform/terraform/delete',
     headers: {
       Authorization: `Bearer ${bearer_token}`,
     },
