@@ -65,7 +65,7 @@ const steps: Step[] = [
   {
     id: "jenkins_setup",
     description:
-      "In this step we will open Jenkins for the first time, install the suggested plugins, create a user, and finally generate an API token.",
+      "In this step, you will configure Jenkins on your machine. Follow up the below steps one by one and fill out at the end the Jenkins username and password.",
     nb: 0,
     label: "Jenkins Setup",
     api_endpoint: "jenkins-setup",
