@@ -47,7 +47,6 @@ const ClusterDeleteDialog = ({ cluster_name, repo_loc }: Props) => {
 
   const deleteHandler = async () => {
     const ubility_baseUrl = await discoveryApi.getBaseUrl('ubility');
-    const catalog_baseUrl = await discoveryApi.getBaseUrl('catalog');
     console.log(`Deleting ${cluster_name} cluster`);
 
     setDeleting({
