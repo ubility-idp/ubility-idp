@@ -206,7 +206,7 @@ const steps: Step[] = [
           nb: 2,
           title: "Generate Secret",
           instructions: [
-            "Click on the 'Certificates & secrets' section",
+            "Click on the 'Certificates & secrets' section in the left menu”",
             "Click on 'New client secret'",
           ],
           image_visible: true,
