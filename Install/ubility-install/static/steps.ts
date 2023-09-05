@@ -264,7 +264,7 @@ const steps: Step[] = [
           title: "Select the App Registration",
           instructions: [
             "Click on Select members",
-            "Search for the previously created ",
+            "Search for the app registration you just created",
             "Click 'Next'",
           ],
           image_visible: true,
