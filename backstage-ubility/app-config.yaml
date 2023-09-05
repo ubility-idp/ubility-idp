@@ -56,6 +56,8 @@ catalog:
       target: https://github.com/ubility-idp/create-cluster-template/blob/main/template.yaml
     - type: url
       target: https://github.com/ubility-idp/next-app-template/blob/main/template.yaml
+    - type: url
+      target: https://github.com/ubility-idp/import-service-template/blob/main/template.yaml
 
 ubility:
   container_registry: ${CONTAINER_REGISTRY}

@@ -35,6 +35,7 @@ export type Input = {
   id: string;
   label: string;
   type: string;
+  validation?: string;
 };
 
 export type TutStep = {
@@ -149,7 +150,6 @@ const steps: Step[] = [
           nb: 7,
           title: "Generate Jenkins' API Token",
           instructions: [
-            "Click 'Generate'",
             "Select and copy the token",
             "Click 'Save' at the bottom of the Jenkins page",
             "Paste the token in the API token field at the top of this page",
@@ -288,11 +288,17 @@ const steps: Step[] = [
     label: "Infrastructure",
     api_endpoint: "terraform-vars",
     inputs: [
-      {id: "RESOURCE_GROUP", label: "Resource Group Name", type: "text"},
+      {
+        id: "RESOURCE_GROUP",
+        label: "Resource Group Name",
+        type: "text",
+        validation: "^[a-z][a-z0-9]{2,62}$",
+      },
       {
         id: "CONTAINER_REGISTRY",
         label: "Container Registry Name",
         type: "text",
+        validation: "^[a-zA-Z0-9]{5,50}$",
       },
     ],
     tutorial: {
@@ -356,6 +362,7 @@ const steps: Step[] = [
           nb: 0,
           title: "Open the Register a new OAuth application page",
           instructions: [
+            "Enter an appropriate name for the new OAuth application like OpenOps-OAuth",
             "Enter http://<VM_ADDRESS>:7007/ into the Homepage URL* field",
             "Enter http://<VM_ADDRESS>:7007/api/auth/github/handler/frame into the Authorization callback URL* field",
           ],
@@ -410,7 +417,7 @@ const steps: Step[] = [
   {
     id: "automation-setup",
     description:
-      "Creating secret and JWT token to be used with Ubility's automation server.",
+      "Press 'Next' to start creating a secret and a JWT token to be used with Ubility's automation server.",
     nb: 6,
     label: "Automation Setup",
     api_endpoint: "automation-setup",
@@ -424,7 +431,7 @@ const steps: Step[] = [
   {
     id: "adding-cred-to-jenkins",
     description:
-      "Adding Azure service principal and GitHub ssh private key credentials to Jenkins.",
+      "Press 'Next' to add the Azure service principal and the GitHub ssh private key credentials to Jenkins.",
     nb: 7,
     label: "Adding Credentials to Jenkins",
     api_endpoint: "adding-cred-to-jenkins",
@@ -438,7 +445,7 @@ const steps: Step[] = [
   {
     id: "docker-compose",
     description:
-      "Starting all OpenOps containers using the provided input variables.",
+      "Press 'Finish' to start all OpenOps containers using the provided input variables.",
     nb: 8,
     label: "Starting the Docker Containers",
     api_endpoint: "docker-compose",
