@@ -62,13 +62,12 @@ docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin
 # Option 1
 # docker exec "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 # Option 2
-docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg
 docker exec "jenkins-lts" mkdir -p /etc/apt/keyrings
-docker exec "jenkins-lts" curl -sLS https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/keyrings/microsoft.gpg >/dev/null
+docker exec -i "jenkins-lts" curl -sLS https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/keyrings/microsoft.gpg >/dev/null
 docker exec "jenkins-lts" chmod go+r /etc/apt/keyrings/microsoft.gpg
 docker exec "jenkins-lts" AZ_REPO=$(lsb_release -cs)
-docker exec "jenkins-lts" echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
+docker exec -i "jenkins-lts" echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
 docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install -y azure-cli
 
@@ -80,7 +79,6 @@ echo '--------------- Installation Tool Dependencies ---------------'
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 apt-get install -y nodejs
 
-cd Install/ubility-install
 cd Install/ubility-install
 npm install
 npm install pm2 -g
