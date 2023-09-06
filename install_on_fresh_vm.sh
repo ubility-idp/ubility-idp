@@ -64,18 +64,19 @@ docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-docker exec -i "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+docker exec "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb -o az_install.sh
+docker exec "jenkins-lts" bash az_install.sh
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
 #_______________________________________________________________________________________________________
 # clear
 echo
 echo '--------------- Installation Tool Dependencies ---------------'
-mkdir -p /etc/apt/keyrings
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-NODE_MAJOR=18
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-apt-get update -y
+# mkdir -p /etc/apt/keyrings
+# curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+# NODE_MAJOR=18
+# echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+# apt-get update -y
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 source ~/.profile
 nvm install 18
