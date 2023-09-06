@@ -35,7 +35,8 @@ export type Input = {
   id: string;
   label: string;
   type: string;
-  validation?: string;
+  validation_regex?: RegExp;
+  validation_error_message?: string;
 };
 
 export type TutStep = {
@@ -292,13 +293,17 @@ const steps: Step[] = [
         id: "RESOURCE_GROUP",
         label: "Resource Group Name",
         type: "text",
-        validation: "^[a-z][a-z0-9]{2,62}$",
+        validation_regex: /^[-w._()]+$/,
+        validation_error_message:
+          "The input field must only contain alphanumeric characters (letters and digits), hyphens (-), underscores (_), periods (.), and parentheses (()). Please remove any unsupported characters and try again.",
       },
       {
         id: "CONTAINER_REGISTRY",
         label: "Container Registry Name",
         type: "text",
-        validation: "^[a-zA-Z0-9]{5,50}$",
+        validation_regex: /^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$/,
+        validation_error_message:
+          "The input field cannot contain consecutive hyphens (--) anywhere within, must consist solely of lowercase letters, digits, and hyphens (-), and the total length should fall within the range of 1 to 63 characters, inclusive.",
       },
     ],
     tutorial: {

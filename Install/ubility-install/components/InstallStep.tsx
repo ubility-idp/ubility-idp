@@ -50,6 +50,7 @@ export default function InstallStep({
     register,
     control,
     setValue,
+    getValues,
     formState: {errors},
   } = useForm();
   const onSubmit = async (data: any) => {
@@ -78,6 +79,7 @@ export default function InstallStep({
     setLoading(false);
     if (result.result.error === false) handleNext();
   };
+  console.log(errors);
 
   const formRef: MutableRefObject<HTMLFormElement | null> = useRef(null);
 
@@ -167,6 +169,12 @@ export default function InstallStep({
                 key={i}
                 name={input.id}
                 control={control}
+                rules={{
+                  validate: () => {
+                    if (input.validation_regex === undefined) return true;
+                    return input.validation_regex.test(getValues(input.id));
+                  },
+                }}
                 render={({field: {onChange, value}}) => (
                   <div className="relative">
                     <TextField
@@ -181,22 +189,25 @@ export default function InstallStep({
                       onFocus={() => {
                         if (error.error) setError({error: false, message: ""});
                       }}
-                      required
                       id={input.id}
                       {...register(input.id, {required: true})}
                       onChange={onChange}
                       value={value === undefined ? "" : value}
                       label={input.label}
+                      error={input.id in errors}
+                      helperText={
+                        errors?.[input.id]?.type === "required"
+                          ? "This field is required"
+                          : errors?.[input.id]?.type === "validate" &&
+                            input.validation_error_message
+                      }
                     />
-                    {errors?.[input.id] &&
+                    {/* {errors?.[input.id] &&
                       errors?.[input.id]?.type === "required" && (
                         <span>This is required</span>
-                      )}
-                    {input.type === "password" && (
+                      )} */}
+                    {/* {input.type === "password" && (
                       <div className="absolute inset-y-0 right-5 flex items-center">
-                        {/* <Link href={`/#${input.id}-tut-step`}>
-                        <HelpOutlineIcon color="info" />
-                      </Link> */}
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
@@ -206,7 +217,7 @@ export default function InstallStep({
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 )}
               />
