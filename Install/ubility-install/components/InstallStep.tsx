@@ -5,6 +5,7 @@ import {
   Alert,
   Box,
   Button,
+  IconButton,
   LinearProgress,
   TextField,
   Typography,
@@ -12,6 +13,7 @@ import {
 import TutorialContainer from "./Tutorial/TutorialContainer";
 import Link from "next/link";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 interface Props {
   step: Step;
@@ -33,6 +35,16 @@ export default function InstallStep({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({error: false, message: ""});
   const [jenkins_admin_pass, setJenkins_admin_pass] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   const {
     handleSubmit,
     register,
@@ -159,7 +171,13 @@ export default function InstallStep({
                   <div className="relative">
                     <TextField
                       className="w-full"
-                      type={input.type}
+                      type={
+                        input.type === "password"
+                          ? showPassword
+                            ? "text"
+                            : "password"
+                          : input.type
+                      }
                       onFocus={() => {
                         if (error.error) setError({error: false, message: ""});
                       }}
@@ -174,11 +192,21 @@ export default function InstallStep({
                       errors?.[input.id]?.type === "required" && (
                         <span>This is required</span>
                       )}
-                    <div className="absolute inset-y-0 right-5 flex items-center">
-                      <Link href={`/#${input.id}-tut-step`}>
+                    {input.type === "password" && (
+                      <div className="absolute inset-y-0 right-5 flex items-center">
+                        {/* <Link href={`/#${input.id}-tut-step`}>
                         <HelpOutlineIcon color="info" />
-                      </Link>
-                    </div>
+                      </Link> */}
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </div>
+                    )}
                   </div>
                 )}
               />
