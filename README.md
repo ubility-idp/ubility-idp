@@ -42,4 +42,6 @@ How to install Ubility IDP on a virtual machine
 ### Installation
 
 Run this command on a ubuntu machine
-`curl -s https://raw.githubusercontent.com/ubility-idp/ubility-idp/main/install_on_fresh_vm.sh | bash`
+```
+curl -s https://raw.githubusercontent.com/ubility-idp/ubility-idp/main/install_on_fresh_vm.sh | bash
+```
