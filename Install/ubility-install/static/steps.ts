@@ -165,7 +165,7 @@ const steps: Step[] = [
   {
     id: "azure_login",
     description:
-      "In this step, you will create a new app registration on your azure subscription. You will then give this registration an owner role for it to be able to assign roles",
+      "In this step, you will create a new app registration on your azure subscription. You will then give this registration an owner role for it to be able to assign roles. Follow the tutorial below to fill the required inputs.",
     nb: 1,
     label: "Azure Login",
     api_endpoint: "azure-login",
@@ -177,7 +177,7 @@ const steps: Step[] = [
     ],
     tutorial: {
       visible: true,
-      title: "App Registration Step",
+      title: "",
       steps: [
         {
           nb: 0,
@@ -218,14 +218,23 @@ const steps: Step[] = [
           title: "Generate Secret",
           instructions: [
             "Click on the 'Certificates & secrets' section in the left menu”",
-            "Give the secret an appropriate name",
             "Click on 'New client secret'",
           ],
           image_visible: true,
-          images: [azure_login_step3, azure_login_step3_2],
+          images: [azure_login_step3],
         },
         {
           nb: 4,
+          title: "Name the Secret",
+          instructions: [
+            "Give the secret an appropriate name",
+            "Click on 'Add'",
+          ],
+          image_visible: true,
+          images: [azure_login_step3_2],
+        },
+        {
+          nb: 5,
           title: "Copy Secret",
           instructions: [
             "Make sure to copy the secret in this step. You will not be able to copy it afterwards",
@@ -236,11 +245,11 @@ const steps: Step[] = [
           input_link: "AZURE_CLIENT_SECRETs",
         },
         {
-          nb: 5,
+          nb: 6,
           title: "Open Subscription Page",
           instructions: [
             "Open the subscriptions page",
-            "An Azure subscription acts as a single billing unit for Azure resources, with subscriptions billed for services used in Azure. Learn more at this link: ",
+            "An Azure subscription acts as a single billing unit for Azure resources, with subscriptions billed for services used in Azure. Learn more at this link: https://learn.microsoft.com/en-us/microsoft-365/enterprise/subscriptions-licenses-accounts-and-tenants-for-microsoft-cloud-offerings?view=o365-worldwide",
             "Choose the subscription you want to use",
             "Copy the subscription ID and paste it in the Subscription ID input field at the top of the page",
           ],
@@ -253,7 +262,7 @@ const steps: Step[] = [
           input_link: "SUBSCRIPTION_ID",
         },
         {
-          nb: 6,
+          nb: 7,
           title: "Assign the App Registration a New Role",
           instructions: [
             "Open the Access control (IAM) tab",
@@ -264,7 +273,7 @@ const steps: Step[] = [
           images: [azure_login_step8],
         },
         {
-          nb: 7,
+          nb: 8,
           title: "Select Role",
           instructions: [
             "Open Privileged adminstrator roles",
@@ -275,7 +284,7 @@ const steps: Step[] = [
           images: [azure_login_step9],
         },
         {
-          nb: 8,
+          nb: 9,
           title: "Select the App Registration",
           instructions: [
             "Click on Select members",
@@ -286,7 +295,7 @@ const steps: Step[] = [
           images: [azure_login_step10, azure_login_step10_2],
         },
         {
-          nb: 9,
+          nb: 10,
           title: "Finish Role Assignment",
           instructions: ["Click 'Review + assign'"],
           image_visible: true,
@@ -307,7 +316,7 @@ const steps: Step[] = [
         id: "RESOURCE_GROUP",
         label: "Resource Group Name",
         type: "text",
-        validation_regex: /^[-w._()]+$/,
+        validation_regex: /^(?!.*\.$)[a-zA-Z][a-zA-Z0-9_()-.]{0,89}$/,
         validation_error_message:
           "The input field must only contain alphanumeric characters (letters and digits), hyphens (-), underscores (_), periods (.), and parentheses (()). Please remove any unsupported characters and try again.",
       },
@@ -339,11 +348,11 @@ const steps: Step[] = [
     ],
     tutorial: {
       visible: true,
-      title: "App Registration Step",
+      title: "",
       steps: [
         {
           nb: 0,
-          title: "Open github token page",
+          title: "Get your Github Username",
           instructions: [],
           image_visible: true,
           images: [github_setup_step1],
@@ -354,6 +363,17 @@ const steps: Step[] = [
         },
         {
           nb: 1,
+          title: "Open github token page",
+          instructions: [],
+          image_visible: true,
+          images: [github_setup_step1],
+          link: {
+            title: "https://github.com/settings/tokens/new",
+            url: "https://github.com/settings/tokens/new",
+          },
+        },
+        {
+          nb: 2,
           title: "Generate token",
           instructions: [],
           image_visible: true,
