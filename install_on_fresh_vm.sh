@@ -77,9 +77,10 @@ docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 #_______________________________________________________________________________________________________
 # clear
 echo '--------------- Installation Tool Dependencies ---------------'
-apt update -y
-apt install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+apt-get install -y nodejs
 
+cd Install/ubility-install
 cd Install/ubility-install
 npm install
 npm install pm2 -g
