@@ -37,9 +37,11 @@ How to install Ubility IDP on a virtual machine
 ### Prerequisites
 
 - An Azure account with admin permissions
-- A virtual machine with a public ip address if you wish to use https
+- A virtual machine with a public ip address
 
 ### Installation
 
-Execute the bash script install.sh on a ubuntu machine
-`sh install.sh`
+Run this command on a ubuntu machine
+```
+curl -s https://raw.githubusercontent.com/ubility-idp/ubility-idp/main/install_on_fresh_vm.sh | bash
+```
