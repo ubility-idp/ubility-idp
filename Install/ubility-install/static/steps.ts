@@ -218,11 +218,11 @@ const steps: Step[] = [
           title: "Generate Secret",
           instructions: [
             "Click on the 'Certificates & secrets' section in the left menu”",
-            "Click on 'New client secret'",
             "Give the secret an appropriate name",
+            "Click on 'New client secret'",
           ],
           image_visible: true,
-          images: [azure_login_step3],
+          images: [azure_login_step3, azure_login_step3_2],
         },
         {
           nb: 4,
