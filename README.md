@@ -37,7 +37,7 @@ How to install Ubility IDP on a virtual machine
 ### Prerequisites
 
 - An Azure account with admin permissions
-- A virtual machine with a public ip address if you wish to use https
+- A virtual machine with a public ip address
 
 ### Installation
 
