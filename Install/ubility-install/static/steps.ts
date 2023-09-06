@@ -239,6 +239,7 @@ const steps: Step[] = [
           title: "Open Subscription Page",
           instructions: [
             "Open the subscriptions page",
+            "An Azure subscription acts as a single billing unit for Azure resources, with subscriptions billed for services used in Azure. Learn more at this link: ",
             "Choose the subscription you want to use",
             "Copy the subscription ID and paste it in the Subscription ID input field at the top of the page",
           ],

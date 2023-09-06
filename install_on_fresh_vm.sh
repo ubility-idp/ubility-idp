@@ -58,26 +58,18 @@ docker exec "jenkins-lts" apt-get update -y
 docker exec "jenkins-lts" apt-get install gettext -y
 docker exec "jenkins-lts" curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 docker exec "jenkins-lts" install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-# Install az cli in jenkins container
-# Option 1
-# docker exec "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-# Option 2
-docker exec "jenkins-lts" apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg
-docker exec "jenkins-lts" mkdir -p /etc/apt/keyrings
-docker exec -i "jenkins-lts" curl -sLS https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/keyrings/microsoft.gpg >/dev/null
-docker exec "jenkins-lts" chmod go+r /etc/apt/keyrings/microsoft.gpg
-docker exec "jenkins-lts" AZ_REPO=$(lsb_release -cs)
-docker exec -i "jenkins-lts" echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
-docker exec "jenkins-lts" apt-get update -y
-docker exec "jenkins-lts" apt-get install -y azure-cli
-
+docker exec -i "jenkins-lts" curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
 #_______________________________________________________________________________________________________
 # clear
 echo '--------------- Installation Tool Dependencies ---------------'
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-apt-get install -y nodejs
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=18
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+apt-get update -y
+apt-get install nodejs -y
 
 cd Install/ubility-install
 npm install
