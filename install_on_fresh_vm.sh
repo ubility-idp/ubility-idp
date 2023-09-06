@@ -1,5 +1,6 @@
 #!/bin/sh
 # clear
+echo
 echo '--------------- Preparing Virtual Machine ---------------'
 echo
 # apt
@@ -7,6 +8,7 @@ apt update
 apt install -y software-properties-common gnupg2 git curl jq
 
 # clear
+echo
 echo '--------------- Installing Terraform ---------------'
 echo
 # install terraform
@@ -16,6 +18,7 @@ apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.re
 apt install -y terraform
 
 # clear
+echo
 echo '--------------- Installing Docker ---------------'
 echo
 # install docker
@@ -29,12 +32,14 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 chmod 666 /var/run/docker.sock
 
 # clear
+echo
 echo '--------------- Installing Azure cli ---------------'
 echo
 # install azure cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # clear
+echo
 echo '--------------- Installing Java ---------------'
 echo
 apt install openjdk-11-jre-headless -y
@@ -47,6 +52,7 @@ cd OpenOps
 
 #_______________________________________________________________________________________________________
 # clear
+echo
 echo '--------------- Jenkins Installation ---------------'
 cd Jenkins
 docker compose up -d
@@ -63,13 +69,15 @@ docker exec "jenkins-lts" ssh -tt -o StrictHostKeyChecking=no github.com
 
 #_______________________________________________________________________________________________________
 # clear
+echo
 echo '--------------- Installation Tool Dependencies ---------------'
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 NODE_MAJOR=18
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 apt-get update -y
 apt-get install nodejs -y
+apt-get install npm -y
 
 cd Install/ubility-install
 npm install

@@ -219,6 +219,7 @@ const steps: Step[] = [
           instructions: [
             "Click on the 'Certificates & secrets' section in the left menu”",
             "Click on 'New client secret'",
+            "Give the secret an appropriate name",
           ],
           image_visible: true,
           images: [azure_login_step3],
