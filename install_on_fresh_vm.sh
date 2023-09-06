@@ -82,5 +82,6 @@ apt install -y nodejs
 
 cd Install/ubility-install
 npm install
+npm install pm2 -g
 npm run build
-npm start
+pm2 start npm --name "OpenOps Installation Wizard" -- start

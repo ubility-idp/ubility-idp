@@ -1,14 +1,19 @@
 import {TutStep} from "@/static/steps";
-import {Link, Paper, Typography} from "@mui/material";
+import {Button, Link, Paper, Typography} from "@mui/material";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 
 type Props = {
   tutStep: TutStep;
   jenkins_admin_pass: string;
+  onInputLinkClickHandler: (id: string) => void;
 };
 
-function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
+function TutorialStep({
+  tutStep,
+  jenkins_admin_pass,
+  onInputLinkClickHandler,
+}: Props) {
   const origin =
     typeof window !== "undefined" && window.location.origin
       ? window.location.origin
@@ -64,7 +69,24 @@ function TutorialStep({tutStep, jenkins_admin_pass}: Props) {
             {inst}
           </Typography>
         ))}
+        <div className="py-2">
+          {tutStep.input_link && (
+            <Button
+              variant="outlined"
+              onClick={() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+                onInputLinkClickHandler(tutStep.input_link as string);
+              }}
+            >
+              Go to {tutStep.input_link} Input
+            </Button>
+          )}
+        </div>
       </div>
+
       <hr />
       <div className="flex flex-col gap-2">
         {tutStep.images.map((image, i) => (

@@ -198,13 +198,23 @@ const steps: Step[] = [
           title: "Copy App Registration Identification",
           instructions: [
             "Copy the Application (client) ID and paste in the 'Client ID' input at the top of this page",
+          ],
+          image_visible: true,
+          images: [azure_login_step2],
+          input_link: "AZURE_CLIENT_ID",
+        },
+        {
+          nb: 2,
+          title: "Copy App Registration Identification",
+          instructions: [
             "Copy the Directory (tenant) ID and paste in the 'Tenant ID' input at the top of this page",
           ],
           image_visible: true,
           images: [azure_login_step2],
+          input_link: "AZURE_TENANT_ID",
         },
         {
-          nb: 2,
+          nb: 3,
           title: "Generate Secret",
           instructions: [
             "Click on the 'Certificates & secrets' section in the left menu”",
@@ -214,7 +224,7 @@ const steps: Step[] = [
           images: [azure_login_step3],
         },
         {
-          nb: 3,
+          nb: 4,
           title: "Copy Secret",
           instructions: [
             "Make sure to copy the secret in this step. You will not be able to copy it afterwards",
@@ -222,9 +232,10 @@ const steps: Step[] = [
           ],
           image_visible: true,
           images: [azure_login_step4],
+          input_link: "AZURE_CLIENT_SECRETs",
         },
         {
-          nb: 4,
+          nb: 5,
           title: "Open Subscription Page",
           instructions: [
             "Open the subscriptions page",
@@ -237,9 +248,10 @@ const steps: Step[] = [
             url: "https://portal.azure.com/#view/Microsoft_Azure_Billing/SubscriptionsBlade",
           },
           images: [azure_login_step5, azure_login_step6],
+          input_link: "SUBSCRIPTION_ID",
         },
         {
-          nb: 5,
+          nb: 6,
           title: "Assign the App Registration a New Role",
           instructions: [
             "Open the Access control (IAM) tab",
@@ -250,7 +262,7 @@ const steps: Step[] = [
           images: [azure_login_step8],
         },
         {
-          nb: 6,
+          nb: 7,
           title: "Select Role",
           instructions: [
             "Open Privileged adminstrator roles",
@@ -261,7 +273,7 @@ const steps: Step[] = [
           images: [azure_login_step9],
         },
         {
-          nb: 7,
+          nb: 8,
           title: "Select the App Registration",
           instructions: [
             "Click on Select members",
@@ -272,7 +284,7 @@ const steps: Step[] = [
           images: [azure_login_step10, azure_login_step10_2],
         },
         {
-          nb: 7,
+          nb: 9,
           title: "Finish Role Assignment",
           instructions: ["Click 'Review + assign'"],
           image_visible: true,

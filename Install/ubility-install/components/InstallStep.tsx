@@ -3,7 +3,6 @@ import {Step} from "../static/steps";
 import {Controller, useForm} from "react-hook-form";
 import {
   Alert,
-  Box,
   Button,
   IconButton,
   LinearProgress,
@@ -11,9 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import TutorialContainer from "./Tutorial/TutorialContainer";
-import Link from "next/link";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 interface Props {
   step: Step;
@@ -36,6 +34,7 @@ export default function InstallStep({
   const [error, setError] = useState({error: false, message: ""});
   const [jenkins_admin_pass, setJenkins_admin_pass] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [inputToFocus, setInputToFocus] = useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -49,6 +48,7 @@ export default function InstallStep({
     handleSubmit,
     register,
     control,
+    setFocus,
     setValue,
     getValues,
     formState: {errors},
@@ -79,7 +79,12 @@ export default function InstallStep({
     setLoading(false);
     if (result.result.error === false) handleNext();
   };
-  console.log(errors);
+
+  const inputLinkClickHandler = (id: string) => {
+    console.log(`caller id:${id}`);
+    setFocus(id);
+    setInputToFocus(id);
+  };
 
   const formRef: MutableRefObject<HTMLFormElement | null> = useRef(null);
 
@@ -177,7 +182,11 @@ export default function InstallStep({
                 }}
                 render={({field: {onChange, value}}) => (
                   <div className="relative">
+                    <div>{inputToFocus === input.id}</div>
                     <TextField
+                      // color={
+                      //   inputToFocus === input.id ? "secondary" : "primary"
+                      // }
                       className="w-full"
                       type={
                         input.type === "password"
@@ -202,22 +211,39 @@ export default function InstallStep({
                             input.validation_error_message
                       }
                     />
+                    {inputToFocus === input.id && (
+                      <div className="pt-3">
+                        <Button
+                          href={`/#${input.id}-tut-step`}
+                          type="button"
+                          onClick={() => {
+                            setInputToFocus("");
+                          }}
+                        >
+                          Return to tutorial step
+                        </Button>
+                      </div>
+                    )}
                     {/* {errors?.[input.id] &&
                       errors?.[input.id]?.type === "required" && (
                         <span>This is required</span>
                       )} */}
-                    {/* {input.type === "password" && (
-                      <div className="absolute inset-y-0 right-5 flex items-center">
+                    {input.type === "password" && (
+                      <div className="absolute top-2 right-5 flex items-center h-fit">
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                          {showPassword ? (
+                            <VisibilityIcon />
+                          ) : (
+                            <VisibilityOffIcon />
+                          )}
                         </IconButton>
                       </div>
-                    )} */}
+                    )}
                   </div>
                 )}
               />
@@ -237,7 +263,11 @@ export default function InstallStep({
           )}*/}
         </div>
       </form>
-      <TutorialContainer step={step} jenkins_admin_pass={jenkins_admin_pass} />
+      <TutorialContainer
+        onInputLinkClickHandler={inputLinkClickHandler}
+        step={step}
+        jenkins_admin_pass={jenkins_admin_pass}
+      />
     </>
   );
 }
