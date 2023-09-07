@@ -5,11 +5,18 @@ import Typography from "@mui/material/Typography";
 import InstallStep from "./InstallStep";
 import steps from "../static/steps";
 import {ReactNode, useState} from "react";
-import {Button, Step} from "@mui/material";
+import {Button, Link, Step} from "@mui/material";
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
+
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
+
+  const vm_address = origin.split(":3000")[0].split("http://")[1];
 
   const isStepOptional = (step: number) => {
     // return step === 1;
@@ -109,14 +116,35 @@ export default function HorizontalLinearStepper() {
         ))}
 
       {activeStep == steps.length && (
-        <div>
-          <Typography sx={{mt: 2, mb: 1}}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-            <Box sx={{flex: "1 1 auto"}} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
+        <div className="flex justify-between mt-5 items-end">
+          <div className="flex flex-col gap-2">
+            <Typography variant="h5">
+              OpenOps Installation is complete
+            </Typography>
+            <div className="flex gap-3">
+              <Typography variant="h6">
+                You can now open OpenOps using this link:
+              </Typography>
+              <Link
+                className="text-xl"
+                target="_blank"
+                href={`http://${vm_address}:7007`}
+              >
+                {`http://${vm_address}:7007`}
+              </Link>
+            </div>
+          </div>
+          <div>
+            <Button
+              color="inherit"
+              variant="outlined"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{mr: 1}}
+            >
+              Back
+            </Button>
+          </div>
         </div>
       )}
     </Box>
