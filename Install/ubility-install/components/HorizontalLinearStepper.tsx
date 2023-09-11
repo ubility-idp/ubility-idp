@@ -18,11 +18,6 @@ export default function HorizontalLinearStepper() {
 
   const vm_address = origin.split(":3000")[0].split("http://")[1];
 
-  const isStepOptional = (step: number) => {
-    // return step === 1;
-    return false;
-  };
-
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
   };
@@ -58,19 +53,6 @@ export default function HorizontalLinearStepper() {
     });
   };
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
   const handleReset = () => {
     setActiveStep(0);
   };
@@ -85,11 +67,6 @@ export default function HorizontalLinearStepper() {
             const labelProps: {
               optional?: ReactNode;
             } = {};
-            if (isStepOptional(index)) {
-              labelProps.optional = (
-                <Typography variant="caption">Optional</Typography>
-              );
-            }
             if (isStepSkipped(index)) {
               stepProps.completed = false;
             }

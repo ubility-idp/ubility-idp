@@ -51,13 +51,6 @@ export async function createRouter(
     response.json({ status: 'ok' });
   });
 
-  // router.get('/config_test', (_, response) => {
-  //   const token =
-  //     config.getConfig('integrations').parent.config.data.integrations.github[0]
-  //       .token;
-  //   response.send({ token: token });
-  // });
-
   router.post('/get_ingress', async (request, response) => {
     const cluster_name = request.body?.cluster_name;
     const service_name = request.body?.service_name;

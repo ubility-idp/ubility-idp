@@ -56,8 +56,6 @@ export function editJsonUsingPath(
   value: any,
   add: boolean = false,
 ): boolean {
-  // console.log({ path, value, add });
-
   try {
     const pathSegments = path.split('.');
     pathSegments.reduce((acc: any, key: string, i, _) => {
@@ -74,7 +72,6 @@ export function editJsonUsingPath(
 
       return acc[key];
     }, obj);
-    // console.log({ obj });
     return true;
   } catch (error) {
     return false;
