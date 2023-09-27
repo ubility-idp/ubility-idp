@@ -26,7 +26,6 @@ const editGithubFile = async (
   commit_message: string,
 ) => {
   try {
-    console.log({ repo, owner, filePath, githubToken });
     const octokit = new Octokit({
       auth: githubToken,
     });
@@ -52,10 +51,10 @@ const editGithubFile = async (
       owner: owner,
       repo: repo,
       path: filePath,
-      message: commit_message, // TODO: replace the static name and email
+      message: commit_message,
       committer: {
-        name: 'ibrahim nasri',
-        email: 'ibrahimnasri24@gmail.com',
+        name: 'OpenOps',
+        email: 'openops@ubilityai.com',
       },
       content: content,
       sha: sha,
