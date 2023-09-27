@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://www.ubilityai.com/" target="_blank">
   <picture>
-    <img src="https://static.wixstatic.com/media/6263ca_82e330205265468487a636c3c4b673e7~mv2.png/v1/fill/w_298,h_96,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Ubility-logo-3%20(1)_edited.png" width="200" alt="Logo"/>
+    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ubilityai.com%2F&psig=AOvVaw1R595Jdl1_JI78dt4bPgav&ust=1695902976452000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCOCSz4XhyoEDFQAAAAAdAAAAABAE" width="200" alt="Logo"/>
   </picture>
   </a>
 </div>
