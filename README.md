@@ -6,15 +6,15 @@
   </a>
 </div>
 
-<h1 align="center">Ubility IDP</h1>
+<h1 align="center">OpenOps</h1>
 
 <div align="center">
 The easiest way to start a microservices project
 </div>
 
-## ⭐️ Why Ubility IDP?
+## ⭐️ Why OpenOps?
 
-Ubility IDP is a project that enhances Spotify's backstage functionality by providing developers with additional features and actions. It simplifies the process of deploying microservices on an AKS cluster on Azure using templates and a user-friendly UI.
+OpenOps is a project that enhances Spotify's backstage functionality by providing developers with additional features and actions. It simplifies the process of deploying microservices on an AKS cluster on Azure using templates and a user-friendly UI.
 
 ## ✨ Features
 
@@ -32,7 +32,7 @@ Ubility IDP is a project that enhances Spotify's backstage functionality by prov
 
 ## 🚀 Getting Started
 
-How to install Ubility IDP on a virtual machine
+How to install OpenOps on a virtual machine
 
 ### Prerequisites
 
@@ -42,6 +42,7 @@ How to install Ubility IDP on a virtual machine
 ### Installation
 
 Run this command on a ubuntu machine
+
 ```
 curl -s https://raw.githubusercontent.com/ubility-idp/ubility-idp/main/install_on_fresh_vm.sh | bash
 ```
